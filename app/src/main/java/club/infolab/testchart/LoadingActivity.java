@@ -23,6 +23,11 @@ public class LoadingActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
 
+        //Разбивка данных на объекты
+
+//        GetData getData = new GetData();
+//        getData.Make();
+
         checkBluetoothEnable();
 
         new Handler().postDelayed(new Runnable() {
