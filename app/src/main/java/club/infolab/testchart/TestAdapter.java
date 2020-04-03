@@ -13,17 +13,19 @@ import java.util.ArrayList;
 class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private ArrayList<String> tests;
+    private OnTestListener mOnTestListener;
 
-    TestAdapter(Context context, ArrayList<String> tests) {
+    TestAdapter(Context context, ArrayList<String> tests, OnTestListener onTestListener) {
         this.tests = tests;
         this.inflater = LayoutInflater.from(context);
+        this.mOnTestListener = onTestListener;
     }
 
     @NonNull
     @Override
     public TestAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.test_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnTestListener);
     }
 
     @Override
@@ -36,11 +38,25 @@ class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         return tests.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView testNameView;
-        ViewHolder(View view){
+        OnTestListener onTestListener;
+
+        ViewHolder(View view, OnTestListener onTestListener){
             super(view);
             testNameView = view.findViewById(R.id.test_name);
+            this.onTestListener = onTestListener;
+
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onTestListener.onTestClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnTestListener{
+        void onTestClick(int position);
     }
 }
