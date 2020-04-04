@@ -70,7 +70,7 @@ public class LoadingActivity extends AppCompatActivity {
     private void Reader() {
         CurrentTest currentTest = new CurrentTest();
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("sample_input/cyclic.txt")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("sample_input/sinusoid.txt")));
             String line = reader.readLine();
             currentTest.AppendMomentTest(line);
             while (line != null){
