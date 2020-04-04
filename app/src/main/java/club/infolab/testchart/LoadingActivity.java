@@ -33,20 +33,19 @@ public class LoadingActivity extends AppCompatActivity {
         Reader();
         //Проверка Bluetooth
         checkBluetoothEnable();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                wasLogoShow = true;
-                startMainActivity();
-            }
-        }, SPLASH_TIME_OUT);
     }
 
     private void checkBluetoothEnable() {
         BluetoothAdapter bluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter.isEnabled()) {
             wasBluetoothEnable = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    wasLogoShow = true;
+                    startMainActivity();
+                }
+            }, SPLASH_TIME_OUT);
         }
         else {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -81,6 +80,7 @@ public class LoadingActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        currentTest.AppendMomentTest("0");
     }
 }
 
