@@ -28,9 +28,14 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
-
         //Считывание файла и последующая разбивка данных на объекты
-        Reader();
+        CurrentTest currentTest = new CurrentTest(this);
+//        Список открытия файлов для теста:
+//            0 constant_voltage
+//            1 cyclic
+//            2 linear_sweep
+//            любое другое число - sinusoid
+        currentTest.Reader(1);
         //Проверка Bluetooth
         checkBluetoothEnable();
     }
@@ -65,22 +70,6 @@ public class LoadingActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-    }
-
-    private void Reader() {
-        CurrentTest currentTest = new CurrentTest();
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("sample_input/sinusoid.txt")));
-            String line = reader.readLine();
-            currentTest.AppendMomentTest(line);
-            while (line != null){
-                currentTest.AppendMomentTest(line);
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        currentTest.AppendMomentTest("0");
     }
 }
 
