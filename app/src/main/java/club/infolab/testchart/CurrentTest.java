@@ -44,13 +44,18 @@ public class CurrentTest {
         switch (fileNumber) {
             case 0:
                 currentFile = "sample_input/constant_voltage.txt";
+                break;
             case 1:
                 currentFile = "sample_input/cyclic.txt";
+                break;
             case 2:
                 currentFile = "sample_input/linear_sweep.txt";
+                break;
             default:
                 currentFile = "sample_input/sinusoid.txt";
+                break;
         }
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(currentFile)));
             String line = reader.readLine();
