@@ -1,6 +1,6 @@
 package club.infolab.testchart;
 
-class MomentTest {
+public class MomentTest {
     private float time;
     private float voltage;
     private float amperage;

@@ -15,8 +15,14 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphActivity extends AppCompatActivity {
+import club.infolab.testchart.test_simulation.TestSimulation;
+import club.infolab.testchart.test_simulation.TestSimulationCallback;
+
+public class GraphActivity extends AppCompatActivity implements TestSimulationCallback {
     public static final String EXTRA_TEST = "testName";
+    public static final String EXTRA_INDEX = "testIndex";
+    LineChart chart;
+    TestSimulation testSimulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +34,34 @@ public class GraphActivity extends AppCompatActivity {
         TextView nameTestView = findViewById(R.id.name_test);
         nameTestView.setText(testName);
 
-        LineChart chart = findViewById(R.id.chart);
+        chart = findViewById(R.id.chart);
 
+        int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
+        testSimulation = new TestSimulation();
+        testSimulation.startSimulation(this, this, indexTest);
+    }
+
+    @Override
+    public void getTestData(MomentTest testData) {
+        CurrentTest.testResult.add(testData);
+        drawChart();
+    }
+
+    private void drawChart() {
+        chart.clear();
         List<Entry> entries = new ArrayList<>();
         for (MomentTest moment : CurrentTest.testResult) {
             // turn your data into Entry objects
             entries.add(new Entry(moment.getTime(), moment.getVoltage()));
         }
-
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
     }
 
+    @Override
+    protected void onStop() {
+        testSimulation.stopSimulation();
+        super.onStop();
+    }
 }
