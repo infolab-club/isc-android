@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/param_name_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text = "Param name"
+        android:textSize="14sp"
+        android:layout_weight="1"
+        />
+
+    <EditText
+        android:id="@+id/edit_values"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Default value"
+        android:textSize="14sp"
+        android:layout_weight="2"
+        android:layout_marginLeft="10dp"
+        android:inputType="numberDecimal|numberSigned"
+        />
+
+</LinearLayout>

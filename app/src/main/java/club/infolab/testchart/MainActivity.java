@@ -37,10 +37,7 @@ public class MainActivity extends AppCompatActivity implements TestAdapter.OnTes
 
     @Override
     public void onTestClick(int position) {
-        CurrentTest.testResult.clear();
-//        CurrentTest currentTest = new CurrentTest(this);
-//        currentTest.Reader(position);
-        Intent test_intent = new Intent(this, GraphActivity.class);
+        Intent test_intent = new Intent(this, ParamsActivity.class);
         String testName = tests.get(position);
         test_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
         test_intent.putExtra(GraphActivity.EXTRA_INDEX, position);

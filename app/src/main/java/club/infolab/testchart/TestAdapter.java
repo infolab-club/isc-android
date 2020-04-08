@@ -44,7 +44,7 @@ class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
         ViewHolder(View view, OnTestListener onTestListener){
             super(view);
-            testNameView = view.findViewById(R.id.test_name);
+            testNameView = view.findViewById(R.id.test_name_item);
             this.onTestListener = onTestListener;
 
             view.setOnClickListener(this);
