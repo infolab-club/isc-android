@@ -1,15 +1,14 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import club.infolab.testchart.test.CurrentTest;
+import club.infolab.isc.test.CurrentTest;
 
 public class MainActivity extends AppCompatActivity implements TestAdapter.OnTestListener {
     private RecyclerView recyclerView;

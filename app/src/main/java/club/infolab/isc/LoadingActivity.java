@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Picasso;
 
 public class LoadingActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 500;
     private static int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;

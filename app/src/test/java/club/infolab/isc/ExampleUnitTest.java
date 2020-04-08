@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +14,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import club.infolab.testchart.test.CurrentTest;
-import club.infolab.testchart.test.MomentTest;
-import club.infolab.testchart.test.simulation.TestSimulation;
-import club.infolab.testchart.test.simulation.TestSimulationCallback;
+import club.infolab.isc.test.CurrentTest;
+import club.infolab.isc.test.MomentTest;
+import club.infolab.isc.test.simulation.TestSimulation;
+import club.infolab.isc.test.simulation.TestSimulationCallback;
 
 public class GraphActivity extends AppCompatActivity implements TestSimulationCallback {
     public static final String EXTRA_TEST = "testName";

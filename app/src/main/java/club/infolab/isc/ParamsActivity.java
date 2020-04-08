@@ -1,9 +1,8 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import club.infolab.isc.test.CurrentTest;
+import club.infolab.isc.test.params.ParamManager;
+import club.infolab.isc.test.params.ParamTest;
 
 public class ParamsActivity extends AppCompatActivity {
     @Override
@@ -32,7 +35,7 @@ public class ParamsActivity extends AppCompatActivity {
         startChartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                CurrentTest.testResult.clear();
+                CurrentTest.results.clear();
                 // CurrentTest currentTest = new CurrentTest(this);
                 // currentTest.Reader(position);
                 Intent graph_intent = new Intent(ParamsActivity.this, GraphActivity.class);

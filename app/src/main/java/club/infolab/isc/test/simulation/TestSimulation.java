@@ -1,12 +1,12 @@
-package club.infolab.testchart.test.simulation;
+package club.infolab.isc.test.simulation;
 
 import android.content.Context;
 import android.os.Handler;
 
 import java.util.ArrayList;
 
-import club.infolab.testchart.test.CurrentTest;
-import club.infolab.testchart.test.MomentTest;
+import club.infolab.isc.test.CurrentTest;
+import club.infolab.isc.test.MomentTest;
 
 public class TestSimulation {
     private final int PERIOD = 10;

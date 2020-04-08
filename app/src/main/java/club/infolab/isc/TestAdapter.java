@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.isc;
 
 import android.content.Context;
 import android.view.LayoutInflater;

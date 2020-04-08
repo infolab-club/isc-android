@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="club.infolab.testchart">
+    package="club.infolab.isc">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -13,14 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ParamsActivity"></activity>
-        <activity android:name=".GraphActivity" />
+        <activity android:name="club.infolab.isc.ParamsActivity"></activity>
+        <activity android:name="club.infolab.isc.GraphActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="club.infolab.isc.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".LoadingActivity"
+            android:name="club.infolab.isc.LoadingActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.isc.test.params;
 
 public class ParamTest {
     private String name;
