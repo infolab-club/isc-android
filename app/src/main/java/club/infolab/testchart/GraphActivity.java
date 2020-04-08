@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -15,8 +14,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import club.infolab.testchart.test_simulation.TestSimulation;
-import club.infolab.testchart.test_simulation.TestSimulationCallback;
+import club.infolab.testchart.test.CurrentTest;
+import club.infolab.testchart.test.MomentTest;
+import club.infolab.testchart.test.simulation.TestSimulation;
+import club.infolab.testchart.test.simulation.TestSimulationCallback;
 
 public class GraphActivity extends AppCompatActivity implements TestSimulationCallback {
     public static final String EXTRA_TEST = "testName";
@@ -43,14 +44,14 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
 
     @Override
     public void getTestData(MomentTest testData) {
-        CurrentTest.testResult.add(testData);
+        CurrentTest.results.add(testData);
         drawChart();
     }
 
     private void drawChart() {
         chart.clear();
         List<Entry> entries = new ArrayList<>();
-        for (MomentTest moment : CurrentTest.testResult) {
+        for (MomentTest moment : CurrentTest.results) {
             // turn your data into Entry objects
             entries.add(new Entry(moment.getTime(), moment.getVoltage()));
         }

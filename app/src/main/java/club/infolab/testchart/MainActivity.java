@@ -9,6 +9,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import club.infolab.testchart.test.CurrentTest;
+
 public class MainActivity extends AppCompatActivity implements TestAdapter.OnTestListener {
     private RecyclerView recyclerView;
     private TestAdapter testAdapter;
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements TestAdapter.OnTes
 
     @Override
     public void onTestClick(int position) {
+        CurrentTest.results.clear();
+//        CurrentTest currentTest = new CurrentTest(this);
+//        currentTest.Reader(position);
         Intent test_intent = new Intent(this, ParamsActivity.class);
         String testName = tests.get(position);
         test_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
