@@ -1,13 +1,12 @@
-package club.infolab.testchart.test_simulation;
+package club.infolab.testchart.test.simulation;
 
 import android.content.Context;
 import android.os.Handler;
 
 import java.util.ArrayList;
 
-import club.infolab.testchart.CurrentTest;
-import club.infolab.testchart.GraphActivity;
-import club.infolab.testchart.MomentTest;
+import club.infolab.testchart.test.CurrentTest;
+import club.infolab.testchart.test.MomentTest;
 
 public class TestSimulation {
     private final int PERIOD = 10;
@@ -17,25 +16,28 @@ public class TestSimulation {
     private Handler handler = new Handler();
 
     public void startSimulation(Context context, TestSimulationCallback callback, int testIndex) {
-        CurrentTest currentTest = new CurrentTest(context);
-        currentTest.Reader(testIndex);
-        testSimulationResult = (ArrayList) CurrentTest.testResult.clone();
-        CurrentTest.testResult.clear();
+        testSimulationResult = CurrentTest.GetTestsFromFiles(context, testIndex);
         this.callback = callback;
         handler.postDelayed(timeUpdaterRunnable, PERIOD);
     }
 
     public void stopSimulation() {
+        callback = null;
+        indexCurrentTest = 0;
         testSimulationResult.clear();
         handler.removeCallbacks(timeUpdaterRunnable);
     }
 
     private Runnable timeUpdaterRunnable = new Runnable() {
         public void run() {
-            indexCurrentTest = indexCurrentTest % testSimulationResult.size();
             callback.getTestData(testSimulationResult.get(indexCurrentTest));
-            indexCurrentTest++;
-            handler.postDelayed(this, PERIOD);
+            if (indexCurrentTest < testSimulationResult.size() - 1) {
+                indexCurrentTest++;
+                handler.postDelayed(this, PERIOD);
+            }
+            else {
+                stopSimulation();
+            }
         }
     };
 }

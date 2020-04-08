@@ -5,9 +5,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
+
+import club.infolab.testchart.test.CurrentTest;
 
 public class MainActivity extends AppCompatActivity implements TestAdapter.OnTestListener {
     private RecyclerView recyclerView;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements TestAdapter.OnTes
 
     @Override
     public void onTestClick(int position) {
-        CurrentTest.testResult.clear();
+        CurrentTest.results.clear();
 //        CurrentTest currentTest = new CurrentTest(this);
 //        currentTest.Reader(position);
         Intent test_intent = new Intent(this, GraphActivity.class);

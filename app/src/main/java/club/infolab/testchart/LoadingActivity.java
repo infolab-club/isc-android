@@ -10,10 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class LoadingActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
     private static int REQUEST_ENABLE_BLUETOOTH = 0;
@@ -28,14 +24,6 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
-        //Считывание файла и последующая разбивка данных на объекты
-        CurrentTest currentTest = new CurrentTest(this);
-//        Список открытия файлов для теста:
-//            0 constant_voltage
-//            1 cyclic
-//            2 linear_sweep
-//            любое другое число - sinusoid
-        currentTest.Reader(1);
         //Проверка Bluetooth
         checkBluetoothEnable();
     }

@@ -1,4 +1,4 @@
-package club.infolab.testchart;
+package club.infolab.testchart.test;
 
 public class MomentTest {
     private float time;
