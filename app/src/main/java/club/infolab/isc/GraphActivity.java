@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -24,6 +26,7 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
     public static final String EXTRA_INDEX = "testIndex";
     LineChart chart;
     TestSimulation testSimulation;
+    private int currentAxes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,28 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         nameTestView.setText(testName);
 
         chart = findViewById(R.id.chart);
+
+        RadioButton radioDefault = findViewById(R.id.potential_time_rd_btn);
+        radioDefault.setChecked(true);
+
+        RadioGroup radioGroup = findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                switch (checkedId) {
+                    case R.id.current_potential_rd_btn:
+                        currentAxes = 2;
+                        break;
+                    case R.id.current_time_rd_btn:
+                        currentAxes = 1;
+                        break;
+                    default:
+                        currentAxes = 0;
+                        break;
+                }
+                drawChart();
+            }
+        });
 
         int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
         testSimulation = new TestSimulation();
@@ -53,7 +78,17 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         List<Entry> entries = new ArrayList<>();
         for (MomentTest moment : CurrentTest.results) {
             // turn your data into Entry objects
-            entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+            switch(currentAxes){
+                case 0:
+                    entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                    break;
+                case 1:
+                    entries.add(new Entry(moment.getTime(), moment.getAmperage()));
+                    break;
+                default:
+                    entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
+                    break;
+            }
         }
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         LineData lineData = new LineData(dataSet);
