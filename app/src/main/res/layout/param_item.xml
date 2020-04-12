@@ -9,11 +9,10 @@
         android:id="@+id/param_name_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_gravity="center_vertical"    android:gravity="center_vertical"
         android:text = "Param name"
-        android:textSize="14sp"
-        android:layout_weight="1"
+        android:textSize="20sp"
+        android:layout_weight="2"
         />
 
     <EditText
@@ -21,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="Default value"
-        android:textSize="14sp"
-        android:layout_weight="2"
+        android:textSize="20sp"
+        android:layout_weight="3"
         android:layout_marginLeft="10dp"
         android:inputType="numberDecimal|numberSigned"
         />
