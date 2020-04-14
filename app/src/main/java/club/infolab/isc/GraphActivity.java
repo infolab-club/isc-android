@@ -3,12 +3,18 @@ package club.infolab.isc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -27,6 +33,8 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
     LineChart chart;
     TestSimulation testSimulation;
     private int currentAxes = 0;
+    LimitLine limitX = new LimitLine(0f);
+    LimitLine limitY = new LimitLine(0f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,7 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         nameTestView.setText(testName);
 
         chart = findViewById(R.id.chart);
+        stylingChart();
 
         RadioButton radioDefault = findViewById(R.id.potential_time_rd_btn);
         radioDefault.setChecked(true);
@@ -73,24 +82,62 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         drawChart();
     }
 
+    private void stylingChart(){
+        Legend legend = chart.getLegend();
+        legend.setEnabled(false);
+
+        Description d = chart.getDescription();
+        d.setEnabled(false);
+
+        XAxis xAxis = chart.getXAxis();
+        YAxis yAxis = chart.getAxisRight();
+
+        limitX.setLineColor(Color.BLACK);
+        limitX.setLineWidth(2f);
+
+        limitY.setLineColor(Color.BLACK);
+        limitY.setLineWidth(1.5f);
+
+        limitX.setTextSize(12f);
+        limitY.setTextSize(12f);
+        limitX.setTextColor(Color.BLACK);
+        limitY.setTextColor(Color.BLACK);
+
+        xAxis.addLimitLine(limitX);
+        yAxis.addLimitLine(limitY);
+    }
+
     private void drawChart() {
         chart.clear();
         List<Entry> entries = new ArrayList<>();
         for (MomentTest moment : CurrentTest.results) {
             // turn your data into Entry objects
+            String labelX, labelY;
             switch(currentAxes){
                 case 0:
                     entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                    labelY = "time, sec";
+                    labelX = "potential, V";
                     break;
                 case 1:
                     entries.add(new Entry(moment.getTime(), moment.getAmperage()));
+                    labelY = "time, sec";
+                    labelX = "current, uA";
                     break;
                 default:
                     entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
+                    labelY = "potential, V";
+                    labelX = "current, uA";
                     break;
             }
+            limitX.setLabel(labelX);
+            limitY.setLabel(labelY);
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
+        LineDataSet dataSet = new LineDataSet(entries, "");
+        dataSet.setDrawCircles(false);
+        dataSet.setDrawValues(false);
+        dataSet.setLineWidth(6f);
+        dataSet.setColor(Color.rgb(61, 165, 244));
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
     }
