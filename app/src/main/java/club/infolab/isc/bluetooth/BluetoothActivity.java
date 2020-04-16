@@ -7,15 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
@@ -30,18 +35,22 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
     Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
     private ArrayList<String> devicesName = new ArrayList<>();
     ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
-    final UUID MY_UUID = UUID.fromString("9f2c4ce3-0801-42d1-ba41-1a6bfe1ccb70");
+    Set<BluetoothDevice> bluetoothDeviceSet;
+
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    TextView textView;
     Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+
+        textView = findViewById(R.id.textView2);
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -54,7 +63,6 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         registerReceiver(myReceiver, intentFilter);
-
         button = findViewById(R.id.scanBut);
         onButtonClick();
     }
@@ -94,14 +102,20 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
 
     @Override
     public void onDeviceClick(int position) {
-//        ClientThread clientThread = new ClientThread(bluetoothDevices.get(position));
-//        bluetoothDevices.get(position).createBond();
-//        clientThread.run();
 
-        Log.d("CLICK", " Click");
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        startActivity(mainIntent);
+        BluetoothDevice device = bluetoothDevices.get(position);
+        device.createBond();
+        Log.d("CLICK", "Click");
+        ClientThread clientThread = new ClientThread();
+        clientThread.setDevice(device, textView);
+        clientThread.execute();
+        textView.setText("Click");
+//        Intent mainIntent = new Intent(this, MainActivity.class);
+//        startActivity(mainIntent);
+
+
     }
+
 
     public void onButtonClick() {
         button.setOnClickListener(new View.OnClickListener() {
@@ -115,4 +129,5 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
             }
         });
     }
+
 }
