@@ -17,12 +17,10 @@ import com.squareup.picasso.Picasso;
 
 public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
-    private static int SPLASH_TIME_OUT = 500;
+    private static int SPLASH_TIME_OUT = 100;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

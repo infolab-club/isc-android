@@ -5,8 +5,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private TabAdapter adapter;
@@ -16,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab);
+        setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
 
@@ -26,5 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+//        long time = System.currentTimeMillis() / 1000;
+
+        DBRecords db = new DBRecords(this);
+//        Date currentTime = Calendar.getInstance().getTime();
+//        db.insert("Sinusoid", currentTime.toString(), 0, "");
+//        db.insert("S3oid", currentTime.toString(), 1, "");
+//        db.insert("Ddd", "91229", 0, "lolol");
+//        db.insert("Kek", "8888888", 1, "323");
+//
+//        Log.d("DB_TEST", db.select(1).getName() + " " + db.select(1).getDate());
+//        Log.d("DB_TEST", db.select(2).getName() + " " + db.select(2).getDate());
+//        Log.d("DB_TEST", db.select(3).getName() + " " + db.select(3).getDate());
+//        Log.d("DB_TEST", db.select(4).getName() + " " + db.select(4).getDate());
     }
 }
