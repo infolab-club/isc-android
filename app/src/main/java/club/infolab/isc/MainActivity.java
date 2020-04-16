@@ -1,50 +1,30 @@
 package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
+import android.app.ActionBar;
 import android.os.Bundle;
 
-import java.util.ArrayList;
+import com.google.android.material.tabs.TabLayout;
 
-import club.infolab.isc.test.CurrentTest;
-
-public class MainActivity extends AppCompatActivity implements TestAdapter.OnTestListener {
-    private RecyclerView recyclerView;
-    private TestAdapter testAdapter;
-    private ArrayList<String> tests = new ArrayList<>();;
+public class MainActivity extends AppCompatActivity {
+    private TabAdapter adapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tab);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
 
-        setInitialData();
-        recyclerView = findViewById(R.id.tests_list);
+        adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TabTestsFragment(), "Tests");
+        adapter.addFragment(new TabHistoryFragment(), "History");
 
-        testAdapter = new TestAdapter(this, tests, this);
-        recyclerView.setAdapter(testAdapter);
-    }
-
-    private void setInitialData(){
-        tests.add("Cyclic");
-        tests.add("Linear sweep");
-        tests.add("Sinusoid");
-        tests.add("Constant voltage");
-        tests.add("Chronoamperometry");
-        tests.add("Square wave");
-    }
-
-    @Override
-    public void onTestClick(int position) {
-        CurrentTest.results.clear();
-//        CurrentTest currentTest = new CurrentTest(this);
-//        currentTest.Reader(position);
-        Intent test_intent = new Intent(this, ParamsActivity.class);
-        String testName = tests.get(position);
-        test_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
-        test_intent.putExtra(GraphActivity.EXTRA_INDEX, position);
-        startActivity(test_intent);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

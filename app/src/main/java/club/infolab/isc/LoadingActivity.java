@@ -2,7 +2,6 @@ package club.infolab.isc;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
-
-import club.infolab.isc.bluetooth.BluetoothActivity;
 
 public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
@@ -64,7 +61,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         if (wasLogoShow && wasBluetoothEnable) {
-            Intent intent = new Intent(LoadingActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
