@@ -1,18 +1,27 @@
 package club.infolab.isc;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
+import club.infolab.isc.bluetooth.BluetoothActivity;
+
 public class LoadingActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 500;
-    private static int REQUEST_ENABLE_BLUETOOTH = 0;
+    private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
 
@@ -24,6 +33,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
+        checkPermission();
         //Проверка Bluetooth
         checkBluetoothEnable();
     }
@@ -54,11 +64,39 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         if (wasLogoShow && wasBluetoothEnable) {
-            Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoadingActivity.this, BluetoothActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
+
+    private void checkPermission() {
+        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_PERMISSION);
+        }
+        permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_PRIVILEGED);
+        if (permissionStatus != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_PRIVILEGED
+            }, REQUEST_CODE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    checkPermission();
+                }
+                return;
+        }
+    }
+
 }
 
 

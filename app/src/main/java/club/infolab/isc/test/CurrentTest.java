@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class CurrentTest {
     public static ArrayList<MomentTest> results = new ArrayList<>();
 
-    public static void AppendMomentTest(String moment) {
-        MomentTest momentTest = GetMomentFromString(moment);
+    public static void appendMomentTest(String moment) {
+        MomentTest momentTest = getMomentFromString(moment);
         results.add(momentTest);
     }
 
-    private static MomentTest GetMomentFromString(String moment) {
+    private static MomentTest getMomentFromString(String moment) {
         String[] data = moment.split(",");
         float time = Float.parseFloat(data[0]);
         float vol = Float.parseFloat(data[1]);
@@ -26,13 +26,13 @@ public class CurrentTest {
         return new MomentTest(time, vol, amp);
     }
 
-    public static String ConvertTestsToJson(ArrayList current) {
+    public static String convertTestsToJson(ArrayList current) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String currentTestJson = gson.toJson(current);
         return currentTestJson;
     }
 
-    public static ArrayList<MomentTest> GetTestsFromFiles(Context context, int fileNumber) {
+    public static ArrayList<MomentTest> getTestsFromFiles(Context context, int fileNumber) {
         ArrayList<MomentTest> simulation = new ArrayList<>();
         String currentFile;
 
@@ -55,9 +55,9 @@ public class CurrentTest {
             InputStreamReader input = new InputStreamReader(context.getAssets().open(currentFile));
             BufferedReader reader = new BufferedReader(input);
             String line = reader.readLine();
-            simulation.add(GetMomentFromString(line));
+            simulation.add(getMomentFromString(line));
             while (line != null){
-                simulation.add(GetMomentFromString(line));
+                simulation.add(getMomentFromString(line));
                 line = reader.readLine();
             }
         } catch (IOException e) {

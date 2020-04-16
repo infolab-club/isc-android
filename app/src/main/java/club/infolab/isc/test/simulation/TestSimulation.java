@@ -16,7 +16,7 @@ public class TestSimulation {
     private Handler handler = new Handler();
 
     public void startSimulation(Context context, TestSimulationCallback callback, int testIndex) {
-        testSimulationResult = CurrentTest.GetTestsFromFiles(context, testIndex);
+        testSimulationResult = CurrentTest.getTestsFromFiles(context, testIndex);
         this.callback = callback;
         handler.postDelayed(timeUpdaterRunnable, PERIOD);
     }
