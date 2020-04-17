@@ -3,6 +3,7 @@ package club.infolab.isc;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
@@ -28,6 +29,11 @@ public class DBRecords {
     public DBRecords(Context context){
         SQLHelper sqlHelper = new SQLHelper(context);
         mDataBase = sqlHelper.getWritableDatabase();
+    }
+
+    public long getCountRows() {
+        long count = DatabaseUtils.queryNumEntries(mDataBase, TABLE_NAME);
+        return count;
     }
 
     public long insert(String testName, String date, int isLoaded, String json) {

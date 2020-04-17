@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import club.infolab.isc.test.CurrentTest;
@@ -42,7 +47,7 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         setContentView(R.layout.activity_graph);
 
         Intent intent = getIntent();
-        String testName = intent.getStringExtra(EXTRA_TEST);
+        final String testName = intent.getStringExtra(EXTRA_TEST);
         TextView nameTestView = findViewById(R.id.name_test);
         nameTestView.setText(testName);
 
@@ -74,6 +79,18 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
         testSimulation = new TestSimulation();
         testSimulation.startSimulation(this, this, indexTest);
+        final Date dateOfStart = Calendar.getInstance().getTime();
+
+        Button stopBtn = findViewById(R.id.stop_btn);
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                testSimulation.stopSimulation();
+                String jsonResults = CurrentTest.convertTestsToJson(CurrentTest.results);
+                DBRecords db = new DBRecords(GraphActivity.this);
+                db.insert(testName, dateOfStart.toString(), 0, jsonResults);
+            }
+        });
     }
 
     @Override
