@@ -5,52 +5,47 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 
-import club.infolab.isc.MainActivity;
-import club.infolab.isc.ParamsActivity;
 import club.infolab.isc.R;
 
-public class BluetoothActivity extends AppCompatActivity implements AdapterDev.OnTestListener {
+public class BluetoothActivity extends AppCompatActivity
+        implements AdapterDev.OnTestListener, BluetoothCallback {
+    private BluetoothController bluetoothController;
+    private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
-    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
     private ArrayList<String> devicesName = new ArrayList<>();
-    ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
-    Set<BluetoothDevice> bluetoothDeviceSet;
-
+    private ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    TextView textView;
-    Button button;
+    private Button buttonSearch;
+    private Button buttonSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
-        textView = findViewById(R.id.textView2);
+        initializeActivity();
+        searchPairedDevices();
+    }
+
+    private void initializeActivity() {
+        bluetoothController = new BluetoothController(this);
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -59,29 +54,28 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
         adapter = new AdapterDev(this, devicesName, this);
         recyclerView.setAdapter(adapter);
 
-        searchPairedDevices();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(myReceiver, intentFilter);
-        button = findViewById(R.id.scanBut);
-        onButtonClick();
+        buttonSearch = findViewById(R.id.scanBut);
+        buttonSearch.setOnClickListener(onClickSearch);
+
+        buttonSend = findViewById(R.id.button);
+        buttonSend.setOnClickListener(onClickSend);
     }
 
     final BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             String action = intent.getAction();
             BluetoothDevice device;
 
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device.getName() == null)
+                if (device.getName() == null) {
                     setData(device.getAddress());
-                else
+                }
+                else {
                     setData(device.getName());
+                }
                 bluetoothDevices.add(device);
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
             }
         }
     };
@@ -93,41 +87,53 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterDev.O
                 bluetoothDevices.add(device);
             }
         }
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(myReceiver, intentFilter);
     }
 
-    public void setData(String deviceN){
-        devicesName.add(deviceN);
+    public void setData(String deviceName) {
+        devicesName.add(deviceName);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onDeviceClick(int position) {
-
         BluetoothDevice device = bluetoothDevices.get(position);
         device.createBond();
-        Log.d("CLICK", "Click");
-        ClientThread clientThread = new ClientThread();
-        clientThread.setDevice(device, textView);
-        clientThread.execute();
-        textView.setText("Click");
+        bluetoothController.connectToDevice(device);
+
 //        Intent mainIntent = new Intent(this, MainActivity.class);
 //        startActivity(mainIntent);
-
-
     }
 
+    private View.OnClickListener onClickSearch = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            devicesName.clear();
+            searchPairedDevices();
+            if (bluetoothAdapter.isDiscovering())
+                bluetoothAdapter.cancelDiscovery();
+            bluetoothAdapter.startDiscovery();
+        }
+    };
 
-    public void onButtonClick() {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                devicesName.clear();
-                searchPairedDevices();
-                if (bluetoothAdapter.isDiscovering())
-                    bluetoothAdapter.cancelDiscovery();
-                bluetoothAdapter.startDiscovery();
-            }
-        });
+    private View.OnClickListener onClickSend = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String string = "TEst mess";
+            bluetoothController.sendData(string);
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
     }
 
+    @Override
+    public void getInputData(String data) {
+        Toast.makeText(BluetoothActivity.this, data, Toast.LENGTH_SHORT).show();
+    }
 }

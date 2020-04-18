@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
+import club.infolab.isc.bluetooth.BluetoothActivity;
+
 public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 100;
@@ -59,7 +61,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         if (wasLogoShow && wasBluetoothEnable) {
-            Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoadingActivity.this, BluetoothActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
@@ -74,10 +76,7 @@ public class LoadingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_CODE_PERMISSION);
         }
-        permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_PRIVILEGED);
-        if (permissionStatus != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_PRIVILEGED
-            }, REQUEST_CODE_PERMISSION);
+
     }
 
     @Override

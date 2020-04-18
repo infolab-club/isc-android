@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 
 import club.infolab.isc.test.CurrentTest;
