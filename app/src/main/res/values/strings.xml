@@ -2,4 +2,9 @@
     <string name="app_name">ISC</string>
     <string name="start_chart_btn">Test!</string>
     <string name="stop_chart_btn">Stop test</string>
+    <string name="set_params_btn">Set parameters</string>
+    <string name="start_demo_btn">Start the demo</string>
+    <string name="view_btn">View</string>
+    <string name="connect_btn">Connect</string>
+    <string name="skip_btn">Skip</string>
 </resources>

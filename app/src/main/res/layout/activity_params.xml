@@ -12,9 +12,11 @@
         android:layout_height="wrap_content"
         android:text="Name of test"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <ScrollView
         android:id="@+id/scroll_params"
@@ -34,12 +36,21 @@
 
     <Button
         android:id="@+id/toChart_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:text="@string/start_chart_btn"
+        android:background="@drawable/style_btn_blue"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="1"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/name_test_params"
+        app:layout_constraintVertical_bias="0.57" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

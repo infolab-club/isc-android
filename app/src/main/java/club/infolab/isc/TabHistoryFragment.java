@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
 import java.util.ArrayList;
+
+import club.infolab.isc.database.DBRecords;
+import club.infolab.isc.database.Record;
 
 public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHistoryListener {
     private RecyclerView recyclerView;
@@ -23,9 +25,9 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_tests, container, false);
+        rootView = inflater.inflate(R.layout.fragment_history, container, false);
         db = new DBRecords(getContext());
-        recyclerView = rootView.findViewById(R.id.tab_tests_list);
+        recyclerView = rootView.findViewById(R.id.tab_history_list);
         return rootView;
     }
 

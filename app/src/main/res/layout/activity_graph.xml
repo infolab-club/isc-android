@@ -73,9 +73,15 @@
 
     <Button
         android:id="@+id/stop_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:text="@string/stop_chart_btn"
+        android:background="@drawable/style_btn_blue"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="1"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"

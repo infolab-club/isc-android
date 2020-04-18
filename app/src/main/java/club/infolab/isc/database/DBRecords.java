@@ -1,4 +1,4 @@
-package club.infolab.isc;
+package club.infolab.isc.database;
 
 import android.content.ContentValues;
 import android.content.Context;

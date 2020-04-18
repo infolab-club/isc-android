@@ -1,4 +1,4 @@
-package club.infolab.isc;
+package club.infolab.isc.database;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,8 +1,10 @@
-package club.infolab.isc;
+package club.infolab.isc.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import club.infolab.isc.database.DBRecords;
 
 public class SQLHelper extends SQLiteOpenHelper {
     SQLHelper(Context context) {

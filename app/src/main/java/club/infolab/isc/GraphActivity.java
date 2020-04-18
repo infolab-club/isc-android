@@ -29,6 +29,7 @@ import java.util.List;
 
 import club.infolab.isc.bluetooth.BluetoothCallback;
 import club.infolab.isc.bluetooth.BluetoothController;
+import club.infolab.isc.database.DBRecords;
 import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.MomentTest;
 import club.infolab.isc.test.simulation.TestSimulation;

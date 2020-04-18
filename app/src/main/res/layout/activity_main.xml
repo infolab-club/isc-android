@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         app:tabTextColor="@color/white"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="4dp"
-        app:tabBackground="@color/dark_blue"
+        app:tabBackground="@color/blue"
         app:tabMode="fixed">
     </com.google.android.material.tabs.TabLayout>
 

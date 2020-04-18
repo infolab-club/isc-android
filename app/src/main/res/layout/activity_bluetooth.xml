@@ -27,6 +27,7 @@
         android:layout_marginEnd="85dp"
         android:layout_marginBottom="250dp"
         android:text="Scan"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,7 @@
         android:layout_marginEnd="97dp"
         android:layout_marginBottom="58dp"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/scanBut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recyclerview"
@@ -56,10 +58,46 @@
         android:layout_marginEnd="73dp"
         android:layout_marginBottom="71dp"
         android:text="Button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/recyclerview"
+        app:layout_constraintTop_toBottomOf="@+id/scanBut"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/connect_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/style_btn_blue"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="1"
+        android:text="@string/connect_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recyclerview"
-        app:layout_constraintTop_toBottomOf="@+id/scanBut" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/skip_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/style_btn_white"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="1"
+        android:text="@string/skip_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_ocean"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerview"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.24000001" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
