@@ -23,7 +23,7 @@ import club.infolab.isc.test.params.ParamTest;
 
 public class ParamsActivity extends AppCompatActivity
     implements BluetoothCallback {
-    BluetoothController bluetoothController;
+    private BluetoothController bluetoothController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class ParamsActivity extends AppCompatActivity
             @Override
             public void onClick(View v){
                 CurrentTest.results.clear();
+                bluetoothController.sendData(testName);
                 // CurrentTest currentTest = new CurrentTest(this);
                 // currentTest.Reader(position);
                 Intent graph_intent = new Intent(ParamsActivity.this, GraphActivity.class);

@@ -27,12 +27,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import club.infolab.isc.bluetooth.BluetoothCallback;
+import club.infolab.isc.bluetooth.BluetoothController;
 import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.MomentTest;
 import club.infolab.isc.test.simulation.TestSimulation;
 import club.infolab.isc.test.simulation.TestSimulationCallback;
 
-public class GraphActivity extends AppCompatActivity implements TestSimulationCallback {
+public class GraphActivity extends AppCompatActivity
+        implements TestSimulationCallback, BluetoothCallback {
     public static final String EXTRA_TEST = "testName";
     public static final String EXTRA_INDEX = "testIndex";
     LineChart chart;
@@ -40,11 +43,14 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
     private int currentAxes = 0;
     LimitLine limitX = new LimitLine(0f);
     LimitLine limitY = new LimitLine(0f);
+    private BluetoothController bluetoothController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+
+        bluetoothController = new BluetoothController(this);
 
         Intent intent = getIntent();
         final String testName = intent.getStringExtra(EXTRA_TEST);
@@ -77,8 +83,8 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
         });
 
         int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
-        testSimulation = new TestSimulation();
-        testSimulation.startSimulation(this, this, indexTest);
+//        testSimulation = new TestSimulation();
+//        testSimulation.startSimulation(this, this, indexTest);
         final Date dateOfStart = Calendar.getInstance().getTime();
 
         Button stopBtn = findViewById(R.id.stop_btn);
@@ -161,7 +167,15 @@ public class GraphActivity extends AppCompatActivity implements TestSimulationCa
 
     @Override
     protected void onStop() {
-        testSimulation.stopSimulation();
+//        testSimulation.stopSimulation();
         super.onStop();
+    }
+
+    @Override
+    public void getInputData(String data) {
+        Log.d("TEST_DATA", data +"\n");
+        MomentTest testData = CurrentTest.getMomentFromString(data);
+        CurrentTest.results.add(testData);
+        drawChart();
     }
 }

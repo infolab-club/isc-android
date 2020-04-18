@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 
 public class BluetoothController implements BluetoothSocketCallback {
     public static final int STATE_MESSAGE_RECEIVED = 0;
-    private BluetoothCallback callback;
+    private static BluetoothCallback callback;
     private static BluetoothSocket socket;
     private static ConnectThread connection;
     private static ClientThread client;

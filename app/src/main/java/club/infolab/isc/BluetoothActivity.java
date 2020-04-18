@@ -137,6 +137,6 @@ public class BluetoothActivity extends AppCompatActivity
 
     @Override
     public void getInputData(String data) {
-        Toast.makeText(BluetoothActivity.this, data, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(BluetoothActivity.this, data, Toast.LENGTH_SHORT).show();
     }
 }

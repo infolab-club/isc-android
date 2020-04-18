@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 public class CurrentTest {
     public static ArrayList<MomentTest> results = new ArrayList<>();
-
     public static void appendMomentTest(String moment) {
         MomentTest momentTest = getMomentFromString(moment);
         results.add(momentTest);
     }
 
-    private static MomentTest getMomentFromString(String moment) {
-        String[] data = moment.split(",");
+    public static MomentTest getMomentFromString(String moment) {
+        String[] megaString = moment.split("\n");
+        String[] data = megaString[0].split(",");
         float time = Float.parseFloat(data[0]);
         float vol = Float.parseFloat(data[1]);
         float amp = Float.parseFloat(data[2]);
