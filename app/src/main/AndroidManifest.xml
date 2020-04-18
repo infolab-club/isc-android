@@ -41,7 +41,7 @@
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".bluetooth.BluetoothActivity"
+            android:name=".BluetoothActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
     </application>

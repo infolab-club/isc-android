@@ -15,15 +15,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import club.infolab.isc.bluetooth.BluetoothCallback;
+import club.infolab.isc.bluetooth.BluetoothController;
 import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.params.ParamManager;
 import club.infolab.isc.test.params.ParamTest;
 
-public class ParamsActivity extends AppCompatActivity {
+public class ParamsActivity extends AppCompatActivity
+    implements BluetoothCallback {
+    BluetoothController bluetoothController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
+
+        bluetoothController = new BluetoothController(this);
 
         TextView testNameView = findViewById(R.id.name_test_params);
         final Intent intent = getIntent();
@@ -88,4 +95,8 @@ public class ParamsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getInputData(String data) {
+
+    }
 }

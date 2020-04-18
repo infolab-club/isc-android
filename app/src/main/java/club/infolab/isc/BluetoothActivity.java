@@ -1,4 +1,4 @@
-package club.infolab.isc.bluetooth;
+package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +18,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
 
-import club.infolab.isc.R;
+import club.infolab.isc.bluetooth.AdapterDev;
+import club.infolab.isc.bluetooth.BluetoothCallback;
+import club.infolab.isc.bluetooth.BluetoothController;
 
 public class BluetoothActivity extends AppCompatActivity
         implements AdapterDev.OnTestListener, BluetoothCallback {
@@ -103,8 +105,9 @@ public class BluetoothActivity extends AppCompatActivity
         device.createBond();
         bluetoothController.connectToDevice(device);
 
-//        Intent mainIntent = new Intent(this, MainActivity.class);
-//        startActivity(mainIntent);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private View.OnClickListener onClickSearch = new View.OnClickListener() {

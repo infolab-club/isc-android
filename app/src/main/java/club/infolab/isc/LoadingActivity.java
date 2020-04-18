@@ -15,8 +15,6 @@ import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
-import club.infolab.isc.bluetooth.BluetoothActivity;
-
 public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 100;
