@@ -10,7 +10,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 public class BluetoothController implements BluetoothSocketCallback {
-    public static final int STATE_MESSAGE_RECEIVED = 0;
+    public static boolean isBluetoothRun;
+    public static boolean isTestRun;
+    static final int STATE_MESSAGE_RECEIVED = 0;
     private static BluetoothCallback callback;
     private static BluetoothSocket socket;
     private static ConnectThread connection;
@@ -52,7 +54,9 @@ public class BluetoothController implements BluetoothSocketCallback {
                 byte[] readBuffer = (byte[]) msg.obj;
                 String tempMsg = new String(readBuffer, 0, msg.arg1);
                 Log.d("DATA", tempMsg);
-                callback.getInputData(tempMsg);
+                if (isTestRun) {
+                    callback.getInputData(tempMsg);
+                }
             }
             return true;
         }

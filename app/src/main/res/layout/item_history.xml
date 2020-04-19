@@ -2,40 +2,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/history_test_name_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:text = "History test name"
-        android:textSize="20sp"
         android:layout_weight="3"
-        />
+        android:gravity="center_vertical"
+        android:text="Test's Name"
+        android:textColor="@color/dark_ocean"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/date_of_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:text = "History test date"
-        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
         android:layout_weight="3"
-        />
+        android:gravity="center_vertical"
+        android:text="History test date"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/is_loaded"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:text = "Is loaded"
-        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
         android:layout_weight="4"
-        />
+        android:gravity="center_vertical"
+        android:text="Local"
+        android:textSize="14sp" />
 
 
 </LinearLayout>

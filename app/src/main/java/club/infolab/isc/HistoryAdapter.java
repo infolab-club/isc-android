@@ -15,7 +15,7 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
     private List<History> histories;
-    private OnHistoryListener onHistoryListener;
+    OnHistoryListener onHistoryClickListener;
 
     HistoryAdapter(Context context, List<History> histories, OnHistoryListener onHistoryListener) {
         this.histories = histories;
@@ -25,8 +25,8 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     @NonNull
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.history_item, parent, false);
-            return new ViewHolder(view, onHistoryListener);
+            View view = inflater.inflate(R.layout.item_history, parent, false);
+            return new ViewHolder(view, onHistoryClickListener);
     }
 
     @Override
@@ -44,7 +44,6 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         final TextView nameView, dateView, isLoadedView;
-        OnHistoryListener onHistoryListener;
 
         public ViewHolder(@NonNull View itemView, OnHistoryListener onHistoryListener) {
             super(itemView);
@@ -52,13 +51,13 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
             dateView = itemView.findViewById(R.id.date_of_test);
             isLoadedView = itemView.findViewById(R.id.is_loaded);
 
-            this.onHistoryListener = onHistoryListener;
+            onHistoryClickListener = onHistoryListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            onHistoryListener.onHistoryClick(getAdapterPosition());
+            // onHistoryClickListener.onHistoryClick(getAdapterPosition());
         }
     }
     public interface OnHistoryListener{

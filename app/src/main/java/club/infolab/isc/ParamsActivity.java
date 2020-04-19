@@ -30,7 +30,9 @@ public class ParamsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
 
-        bluetoothController = new BluetoothController(this);
+        if (BluetoothController.isBluetoothRun) {
+            bluetoothController = new BluetoothController(this);
+        }
 
         TextView testNameView = findViewById(R.id.name_test_params);
         final Intent intent = getIntent();
@@ -43,9 +45,9 @@ public class ParamsActivity extends AppCompatActivity
             @Override
             public void onClick(View v){
                 CurrentTest.results.clear();
-                bluetoothController.sendData(testName);
-                // CurrentTest currentTest = new CurrentTest(this);
-                // currentTest.Reader(position);
+                if (BluetoothController.isBluetoothRun) {
+                    bluetoothController.sendData(testName);
+                }
                 Intent graph_intent = new Intent(ParamsActivity.this, GraphActivity.class);
                 graph_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
                 graph_intent.putExtra(GraphActivity.EXTRA_INDEX, testIndex);

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,9 +48,9 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
         histories.clear();
         for (int i = 1; i <= db.getCountRows(); i++) {
             Record r = db.select(i);
-            String isLoaded = "Not loaded";
+            String isLoaded = "Local";
             if (r.getIsLoaded() == 1) {
-                isLoaded = "Loaded";
+                isLoaded = "Cloud";
             }
             histories.add(new History(r.getName(), r.getDate(), isLoaded));
             Log.d("HISTORY", "Added " + i + " History");
@@ -58,9 +59,12 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
 
     @Override
     public void onHistoryClick(int position) {
-        Intent i = new Intent(getContext(), GraphActivity.class);
-        i.putExtra(GraphActivity.EXTRA_TEST, db.select(position).getName());
-        i.putExtra(GraphActivity.EXTRA_INDEX, 0);
-        startActivity(i);
+//        View view = recyclerView.getChildAt(position);
+//        TextView textTestName = view.findViewById(R.id.textHistoryTestName);
+//        textTestName.setText(db.select(position).getName());
+//        Intent i = new Intent(getContext(), GraphActivity.class);
+//        i.putExtra(GraphActivity.EXTRA_TEST, db.select(position).getName());
+//        i.putExtra(GraphActivity.EXTRA_INDEX, 0);
+//        startActivity(i);
     }
 }

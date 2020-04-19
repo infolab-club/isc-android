@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -51,7 +49,10 @@ public class GraphActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        bluetoothController = new BluetoothController(this);
+        if (BluetoothController.isBluetoothRun) {
+            bluetoothController = new BluetoothController(this);
+            BluetoothController.isTestRun = true;
+        }
 
         Intent intent = getIntent();
         final String testName = intent.getStringExtra(EXTRA_TEST);
@@ -61,38 +62,42 @@ public class GraphActivity extends AppCompatActivity
         chart = findViewById(R.id.chart);
         stylingChart();
 
-        RadioButton radioDefault = findViewById(R.id.potential_time_rd_btn);
-        radioDefault.setChecked(true);
-
         RadioGroup radioGroup = findViewById(R.id.radio_group);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId) {
-                    case R.id.current_potential_rd_btn:
-                        currentAxes = 2;
+                    case R.id.potential_time_rd_btn:
+                        currentAxes = 0;
                         break;
                     case R.id.current_time_rd_btn:
                         currentAxes = 1;
                         break;
-                    default:
-                        currentAxes = 0;
+                    case R.id.current_potential_rd_btn:
+                        currentAxes = 2;
                         break;
                 }
                 drawChart();
             }
         });
 
-        int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
-//        testSimulation = new TestSimulation();
-//        testSimulation.startSimulation(this, this, indexTest);
+        if (!BluetoothController.isBluetoothRun) {
+            int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
+            testSimulation = new TestSimulation();
+            testSimulation.startSimulation(this, this, indexTest);
+        }
         final Date dateOfStart = Calendar.getInstance().getTime();
 
-        Button stopBtn = findViewById(R.id.stop_btn);
+        Button stopBtn = findViewById(R.id.buttonSave);
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testSimulation.stopSimulation();
+                if (BluetoothController.isBluetoothRun) {
+                    BluetoothController.isTestRun = false;
+                }
+                else {
+                    testSimulation.stopSimulation();
+                }
                 String jsonResults = CurrentTest.convertTestsToJson(CurrentTest.results);
                 DBRecords db = new DBRecords(GraphActivity.this);
                 db.insert(testName, dateOfStart.toString(), 0, jsonResults);
@@ -134,33 +139,44 @@ public class GraphActivity extends AppCompatActivity
     private void drawChart() {
         chart.clear();
         List<Entry> entries = new ArrayList<>();
+        String labelX = "";
+        String labelY = "";
         for (MomentTest moment : CurrentTest.results) {
             // turn your data into Entry objects
-            String labelX, labelY;
-            switch(currentAxes){
+            switch(currentAxes) {
                 case 0:
                     entries.add(new Entry(moment.getTime(), moment.getVoltage()));
-                    labelY = "time, sec";
-                    labelX = "potential, V";
                     break;
                 case 1:
                     entries.add(new Entry(moment.getTime(), moment.getAmperage()));
-                    labelY = "time, sec";
-                    labelX = "current, uA";
                     break;
-                default:
+                case 2:
                     entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
-                    labelY = "potential, V";
-                    labelX = "current, uA";
                     break;
             }
-            limitX.setLabel(labelX);
-            limitY.setLabel(labelY);
         }
+        switch(currentAxes) {
+            case 0:
+                labelY = "time, sec";
+                labelX = "potential, V";
+                break;
+            case 1:
+                labelY = "time, sec";
+                labelX = "current, uA";
+                break;
+            case 2:
+                labelY = "potential, V";
+                labelX = "current, uA";
+                break;
+        }
+        limitX.setLabel(labelX);
+        limitY.setLabel(labelY);
         LineDataSet dataSet = new LineDataSet(entries, "");
-        dataSet.setDrawCircles(false);
+        dataSet.setCircleColor(Color.rgb(61, 165, 244));
+        dataSet.setCircleHoleColor(Color.rgb(61, 165, 244));
+        dataSet.setCircleRadius(2f);
         dataSet.setDrawValues(false);
-        dataSet.setLineWidth(6f);
+        dataSet.setLineWidth(4f);
         dataSet.setColor(Color.rgb(61, 165, 244));
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
@@ -168,13 +184,17 @@ public class GraphActivity extends AppCompatActivity
 
     @Override
     protected void onStop() {
-//        testSimulation.stopSimulation();
+        if (BluetoothController.isBluetoothRun) {
+            BluetoothController.isTestRun = false;
+        }
+        else {
+            testSimulation.stopSimulation();
+        }
         super.onStop();
     }
 
     @Override
     public void getInputData(String data) {
-        Log.d("TEST_DATA", data +"\n");
         MomentTest testData = CurrentTest.getMomentFromString(data);
         CurrentTest.results.add(testData);
         drawChart();

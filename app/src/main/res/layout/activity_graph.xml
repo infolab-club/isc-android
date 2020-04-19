@@ -11,11 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name of test"
-        android:textSize="20dp"
+        android:textSize="22sp"
 
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
@@ -33,17 +35,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/chart"
-        app:layout_constraintTop_toBottomOf="@+id/name_test">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/potential_time_rd_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:checked="true"
             android:padding="5dp"
             android:text="potential vs time" />
 
@@ -51,6 +54,8 @@
             android:id="@+id/current_time_rd_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:padding="5dp"
             android:text="current vs time" />
@@ -59,6 +64,7 @@
             android:id="@+id/current_potential_rd_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:padding="5dp"
             android:text="current vs potential" />
@@ -72,18 +78,19 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <Button
-        android:id="@+id/stop_btn"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:text="@string/stop_chart_btn"
+        android:id="@+id/buttonSave"
+        android:layout_width="128dp"
+        android:layout_height="36dp"
         android:background="@drawable/style_btn_blue"
         android:shadowColor="@color/colorPrimaryDark"
         android:shadowRadius="1"
+        android:text="@string/button_save"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>

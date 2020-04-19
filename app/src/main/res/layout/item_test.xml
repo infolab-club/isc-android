@@ -2,16 +2,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:paddingLeft="64dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/test_name_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text = "Test name"
-        android:textSize="30dp"
-        />
+        android:text="Test's Name"
+        android:textColor="@color/dark_ocean"
+        android:textSize="28sp" />
 
 </LinearLayout>

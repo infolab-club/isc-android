@@ -28,7 +28,7 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.test_item, parent, false);
+        View view = inflater.inflate(R.layout.item_device, parent, false);
         return new ViewHolder(view, mOnTestListener);
     }
 
@@ -48,7 +48,7 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
 
         ViewHolder(View view, OnTestListener onTestListener){
             super(view);
-            textDeviceName = view.findViewById(R.id.test_name_item);
+            textDeviceName = view.findViewById(R.id.textDeviceName);
             this.onTestListener = onTestListener;
             view.setOnClickListener(this);
         }

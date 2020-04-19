@@ -10,9 +10,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,12 +33,14 @@ public class BluetoothActivity extends AppCompatActivity
 
     private ArrayList<String> devicesName = new ArrayList<>();
     private ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
+    private int indexBluetoothDevice = -1;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Button buttonSearch;
-    private Button buttonSend;
+    private Button buttonConnect;
+    private Button buttonSkip;
+    // private Button buttonSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,6 @@ public class BluetoothActivity extends AppCompatActivity
     }
 
     private void initializeActivity() {
-        bluetoothController = new BluetoothController(this);
-
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -56,11 +59,13 @@ public class BluetoothActivity extends AppCompatActivity
         adapter = new AdapterDev(this, devicesName, this);
         recyclerView.setAdapter(adapter);
 
-        buttonSearch = findViewById(R.id.scanBut);
-        buttonSearch.setOnClickListener(onClickSearch);
+        buttonConnect = findViewById(R.id.buttonConnect);
+        buttonConnect.setOnClickListener(onClickConnect);
+        buttonSkip = findViewById(R.id.buttonSkip);
+        buttonSkip.setOnClickListener(onClickSkip);
 
-        buttonSend = findViewById(R.id.button);
-        buttonSend.setOnClickListener(onClickSend);
+        // buttonSearch = findViewById(R.id.scanBut);
+        // buttonSearch.setOnClickListener(onClickSearch);
     }
 
     final BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -101,14 +106,53 @@ public class BluetoothActivity extends AppCompatActivity
 
     @Override
     public void onDeviceClick(int position) {
-        BluetoothDevice device = bluetoothDevices.get(position);
+        indexBluetoothDevice = position;
+
+        int countViews = recyclerView.getChildCount();
+        for (int i = 0; i < countViews; i++) {
+            View view = recyclerView.getChildAt(i);
+            TextView textDeviceName = view.findViewById(R.id.textDeviceName);
+            if (i == indexBluetoothDevice) {
+                textDeviceName.setTextColor(getResources().getColor(R.color.dark_ocean));
+                textDeviceName.setTypeface(null, Typeface.BOLD);
+            }
+            else {
+                textDeviceName.setTextColor(getResources().getColor(R.color.dark_blue));
+                textDeviceName.setTypeface(null, Typeface.NORMAL);
+            }
+        }
+    }
+
+    private void runBluetoothTest() {
+        bluetoothController = new BluetoothController(this);
+        BluetoothDevice device = bluetoothDevices.get(indexBluetoothDevice);
         device.createBond();
         bluetoothController.connectToDevice(device);
+        BluetoothController.isBluetoothRun = true;
+    }
 
+    private void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    private View.OnClickListener onClickConnect = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (indexBluetoothDevice != -1) {
+                runBluetoothTest();
+                goToMainActivity();
+            }
+        }
+    };
+
+    private View.OnClickListener onClickSkip = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            goToMainActivity();
+        }
+    };
 
     private View.OnClickListener onClickSearch = new View.OnClickListener() {
         @Override
@@ -118,14 +162,6 @@ public class BluetoothActivity extends AppCompatActivity
             if (bluetoothAdapter.isDiscovering())
                 bluetoothAdapter.cancelDiscovery();
             bluetoothAdapter.startDiscovery();
-        }
-    };
-
-    private View.OnClickListener onClickSend = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String string = "TEst mess";
-            bluetoothController.sendData(string);
         }
     };
 
