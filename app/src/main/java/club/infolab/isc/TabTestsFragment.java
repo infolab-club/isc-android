@@ -38,17 +38,23 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         tests.add("Constant voltage");
         tests.add("Chronoamperometry");
         tests.add("Square wave");
+        tests.add("Stripping voltammetry");
     }
 
     @Override
     public void onTestClick(int position) {
         CurrentTest.results.clear();
-//        CurrentTest currentTest = new CurrentTest(this);
-//        currentTest.Reader(position);
-        Intent test_intent = new Intent(TabTestsFragment.this.getActivity(), ParamsActivity.class);
+
+        Intent intent;
         String testName = tests.get(position);
-        test_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
-        test_intent.putExtra(GraphActivity.EXTRA_INDEX, position);
-        startActivity(test_intent);
+        if (testName.equals("Stripping voltammetry")) {
+            intent = new Intent(TabTestsFragment.this.getActivity(), GraphActivity.class);
+        }
+        else {
+            intent = new Intent(TabTestsFragment.this.getActivity(), ParamsActivity.class);
+        }
+        intent.putExtra(GraphActivity.EXTRA_TEST, testName);
+        intent.putExtra(GraphActivity.EXTRA_INDEX, position);
+        startActivity(intent);
     }
 }

@@ -46,6 +46,12 @@ public class CurrentTest {
             case 2:
                 currentFile = "sample_input/sinusoid.txt";
                 break;
+            case 6:
+                currentFile = "sample_input/stripping1.txt";
+                break;
+            case 7:
+                currentFile = "sample_input/stripping2.txt";
+                break;
             default:
                 currentFile = "sample_input/constant_voltage.txt";
                 break;

@@ -9,13 +9,19 @@ import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.MomentTest;
 
 public class TestSimulation {
-    private final int PERIOD = 10;
+    private int PERIOD = 10;
     private TestSimulationCallback callback;
     private ArrayList<MomentTest> testSimulationResult = new ArrayList<>();
     private int indexCurrentTest = 0;
     private Handler handler = new Handler();
 
     public void startSimulation(Context context, TestSimulationCallback callback, int testIndex) {
+        if (testIndex == 6 || testIndex == 7) {
+            PERIOD = 214;
+        }
+        else {
+            PERIOD = 10;
+        }
         testSimulationResult = CurrentTest.getTestsFromFiles(context, testIndex);
         this.callback = callback;
         handler.postDelayed(timeUpdaterRunnable, PERIOD);

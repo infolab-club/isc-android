@@ -43,21 +43,30 @@ public class GraphActivity extends AppCompatActivity
     LimitLine limitX = new LimitLine(0f);
     LimitLine limitY = new LimitLine(0f);
     private BluetoothController bluetoothController;
+    private boolean isStripping;
+    public static int countStripping = 0;
+    public static ArrayList<MomentTest> stripping1 = new ArrayList<>();
+    public static ArrayList<MomentTest> stripping2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        if (BluetoothController.isBluetoothRun) {
-            bluetoothController = new BluetoothController(this);
-            BluetoothController.isTestRun = true;
-        }
-
         Intent intent = getIntent();
         final String testName = intent.getStringExtra(EXTRA_TEST);
         TextView nameTestView = findViewById(R.id.name_test);
         nameTestView.setText(testName);
+
+        if (testName.equals("Stripping voltammetry")) {
+            isStripping = true;
+            countStripping++;
+        }
+
+        if (BluetoothController.isBluetoothRun && !isStripping) {
+            bluetoothController = new BluetoothController(this);
+            BluetoothController.isTestRun = true;
+        }
 
         chart = findViewById(R.id.chart);
         stylingChart();
@@ -81,8 +90,12 @@ public class GraphActivity extends AppCompatActivity
             }
         });
 
-        if (!BluetoothController.isBluetoothRun) {
+        if (!BluetoothController.isBluetoothRun || isStripping) {
             int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
+            if (indexTest == 6) {
+                indexTest = countStripping == 1 ? 6 : 7;
+                radioGroup.setVisibility(View.GONE);
+            }
             testSimulation = new TestSimulation();
             testSimulation.startSimulation(this, this, indexTest);
         }
@@ -92,7 +105,7 @@ public class GraphActivity extends AppCompatActivity
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (BluetoothController.isBluetoothRun) {
+                if (BluetoothController.isBluetoothRun && !isStripping) {
                     BluetoothController.isTestRun = false;
                 }
                 else {
@@ -107,7 +120,17 @@ public class GraphActivity extends AppCompatActivity
 
     @Override
     public void getTestData(MomentTest testData) {
-        CurrentTest.results.add(testData);
+        if (!isStripping) {
+            CurrentTest.results.add(testData);
+        }
+        else {
+            if (countStripping == 1) {
+                stripping1.add(testData);
+            }
+            else {
+                stripping2.add(testData);
+            }
+        }
         drawChart();
     }
 
@@ -139,22 +162,41 @@ public class GraphActivity extends AppCompatActivity
     private void drawChart() {
         chart.clear();
         List<Entry> entries = new ArrayList<>();
+        List<Entry> entries2 = new ArrayList<>();
         String labelX = "";
         String labelY = "";
-        for (MomentTest moment : CurrentTest.results) {
-            // turn your data into Entry objects
-            switch(currentAxes) {
-                case 0:
-                    entries.add(new Entry(moment.getTime(), moment.getVoltage()));
-                    break;
-                case 1:
-                    entries.add(new Entry(moment.getTime(), moment.getAmperage()));
-                    break;
-                case 2:
-                    entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
-                    break;
+        if (!isStripping) {
+            for (MomentTest moment : CurrentTest.results) {
+                // turn your data into Entry objects
+                switch (currentAxes) {
+                    case 0:
+                        entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                        break;
+                    case 1:
+                        entries.add(new Entry(moment.getTime(), moment.getAmperage()));
+                        break;
+                    case 2:
+                        entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
+                        break;
+                }
             }
         }
+        else {
+            if (countStripping == 1) {
+                for (MomentTest moment : stripping1) {
+                    entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                }
+            }
+            else {
+                for (MomentTest moment : stripping1) {
+                    entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                }
+                for (MomentTest moment : stripping2) {
+                    entries2.add(new Entry(moment.getTime(), moment.getVoltage()));
+                }
+            }
+        }
+
         switch(currentAxes) {
             case 0:
                 labelY = "time, sec";
@@ -169,8 +211,15 @@ public class GraphActivity extends AppCompatActivity
                 labelX = "current, uA";
                 break;
         }
+
+        if (isStripping) {
+            labelY = "E, V";
+            labelX = "I, µA";
+        }
+
         limitX.setLabel(labelX);
         limitY.setLabel(labelY);
+
         LineDataSet dataSet = new LineDataSet(entries, "");
         dataSet.setCircleColor(Color.rgb(61, 165, 244));
         dataSet.setCircleHoleColor(Color.rgb(61, 165, 244));
@@ -178,17 +227,36 @@ public class GraphActivity extends AppCompatActivity
         dataSet.setDrawValues(false);
         dataSet.setLineWidth(4f);
         dataSet.setColor(Color.rgb(61, 165, 244));
+
+        LineDataSet dataSet2 = new LineDataSet(entries2, "");
+        if (countStripping == 2) {
+            dataSet2.setCircleColor(Color.rgb(61, 244, 165));
+            dataSet2.setCircleHoleColor(Color.rgb(61, 244, 165));
+            dataSet2.setCircleRadius(2f);
+            dataSet2.setDrawValues(false);
+            dataSet2.setLineWidth(4f);
+            dataSet2.setColor(Color.rgb(61, 244, 165));
+        }
+
         LineData lineData = new LineData(dataSet);
+        if (countStripping == 2) {
+            lineData.addDataSet(dataSet2);
+        }
         chart.setData(lineData);
     }
 
     @Override
     protected void onStop() {
-        if (BluetoothController.isBluetoothRun) {
+        if (BluetoothController.isBluetoothRun && !isStripping) {
             BluetoothController.isTestRun = false;
         }
         else {
             testSimulation.stopSimulation();
+        }
+        if (countStripping == 2) {
+            countStripping = 0;
+            stripping1.clear();
+            stripping2.clear();
         }
         super.onStop();
     }
