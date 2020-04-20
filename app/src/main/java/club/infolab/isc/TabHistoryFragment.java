@@ -60,7 +60,7 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
 
     public void setHistoryData() {
         histories.clear();
-        for (int i = 1; i <= db.getCountRows(); i++) {
+        for (long i = db.getCountRows(); i >= 1; i--) {
             Record r = db.select(i);
             String isLoaded = "Local";
             if (r.getIsLoaded() == 1) {
@@ -73,13 +73,13 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
 
     @Override
     public void onHistoryClick(int position) {
-        indexHistory = position;
-
         int countViews = recyclerView.getChildCount();
+        indexHistory = countViews - position - 1;
+
         for (int i = 0; i < countViews; i++) {
             View view = recyclerView.getChildAt(i);
             View checkItem = view.findViewById(R.id.checkItemHistory);
-            if (i == indexHistory) {
+            if (i == position) {
                 checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_on));
             }
             else {
