@@ -7,10 +7,21 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MyToolbarTheme"
         parent="@style/ThemeOverlay.AppCompat.Dark">
         <item name="colorControlNormal">@color/white</item>
         <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="textHeader">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/textHeader</item>
+    </style>
+
+    <style name="textItem">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/textHeader</item>
     </style>
 
 </resources>

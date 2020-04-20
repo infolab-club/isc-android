@@ -13,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import club.infolab.isc.image.ImageCompression;
+import com.squareup.picasso.Picasso;
 
-public class LoadingActivity extends AppCompatActivity
-        implements ImageCompression.CompressionCallback {
+public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 1500;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
@@ -29,9 +28,9 @@ public class LoadingActivity extends AppCompatActivity
         setContentView(R.layout.activity_loading);
 
         ImageView imageView = findViewById(R.id.loading_logo);
-        ImageCompression compression = new ImageCompression(this, this,
-                R.drawable.isc_logo, imageView);
-        compression.startCompression();
+        Picasso.get().load(R.drawable.isc_logo).into(imageView);
+        checkPermission();
+        checkBluetoothEnable();
     }
 
     private void checkBluetoothEnable() {
@@ -64,12 +63,6 @@ public class LoadingActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void finishCompression() {
-        checkPermission();
-        checkBluetoothEnable();
     }
 
     private void checkPermission() {

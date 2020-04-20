@@ -7,4 +7,5 @@
     <string name="view_btn">View</string>
     <string name="connect_btn">Connect</string>
     <string name="skip_btn">Skip</string>
+    <string name="header">Connection to the station</string>
 </resources>

@@ -8,4 +8,6 @@
     <color name="blue">#0066FF</color>
     <color name="dark_ocean">#000033</color>
     <color name="background_white">#FAFAFA</color>
+    <color name="itemBluetooth">#FDFAFF</color>
+    <color name="textHeader">#343C6A</color>
 </resources>
