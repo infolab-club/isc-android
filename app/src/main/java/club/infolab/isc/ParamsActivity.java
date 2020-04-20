@@ -51,6 +51,7 @@ public class ParamsActivity extends AppCompatActivity
                 Intent graph_intent = new Intent(ParamsActivity.this, GraphActivity.class);
                 graph_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
                 graph_intent.putExtra(GraphActivity.EXTRA_INDEX, testIndex);
+                graph_intent.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "test");
                 startActivity(graph_intent);
                 finish();
             }

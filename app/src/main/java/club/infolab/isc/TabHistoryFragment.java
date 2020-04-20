@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +22,7 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     private ArrayList<History> histories = new ArrayList<>();
     private DBRecords db;
     private View rootView;
+    private int indexHistory = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +30,19 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
         rootView = inflater.inflate(R.layout.fragment_history, container, false);
         db = new DBRecords(getContext());
         recyclerView = rootView.findViewById(R.id.tab_history_list);
+        Button viewBtn = rootView.findViewById(R.id.view_btn);
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (indexHistory > -1){
+                    Intent i = new Intent(getContext(), GraphActivity.class);
+                    i.putExtra(GraphActivity.EXTRA_INDEX, indexHistory);
+                    i.putExtra(GraphActivity.EXTRA_TEST, db.select(indexHistory + 1).getName());
+                    i.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "history");
+                    startActivity(i);
+                }
+            }
+        });
         return rootView;
     }
 
@@ -59,6 +73,19 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
 
     @Override
     public void onHistoryClick(int position) {
+        indexHistory = position;
+
+        int countViews = recyclerView.getChildCount();
+        for (int i = 0; i < countViews; i++) {
+            View view = recyclerView.getChildAt(i);
+            View checkItem = view.findViewById(R.id.checkItemHistory);
+            if (i == indexHistory) {
+                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_on));
+            }
+            else {
+                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_off));
+            }
+        }
 //        View view = recyclerView.getChildAt(position);
 //        TextView textTestName = view.findViewById(R.id.textHistoryTestName);
 //        textTestName.setText(db.select(position).getName());

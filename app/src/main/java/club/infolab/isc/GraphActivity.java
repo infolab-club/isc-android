@@ -38,11 +38,14 @@ public class GraphActivity extends AppCompatActivity
         implements TestSimulationCallback, BluetoothCallback {
     public static final String EXTRA_TEST = "testName";
     public static final String EXTRA_INDEX = "testIndex";
+    public static final String EXTRA_STATUS_GRAPH = "statusGraph"; // test, stripping, history
+//    public static final String EXTRA_JSON_INDEX = "json";
     LineChart chart;
     TestSimulation testSimulation;
     private int currentAxes = 0;
     LimitLine limitX = new LimitLine(0f);
     LimitLine limitY = new LimitLine(0f);
+    Button stopBtn;
     private BluetoothController bluetoothController;
     private boolean isStripping;
     public static int countStripping = 0;
@@ -51,6 +54,7 @@ public class GraphActivity extends AppCompatActivity
     public static ArrayList<MomentTest> stripping2 = new ArrayList<>();
     private TextView textStatusStripping;
     private TextView textTimeStripping;
+    private String statusGraph;
     int indexTest;
     MyTimer timer;
 
@@ -62,6 +66,7 @@ public class GraphActivity extends AppCompatActivity
         Intent intent = getIntent();
         final String testName = intent.getStringExtra(EXTRA_TEST);
         indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
+        statusGraph = intent.getStringExtra(EXTRA_STATUS_GRAPH);
         TextView nameTestView = findViewById(R.id.name_test);
         nameTestView.setText(testName);
 
@@ -70,7 +75,7 @@ public class GraphActivity extends AppCompatActivity
             countStripping++;
         }
 
-        if (BluetoothController.isBluetoothRun && !isStripping) {
+        if (BluetoothController.isBluetoothRun && !isStripping && !statusGraph.equals("history")) {
             bluetoothController = new BluetoothController(this);
             BluetoothController.isTestRun = true;
         }
@@ -115,7 +120,8 @@ public class GraphActivity extends AppCompatActivity
 
         final Date dateOfStart = Calendar.getInstance().getTime();
 
-        Button stopBtn = findViewById(R.id.buttonSave);
+        stopBtn = findViewById(R.id.buttonSave);
+
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +157,14 @@ public class GraphActivity extends AppCompatActivity
                 textTimeStripping.setVisibility(View.GONE);
             }
         }
-        else if (BluetoothController.isBluetoothRun) {
+        else if (BluetoothController.isBluetoothRun && !statusGraph.equals("history")) {
+            return;
+        }
+        else if (statusGraph.equals("history")) {
+            stopBtn.setVisibility(View.INVISIBLE);
+            DBRecords db = new DBRecords(this);
+            CurrentTest.results = CurrentTest.convertJsonToTests(db.select(indexTest + 1).getJson());
+            drawChart();
             return;
         }
         testSimulation = new TestSimulation();
@@ -293,7 +306,7 @@ public class GraphActivity extends AppCompatActivity
         if (BluetoothController.isBluetoothRun && !isStripping) {
             BluetoothController.isTestRun = false;
         }
-        else {
+        else if (testSimulation != null){
             testSimulation.stopSimulation();
         }
         if (countStripping == 2) {

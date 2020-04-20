@@ -20,6 +20,7 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     HistoryAdapter(Context context, List<History> histories, OnHistoryListener onHistoryListener) {
         this.histories = histories;
         this.inflater = LayoutInflater.from(context);
+        this.onHistoryClickListener = onHistoryListener;
     }
 
     @NonNull
@@ -57,7 +58,7 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            // onHistoryClickListener.onHistoryClick(getAdapterPosition());
+            onHistoryClickListener.onHistoryClick(getAdapterPosition());
         }
     }
     public interface OnHistoryListener{
