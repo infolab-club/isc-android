@@ -2,23 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginLeft="50dp"
+    android:orientation="horizontal"
+    android:background="@drawable/style_item_list"
+    android:paddingLeft="32dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="19dp"
     android:layout_marginBottom="10dp">
-
 
     <TextView
         android:id="@+id/textDeviceName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/style_item_bluetooth"
-        android:paddingLeft="32dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="19dp"
+        android:layout_weight="3"
+        android:layout_gravity="center_vertical"
         android:text="Device's Name"
         android:textAppearance="@style/textItem" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="32dp"
+        android:layout_weight="1">
+        <View
+            android:id="@+id/checkItemDevice"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right"
+            android:background="@drawable/style_check_off" />
+    </LinearLayout>
 
 </LinearLayout>

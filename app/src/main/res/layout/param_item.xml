@@ -1,29 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:background="@drawable/style_item_list"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/param_name_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"    android:gravity="center_vertical"
-        android:text = "Param name"
-        android:textSize="20sp"
-        android:layout_weight="2"
-        />
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text = "Param's Name"
+        android:textAppearance="@style/textItem"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/edit_values"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Default value"
-        android:textSize="20sp"
-        android:layout_weight="3"
+        android:hint="Value"
+        android:textAppearance="@style/textItem"
+        android:layout_weight="5"
         android:layout_marginLeft="10dp"
-        android:inputType="numberDecimal|numberSigned"
-        />
+        android:inputType="numberDecimal|numberSigned" />
 
 </LinearLayout>

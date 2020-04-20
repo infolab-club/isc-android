@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -14,19 +15,35 @@
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightBluetooth"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftBluetooth"
+        app:layout_constraintTop_toTopOf="@+id/textHeaderBluetooth">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textHeaderBluetooth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/header"
+        android:textAppearance="@style/textHeader"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/buttonConnect"
         android:layout_width="128dp"
         android:layout_height="36dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/style_btn_blue"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:shadowRadius="1"
+        android:background="@drawable/style_button_blue"
+        android:alpha=".8"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="@string/connect_btn"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -39,9 +56,9 @@
         android:id="@+id/buttonSkip"
         android:layout_width="128dp"
         android:layout_height="36dp"
-        android:background="@drawable/style_btn_white"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:shadowRadius="1"
+        android:background="@drawable/style_button_white"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="@string/skip_btn"
         android:textAllCaps="false"
         android:textColor="@color/dark_ocean"
@@ -57,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRightBluetooth"
@@ -65,24 +82,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
-
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="215dp"
-        android:layout_height="84dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="37dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/header"
-        android:textAppearance="@style/textHeader"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

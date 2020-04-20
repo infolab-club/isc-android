@@ -2,42 +2,57 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/style_item_list"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="19dp">
 
     <TextView
         android:id="@+id/history_test_name_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:gravity="center_vertical"
+        android:layout_marginLeft="32dp"
         android:text="Test's Name"
-        android:textColor="@color/dark_ocean"
-        android:textSize="20sp" />
+        android:textAppearance="@style/textItem" />
 
     <TextView
         android:id="@+id/date_of_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="History test date"
-        android:textSize="14sp" />
+        android:layout_marginLeft="8dp"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/is_loaded"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="Local"
-        android:textSize="14sp" />
+        android:visibility="gone"
+        android:textSize="4sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="32dp"
+        android:layout_weight="1">
+        <View
+            android:id="@+id/checkItemHistory"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right"
+            android:background="@drawable/style_check_off" />
+    </LinearLayout>
 
 
 </LinearLayout>

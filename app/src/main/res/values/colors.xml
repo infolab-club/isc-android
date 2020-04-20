@@ -5,9 +5,12 @@
     <color name="colorAccent">#40C4FF</color>
     <color name="white">#FFFFFF</color>
     <color name="dark_blue">#3F51B5</color>
-    <color name="blue">#0066FF</color>
+    <color name="blue">#1E6AFF</color>
     <color name="dark_ocean">#000033</color>
     <color name="background_white">#FAFAFA</color>
     <color name="itemBluetooth">#FDFAFF</color>
     <color name="textHeader">#343C6A</color>
+    <color name="checkInner">#FFFFFF</color>
+    <color name="checkOut">#CDDEFF</color>
+    <color name="checkOn">#1E6AFF</color>
 </resources>

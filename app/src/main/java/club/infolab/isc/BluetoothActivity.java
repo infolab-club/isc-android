@@ -111,14 +111,12 @@ public class BluetoothActivity extends AppCompatActivity
         int countViews = recyclerView.getChildCount();
         for (int i = 0; i < countViews; i++) {
             View view = recyclerView.getChildAt(i);
-            TextView textDeviceName = view.findViewById(R.id.textDeviceName);
+            View checkItem = view.findViewById(R.id.checkItemDevice);
             if (i == indexBluetoothDevice) {
-                textDeviceName.setTextColor(getResources().getColor(R.color.dark_ocean));
-                textDeviceName.setTypeface(null, Typeface.BOLD);
+                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_on));
             }
             else {
-                textDeviceName.setTextColor(getResources().getColor(R.color.dark_blue));
-                textDeviceName.setTypeface(null, Typeface.NORMAL);
+                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_off));
             }
         }
     }

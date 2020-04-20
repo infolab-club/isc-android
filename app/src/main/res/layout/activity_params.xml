@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ParamsActivity">
 
     <TextView
         android:id="@+id/name_test_params"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
         android:text="Name of test"
-        android:textSize="24sp"
+        android:textAppearance="@style/textHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -20,27 +22,27 @@
 
     <ScrollView
         android:id="@+id/scroll_params"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/name_test_params">
 
         <LinearLayout
             android:id="@+id/params_lines"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <Button
         android:id="@+id/toChart_btn"
         android:layout_width="128dp"
         android:layout_height="36dp"
-        android:background="@drawable/style_btn_blue"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:shadowRadius="1"
+        android:background="@drawable/style_button_blue"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="@string/start_chart_btn"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -57,5 +59,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
