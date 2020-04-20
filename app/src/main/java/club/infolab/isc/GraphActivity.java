@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -45,8 +46,13 @@ public class GraphActivity extends AppCompatActivity
     private BluetoothController bluetoothController;
     private boolean isStripping;
     public static int countStripping = 0;
+    private int stageStripping = 0;
     public static ArrayList<MomentTest> stripping1 = new ArrayList<>();
     public static ArrayList<MomentTest> stripping2 = new ArrayList<>();
+    private TextView textStatusStripping;
+    private TextView textTimeStripping;
+    int indexTest;
+    MyTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class GraphActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         final String testName = intent.getStringExtra(EXTRA_TEST);
+        indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
         TextView nameTestView = findViewById(R.id.name_test);
         nameTestView.setText(testName);
 
@@ -70,6 +77,9 @@ public class GraphActivity extends AppCompatActivity
 
         chart = findViewById(R.id.chart);
         stylingChart();
+
+        textStatusStripping = findViewById(R.id.textStatusStripping);
+        textTimeStripping = findViewById(R.id.textTimeStripping);
 
         RadioGroup radioGroup = findViewById(R.id.radio_group);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -90,15 +100,19 @@ public class GraphActivity extends AppCompatActivity
             }
         });
 
-        if (!BluetoothController.isBluetoothRun || isStripping) {
-            int indexTest = intent.getIntExtra(EXTRA_INDEX, 0);
-            if (indexTest == 6) {
-                indexTest = countStripping == 1 ? 6 : 7;
-                radioGroup.setVisibility(View.GONE);
-            }
-            testSimulation = new TestSimulation();
-            testSimulation.startSimulation(this, this, indexTest);
+        if (isStripping) {
+            radioGroup.setVisibility(View.GONE);
+            textStatusStripping.setVisibility(View.VISIBLE);
+            textTimeStripping.setVisibility(View.VISIBLE);
+
+            indexTest = countStripping == 1 ? 6 : 7;
         }
+        else {
+            radioGroup.setVisibility(View.VISIBLE);
+            textStatusStripping.setVisibility(View.GONE);
+            textTimeStripping.setVisibility(View.GONE);
+        }
+
         final Date dateOfStart = Calendar.getInstance().getTime();
 
         Button stopBtn = findViewById(R.id.buttonSave);
@@ -116,6 +130,32 @@ public class GraphActivity extends AppCompatActivity
                 db.insert(testName, dateOfStart.toString(), 0, jsonResults);
             }
         });
+
+        startSimulation();
+    }
+
+    private void startSimulation() {
+        if (isStripping) {
+            if (stageStripping == 0) {
+                timer = new MyTimer(5000, 1000);
+                timer.start();
+                return;
+            }
+            else if (stageStripping == 1) {
+                textStatusStripping.setText("Deposition");
+                timer.start();
+                return;
+            }
+            else {
+                textStatusStripping.setVisibility(View.GONE);
+                textTimeStripping.setVisibility(View.GONE);
+            }
+        }
+        else if (BluetoothController.isBluetoothRun) {
+            return;
+        }
+        testSimulation = new TestSimulation();
+        testSimulation.startSimulation(this, this, indexTest);
     }
 
     @Override
@@ -266,5 +306,27 @@ public class GraphActivity extends AppCompatActivity
         MomentTest testData = CurrentTest.getMomentFromString(data);
         CurrentTest.results.add(testData);
         drawChart();
+    }
+
+    public class MyTimer extends CountDownTimer
+    {
+
+        public MyTimer(long millisInFuture, long countDownInterval)
+        {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish()
+        {
+            stageStripping++;
+            startSimulation();
+        }
+
+        public void onTick(long millisUntilFinished)
+        {
+            textTimeStripping.setText(String.valueOf(millisUntilFinished / 1000 + 1));
+        }
+
     }
 }
