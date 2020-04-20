@@ -4,14 +4,19 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class CurrentTest {
     public static ArrayList<MomentTest> results = new ArrayList<>();
+    public static Type itemsArrType = new TypeToken<ArrayList<MomentTest>>() {}.getType();
+
     public static void appendMomentTest(String moment) {
         MomentTest momentTest = getMomentFromString(moment);
         results.add(momentTest);
@@ -30,6 +35,12 @@ public class CurrentTest {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String currentTestJson = gson.toJson(current);
         return currentTestJson;
+    }
+
+
+    public static ArrayList convertJsonToTests(String json){
+    ArrayList<MomentTest> current = new Gson().fromJson(json, itemsArrType);
+        return current;
     }
 
     public static ArrayList<MomentTest> getTestsFromFiles(Context context, int fileNumber) {
