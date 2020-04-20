@@ -13,11 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.squareup.picasso.Picasso;
+import club.infolab.isc.image.ImageCompression;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity
+        implements ImageCompression.CompressionCallback {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
-    private static int SPLASH_TIME_OUT = 100;
+    private static int SPLASH_TIME_OUT = 1500;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
@@ -26,11 +27,11 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+
         ImageView imageView = findViewById(R.id.loading_logo);
-        Picasso.get().load(R.drawable.isc_logo).into(imageView);
-        checkPermission();
-        //Проверка Bluetooth
-        checkBluetoothEnable();
+        ImageCompression compression = new ImageCompression(this, this,
+                R.drawable.isc_logo, imageView);
+        compression.startCompression();
     }
 
     private void checkBluetoothEnable() {
@@ -65,6 +66,12 @@ public class LoadingActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void finishCompression() {
+        checkPermission();
+        checkBluetoothEnable();
+    }
+
     private void checkPermission() {
         int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
@@ -88,7 +95,6 @@ public class LoadingActivity extends AppCompatActivity {
                 return;
         }
     }
-
 }
 
 

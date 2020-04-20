@@ -176,7 +176,9 @@ public class GraphActivity extends AppCompatActivity
 
     private void stylingChart(){
         Legend legend = chart.getLegend();
-        legend.setEnabled(false);
+        if (!isStripping) {
+            legend.setEnabled(false);
+        }
 
         Description d = chart.getDescription();
         d.setEnabled(false);
@@ -244,23 +246,23 @@ public class GraphActivity extends AppCompatActivity
                 break;
             case 1:
                 labelY = "time, sec";
-                labelX = "current, uA";
+                labelX = "current, мкA";
                 break;
             case 2:
                 labelY = "potential, V";
-                labelX = "current, uA";
+                labelX = "current, мкA";
                 break;
         }
 
         if (isStripping) {
             labelY = "E, V";
-            labelX = "I, µA";
+            labelX = "I, мкA";
         }
 
         limitX.setLabel(labelX);
         limitY.setLabel(labelY);
 
-        LineDataSet dataSet = new LineDataSet(entries, "");
+        LineDataSet dataSet = new LineDataSet(entries, "Test №1");
         dataSet.setCircleColor(Color.rgb(61, 165, 244));
         dataSet.setCircleHoleColor(Color.rgb(61, 165, 244));
         dataSet.setCircleRadius(2f);
@@ -268,7 +270,7 @@ public class GraphActivity extends AppCompatActivity
         dataSet.setLineWidth(4f);
         dataSet.setColor(Color.rgb(61, 165, 244));
 
-        LineDataSet dataSet2 = new LineDataSet(entries2, "");
+        LineDataSet dataSet2 = new LineDataSet(entries2, "Test №2");
         if (countStripping == 2) {
             dataSet2.setCircleColor(Color.rgb(61, 244, 165));
             dataSet2.setCircleHoleColor(Color.rgb(61, 244, 165));
@@ -283,6 +285,7 @@ public class GraphActivity extends AppCompatActivity
             lineData.addDataSet(dataSet2);
         }
         chart.setData(lineData);
+        chart.invalidate();
     }
 
     @Override
