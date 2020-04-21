@@ -67,14 +67,11 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void checkPermission() {
         int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_CODE_PERMISSION);
         }
-
     }
 
     @Override

@@ -66,7 +66,7 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
             if (r.getIsLoaded() == 1) {
                 isLoaded = "Cloud";
             }
-            histories.add(new History(r.getName(), r.getDate(), isLoaded));
+            histories.add(0, new History(r.getName(), r.getDate(), isLoaded));
             Log.d("HISTORY", "Added " + i + " History");
         }
     }
