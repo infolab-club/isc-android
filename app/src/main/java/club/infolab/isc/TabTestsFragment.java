@@ -2,6 +2,7 @@ package club.infolab.isc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         setInitialData();
         recyclerView = view.findViewById(R.id.tab_tests_list);
 
-        testAdapter = new TestAdapter(getActivity(), tests, this);
+        testAdapter = new TestAdapter(getActivity(), this, tests);
         recyclerView.setAdapter(testAdapter);
 
         buttonSetParams = view.findViewById(R.id.set_params_btn);
@@ -55,18 +56,6 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
     @Override
     public void onTestClick(int position) {
         indexTest = position;
-
-        int countViews = recyclerView.getChildCount();
-        for (int i = 0; i < countViews; i++) {
-            View view = recyclerView.getChildAt(i);
-            View checkItem = view.findViewById(R.id.checkItemTest);
-            if (i == indexTest) {
-                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_on));
-            }
-            else {
-                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_off));
-            }
-        }
     }
 
     private View.OnClickListener onClickSetParams = new View.OnClickListener() {

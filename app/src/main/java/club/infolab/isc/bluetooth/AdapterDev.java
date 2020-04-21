@@ -15,26 +15,37 @@ import club.infolab.isc.R;
 
 
 public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
+    private Context context;
+    private onDeviceListener onDeviceListener;
     private LayoutInflater inflater;
     private ArrayList<String> dataBase;
-    private OnTestListener mOnTestListener;
+    private int selectedPosition = -1;
 
-    public AdapterDev(Context context, ArrayList data, OnTestListener onTestListener){
+    public AdapterDev(Context context, ArrayList data, onDeviceListener onDeviceListener){
+        this.context = context;
+        this.onDeviceListener = onDeviceListener;
         this.dataBase = data;
         this.inflater = LayoutInflater.from(context);
-        this.mOnTestListener = onTestListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_device, parent, false);
-        return new ViewHolder(view, mOnTestListener);
+        return new ViewHolder(view, onDeviceListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textDeviceName.setText(dataBase.get(position));
+        if (selectedPosition == position) {
+            holder.checkItem.setBackground(context.getResources()
+                    .getDrawable(R.drawable.style_check_on));
+        }
+        else {
+            holder.checkItem.setBackground(context.getResources()
+                    .getDrawable(R.drawable.style_check_off));
+        }
     }
 
     @Override
@@ -42,24 +53,33 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
         return dataBase.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textDeviceName;
-        OnTestListener onTestListener;
+        onDeviceListener onDeviceListener;
+        View checkItem;
 
-        ViewHolder(View view, OnTestListener onTestListener){
+        ViewHolder(View view, final onDeviceListener onDeviceListener){
             super(view);
             textDeviceName = view.findViewById(R.id.textDeviceName);
-            this.onTestListener = onTestListener;
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            onTestListener.onDeviceClick(getAdapterPosition());
+            this.onDeviceListener = onDeviceListener;
+            checkItem = view.findViewById(R.id.checkItemDevice);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onDeviceListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onDeviceListener.onDeviceClick(position);
+                            selectedPosition = position;
+                            notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
         }
     }
 
-    public interface OnTestListener{
+    public interface onDeviceListener {
         void onDeviceClick(int position);
     }
 }

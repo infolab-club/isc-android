@@ -14,6 +14,7 @@
         <item name="titleTextColor">@color/white</item>
     </style>
 
+
     <style name="textHeader">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/textHeader</item>

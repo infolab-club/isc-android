@@ -11,14 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
+    private Context context;
+    private OnTestListener mOnTestListener;
     private LayoutInflater inflater;
     private ArrayList<String> tests;
-    private OnTestListener mOnTestListener;
+    private int selectedPosition = -1;
 
-    TestAdapter(Context context, ArrayList<String> tests, OnTestListener onTestListener) {
+    TestAdapter(Context context, OnTestListener onTestListener, ArrayList<String> tests) {
+        this.context = context;
+        this.mOnTestListener = onTestListener;
         this.tests = tests;
         this.inflater = LayoutInflater.from(context);
-        this.mOnTestListener = onTestListener;
     }
 
     @NonNull
@@ -31,6 +34,14 @@ class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(TestAdapter.ViewHolder holder, int position) {
         holder.testNameView.setText(tests.get(position));
+        if (selectedPosition == position) {
+            holder.checkItem.setBackground(context.getResources()
+                    .getDrawable(R.drawable.style_check_on));
+        }
+        else {
+            holder.checkItem.setBackground(context.getResources()
+                    .getDrawable(R.drawable.style_check_off));
+        }
     }
 
     @Override
@@ -38,25 +49,31 @@ class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         return tests.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView testNameView;
-        OnTestListener onTestListener;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView testNameView;
+        View checkItem;
 
-        ViewHolder(View view, OnTestListener onTestListener){
+        ViewHolder(View view, final OnTestListener onTestListener) {
             super(view);
             testNameView = view.findViewById(R.id.test_name_item);
-            this.onTestListener = onTestListener;
-
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            onTestListener.onTestClick(getAdapterPosition());
+            checkItem = view.findViewById(R.id.checkItemTest);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onTestListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onTestListener.onTestClick(position);
+                            selectedPosition = position;
+                            notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
         }
     }
 
-    public interface OnTestListener{
+    public interface OnTestListener {
         void onTestClick(int position);
     }
 }

@@ -259,17 +259,17 @@ public class GraphActivity extends AppCompatActivity
                 break;
             case 1:
                 labelY = "time, sec";
-                labelX = "current, мкA";
+                labelX = "current, uA";
                 break;
             case 2:
                 labelY = "potential, V";
-                labelX = "current, мкA";
+                labelX = "current, uA";
                 break;
         }
 
         if (isStripping) {
             labelY = "E, V";
-            labelX = "I, мкA";
+            labelX = "I, uA";
         }
 
         limitX.setLabel(labelX);

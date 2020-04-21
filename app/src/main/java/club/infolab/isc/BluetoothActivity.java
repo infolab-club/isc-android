@@ -10,13 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -26,7 +22,7 @@ import club.infolab.isc.bluetooth.BluetoothCallback;
 import club.infolab.isc.bluetooth.BluetoothController;
 
 public class BluetoothActivity extends AppCompatActivity
-        implements AdapterDev.OnTestListener, BluetoothCallback {
+        implements AdapterDev.onDeviceListener, BluetoothCallback {
     private BluetoothController bluetoothController;
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
@@ -107,18 +103,6 @@ public class BluetoothActivity extends AppCompatActivity
     @Override
     public void onDeviceClick(int position) {
         indexBluetoothDevice = position;
-
-        int countViews = recyclerView.getChildCount();
-        for (int i = 0; i < countViews; i++) {
-            View view = recyclerView.getChildAt(i);
-            View checkItem = view.findViewById(R.id.checkItemDevice);
-            if (i == indexBluetoothDevice) {
-                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_on));
-            }
-            else {
-                checkItem.setBackground(getResources().getDrawable(R.drawable.style_check_off));
-            }
-        }
     }
 
     private void runBluetoothTest() {
