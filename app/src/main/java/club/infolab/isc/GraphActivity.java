@@ -2,6 +2,7 @@ package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Entity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -109,8 +110,11 @@ public class GraphActivity extends AppCompatActivity
             }
         });
 
+        stopBtn = findViewById(R.id.buttonSave);
+
         if (isStripping) {
             radioGroup.setVisibility(View.GONE);
+            stopBtn.setVisibility(View.GONE);
             textStatusStripping.setVisibility(View.VISIBLE);
             textTimeStripping.setVisibility(View.VISIBLE);
 
@@ -123,8 +127,6 @@ public class GraphActivity extends AppCompatActivity
         }
 
         final Date dateOfStart = Calendar.getInstance().getTime();
-
-        stopBtn = findViewById(R.id.buttonSave);
 
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +167,7 @@ public class GraphActivity extends AppCompatActivity
             return;
         }
         else if (statusGraph.equals("history")) {
-            stopBtn.setVisibility(View.INVISIBLE);
+            stopBtn.setVisibility(View.GONE);
             DBRecords db = new DBRecords(this);
             CurrentTest.results = CurrentTest.convertJsonToTests(db.select(indexTest + 1).getJson());
             drawChart();
@@ -222,22 +224,31 @@ public class GraphActivity extends AppCompatActivity
 
     private void drawChart() {
         chart.clear();
+        List<List<Entry>> megaEntries = new ArrayList<>();
         List<Entry> entries = new ArrayList<>();
         List<Entry> entries2 = new ArrayList<>();
         String labelX = "";
         String labelY = "";
+
         if (!isStripping) {
-            for (MomentTest moment : CurrentTest.results) {
+            for (int i = 0; i < CurrentTest.results.size() - 1; i++) {
+                List<Entry> smallEntries = new ArrayList<>();
                 // turn your data into Entry objects
                 switch (currentAxes) {
                     case 0:
-                        entries.add(new Entry(moment.getTime(), moment.getVoltage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i).getTime(), CurrentTest.results.get(i).getVoltage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i + 1).getTime(), CurrentTest.results.get(i + 1).getVoltage()));
+                        megaEntries.add(smallEntries);
                         break;
                     case 1:
-                        entries.add(new Entry(moment.getTime(), moment.getAmperage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i).getTime(), CurrentTest.results.get(i).getAmperage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i + 1).getTime(), CurrentTest.results.get(i + 1).getAmperage()));
+                        megaEntries.add(smallEntries);
                         break;
                     case 2:
-                        entries.add(new Entry(moment.getVoltage(), moment.getAmperage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i).getVoltage(), CurrentTest.results.get(i).getAmperage()));
+                        smallEntries.add(new Entry(CurrentTest.results.get(i + 1).getVoltage(), CurrentTest.results.get(i + 1).getAmperage()));
+                        megaEntries.add(smallEntries);
                         break;
                 }
             }
@@ -284,6 +295,28 @@ public class GraphActivity extends AppCompatActivity
         textAxisX.setText(labelY);
         textAxisY.setText(labelX);
 
+        LineData lineData = new LineData();
+
+        if (!isStripping) {
+            for (List<Entry> e: megaEntries) {
+                LineDataSet dataSet = getFirstStyleDataSet(e);
+                lineData.addDataSet(dataSet);
+            }
+        }
+        else {
+            LineDataSet dataSet1 = getFirstStyleDataSet(entries);
+            lineData.addDataSet(dataSet1);
+            if (countStripping == 2) {
+                LineDataSet dataSet2 = getTwoStyleDataSet(entries2);
+                lineData.addDataSet(dataSet2);
+            }
+        }
+
+        chart.setData(lineData);
+        chart.invalidate();
+    }
+
+    private LineDataSet getFirstStyleDataSet(List<Entry> entries) {
         LineDataSet dataSet = new LineDataSet(entries, "Test №1");
         dataSet.setCircleColor(Color.rgb(61, 165, 244));
         dataSet.setCircleHoleColor(Color.rgb(61, 165, 244));
@@ -291,23 +324,18 @@ public class GraphActivity extends AppCompatActivity
         dataSet.setDrawValues(false);
         dataSet.setLineWidth(4f);
         dataSet.setColor(Color.rgb(61, 165, 244));
+        return dataSet;
+    }
 
-        LineDataSet dataSet2 = new LineDataSet(entries2, "Test №2");
-        if (countStripping == 2) {
-            dataSet2.setCircleColor(Color.rgb(61, 244, 165));
-            dataSet2.setCircleHoleColor(Color.rgb(61, 244, 165));
-            dataSet2.setCircleRadius(2f);
-            dataSet2.setDrawValues(false);
-            dataSet2.setLineWidth(4f);
-            dataSet2.setColor(Color.rgb(61, 244, 165));
-        }
-
-        LineData lineData = new LineData(dataSet);
-        if (countStripping == 2) {
-            lineData.addDataSet(dataSet2);
-        }
-        chart.setData(lineData);
-        chart.invalidate();
+    private LineDataSet getTwoStyleDataSet(List<Entry> entries) {
+        LineDataSet dataSet = new LineDataSet(entries, "Test №2");
+        dataSet.setCircleColor(Color.rgb(61, 244, 165));
+        dataSet.setCircleHoleColor(Color.rgb(61, 244, 165));
+        dataSet.setCircleRadius(2f);
+        dataSet.setDrawValues(false);
+        dataSet.setLineWidth(4f);
+        dataSet.setColor(Color.rgb(61, 244, 165));
+        return dataSet;
     }
 
     @Override
