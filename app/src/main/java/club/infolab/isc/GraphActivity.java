@@ -55,6 +55,8 @@ public class GraphActivity extends AppCompatActivity
     private TextView textStatusStripping;
     private TextView textTimeStripping;
     private String statusGraph;
+    private TextView textAxisX;
+    private TextView textAxisY;
     int indexTest;
     MyTimer timer;
 
@@ -85,6 +87,8 @@ public class GraphActivity extends AppCompatActivity
 
         textStatusStripping = findViewById(R.id.textStatusStripping);
         textTimeStripping = findViewById(R.id.textTimeStripping);
+        textAxisX = findViewById(R.id.XAxisText);
+        textAxisY = findViewById(R.id.YAxisText);
 
         RadioGroup radioGroup = findViewById(R.id.radio_group);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -198,6 +202,8 @@ public class GraphActivity extends AppCompatActivity
 
         XAxis xAxis = chart.getXAxis();
         YAxis yAxis = chart.getAxisRight();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        yAxis.setEnabled(false);
 
         limitX.setLineColor(Color.BLACK);
         limitX.setLineWidth(2f);
@@ -272,8 +278,11 @@ public class GraphActivity extends AppCompatActivity
             labelX = "I, uA";
         }
 
-        limitX.setLabel(labelX);
-        limitY.setLabel(labelY);
+//        limitX.setLabel(labelX);
+//        limitY.setLabel(labelY);
+
+        textAxisX.setText(labelY);
+        textAxisY.setText(labelX);
 
         LineDataSet dataSet = new LineDataSet(entries, "Test №1");
         dataSet.setCircleColor(Color.rgb(61, 165, 244));
