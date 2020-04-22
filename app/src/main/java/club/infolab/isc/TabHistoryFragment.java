@@ -37,7 +37,7 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
                 if (indexHistory > -1){
                     Intent i = new Intent(getContext(), GraphActivity.class);
                     i.putExtra(GraphActivity.EXTRA_INDEX, indexHistory);
-                    i.putExtra(GraphActivity.EXTRA_TEST, db.select(indexHistory + 1).getName());
+                    i.putExtra(GraphActivity.EXTRA_TEST, db.select(indexHistory).getName());
                     i.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "history");
                     startActivity(i);
                 }
@@ -66,14 +66,14 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
             if (r.getIsLoaded() == 1) {
                 isLoaded = "Cloud";
             }
-            histories.add(0, new History(r.getName(), r.getDate(), isLoaded));
+            histories.add(new History(r.getName(), r.getDate(), isLoaded));
             Log.d("HISTORY", "Added " + i + " History");
         }
     }
 
     @Override
     public void onHistoryClick(int position) {
-        indexHistory = position;
+        indexHistory = (int) db.getCountRows() - position;
 //        View view = recyclerView.getChildAt(position);
 //        TextView textTestName = view.findViewById(R.id.textHistoryTestName);
 //        textTestName.setText(db.select(position).getName());

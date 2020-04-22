@@ -38,7 +38,7 @@ public class CurrentTest {
     }
 
 
-    public static ArrayList convertJsonToTests(String json){
+    public static ArrayList<MomentTest> convertJsonToTests(String json){
         ArrayList<MomentTest> current = new Gson().fromJson(json, itemsArrType);
         return current;
     }

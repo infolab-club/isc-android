@@ -2,7 +2,6 @@ package club.infolab.isc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Entity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -169,7 +168,7 @@ public class GraphActivity extends AppCompatActivity
         else if (statusGraph.equals("history")) {
             stopBtn.setVisibility(View.GONE);
             DBRecords db = new DBRecords(this);
-            CurrentTest.results = CurrentTest.convertJsonToTests(db.select(indexTest + 1).getJson());
+            CurrentTest.results = CurrentTest.convertJsonToTests(db.select(indexTest).getJson());
             drawChart();
             return;
         }
