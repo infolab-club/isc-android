@@ -8,4 +8,11 @@
     <string name="connect_btn">Connect</string>
     <string name="skip_btn">Skip</string>
     <string name="header">Connection to the station</string>
+    <string name="connect_instruct_black">• Select a device from the list\n• Click the connect button</string>
+    <string name="connect_instruct_grey">If you want to work in the demonstration mode, click the skip button</string>
+    <string name="test_instruct_black">• Select a test from the list\n• Click the Set parameters button</string>
+    <string name="test_instruct_grey">If you don\'t want to set parameters, click Start Demo button</string>
+    <string name="history_instruct_black">• Select a test from the list\n• Click the View button</string>
+    <string name="header_test_select">Test selection</string>
+    <string name="header_test_history">Test history</string>
 </resources>

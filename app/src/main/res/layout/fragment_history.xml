@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Information"
+        android:text="@string/header_test_history"
         android:textAppearance="@style/textHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,4 +60,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
+
+    <TextView
+        android:id="@+id/history_instruct"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="@string/history_instruct_black"
+        android:textAppearance="@style/textInstructionBlack"
+        app:layout_constraintBottom_toTopOf="@+id/view_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/textHistoryTestName"
+        app:layout_constraintVertical_bias="0.10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

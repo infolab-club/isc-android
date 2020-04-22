@@ -7,6 +7,32 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
+
+    <TextView
+        android:id="@+id/connect_instructs1"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_instruct_black"
+        android:textAppearance="@style/textInstructionBlack"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
+        app:layout_constraintTop_toBottomOf="@+id/textHeaderBluetooth"
+        app:layout_constraintVertical_bias="0.30" />
+
+    <TextView
+        android:id="@+id/connect_instructs2"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_instruct_grey"
+        android:textAppearance="@style/textInstructionGrey"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
+        app:layout_constraintTop_toBottomOf="@+id/connect_instructs1"
+        app:layout_constraintVertical_bias="0.32" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
@@ -34,6 +60,7 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
+
 
     <Button
         android:id="@+id/buttonConnect"
@@ -82,5 +109,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

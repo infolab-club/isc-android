@@ -10,6 +10,9 @@
     <color name="background_white">#FAFAFA</color>
     <color name="itemBluetooth">#FDFAFF</color>
     <color name="textHeader">#343C6A</color>
+    <color name="textItem">#343C6A</color>
+    <color name="textInstructionsBlack">#343C6A</color>
+    <color name="textInstructionsGrey">#96A9C8</color>
     <color name="checkInner">#FFFFFF</color>
     <color name="checkOut">#CDDEFF</color>
     <color name="checkOn">#1E6AFF</color>

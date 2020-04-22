@@ -38,7 +38,7 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         buttonSetParams.setOnClickListener(onClickSetParams);
 
         buttonDemo = view.findViewById(R.id.start_demo_btn);
-        buttonDemo.setOnClickListener(onClickSetParams);
+        buttonDemo.setOnClickListener(onClickStartDemo);
 
         return view;
     }
@@ -73,6 +73,22 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
             }
             intent.putExtra(GraphActivity.EXTRA_TEST, testName);
             intent.putExtra(GraphActivity.EXTRA_INDEX, indexTest);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener onClickStartDemo = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view){
+            CurrentTest.results.clear();
+
+            Intent intent;
+            String testName = tests.get(indexTest);
+            intent = new Intent(TabTestsFragment.this.getActivity(), GraphActivity.class);
+            intent.putExtra(GraphActivity.EXTRA_TEST, testName);
+            intent.putExtra(GraphActivity.EXTRA_INDEX, indexTest);
+            intent.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "test");
             startActivity(intent);
         }
     };
