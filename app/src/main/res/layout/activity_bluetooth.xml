@@ -8,30 +8,37 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/connect_instructs1"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:text="@string/connect_instruct_black"
-        android:textAppearance="@style/textInstructionBlack"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
-        app:layout_constraintTop_toBottomOf="@+id/textHeaderBluetooth"
-        app:layout_constraintVertical_bias="0.30" />
+        app:layout_constraintTop_toBottomOf="@+id/textHeaderBluetooth">
 
-    <TextView
-        android:id="@+id/connect_instructs2"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:text="@string/connect_instruct_grey"
-        android:textAppearance="@style/textInstructionGrey"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
-        app:layout_constraintTop_toBottomOf="@+id/connect_instructs1"
-        app:layout_constraintVertical_bias="0.32" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/connect_instructs1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/connect_instruct_black"
+                android:layout_marginBottom="15dp"
+                android:textAppearance="@style/textInstructionBlack" />
+
+            <TextView
+                android:id="@+id/connect_instructs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/connect_instruct_grey"
+                android:textAppearance="@style/textInstructionGrey"
+                android:layout_marginBottom="15dp"/>
+        </LinearLayout>
+    </ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -55,6 +62,8 @@
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/header"
         android:textAppearance="@style/textHeader"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"

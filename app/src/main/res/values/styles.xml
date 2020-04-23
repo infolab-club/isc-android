@@ -16,23 +16,23 @@
 
 
     <style name="textHeader">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/textHeader</item>
     </style>
 
     <style name="textItem">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/textItem</item>
     </style>
 
     <style name="textInstructionBlack">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textInstructionsBlack</item>
     </style>
 
 
     <style name="textInstructionGrey">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textInstructionsGrey</item>
     </style>
 
