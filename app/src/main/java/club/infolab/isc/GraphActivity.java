@@ -219,7 +219,7 @@ public class GraphActivity extends AppCompatActivity
             case TEST_TYPE_STRIPPING:
                 switch (strippingStage) {
                     case STRIPPING_STAGE_CLEANING:
-                        strippingTimer = new StrippingTimer(1000, 1000);
+                        strippingTimer = new StrippingTimer(5000, 1000);
                         strippingTimer.start();
                         break;
                     case STRIPPING_STAGE_DEPOSITION:

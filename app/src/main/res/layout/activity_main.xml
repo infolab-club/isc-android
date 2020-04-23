@@ -31,8 +31,7 @@
         app:layout_constraintVertical_bias="0.01"
         app:tabGravity="fill"
         app:tabIndicatorColor="@null"
-        app:tabIndicatorHeight="4dp"
-        app:tabMode="fixed"
+        app:tabMode="auto"
         app:tabRippleColor="@null"
         app:tabSelectedTextColor="@color/tabSelected"
         app:tabTextColor="@color/tabUnselected" />
