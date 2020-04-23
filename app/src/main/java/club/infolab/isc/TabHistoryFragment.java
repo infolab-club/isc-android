@@ -36,9 +36,9 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
             public void onClick(View view) {
                 if (indexHistory > -1){
                     Intent i = new Intent(getContext(), GraphActivity.class);
-                    i.putExtra(GraphActivity.EXTRA_INDEX, indexHistory);
-                    i.putExtra(GraphActivity.EXTRA_TEST, db.select(indexHistory).getName());
-                    i.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "history");
+                    i.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexHistory);
+                    i.putExtra(GraphActivity.EXTRA_TEST_NAME, db.select(indexHistory).getName());
+                    i.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_HISTORY);
                     startActivity(i);
                 }
             }

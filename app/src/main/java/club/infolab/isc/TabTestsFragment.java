@@ -2,7 +2,6 @@ package club.infolab.isc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import club.infolab.isc.bluetooth.BluetoothController;
 import club.infolab.isc.test.CurrentTest;
 
 public class TabTestsFragment extends Fragment implements TestAdapter.OnTestListener{
@@ -62,17 +62,24 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         @Override
         public void onClick(View view) {
             CurrentTest.results.clear();
+            String testName = tests.get(indexTest);
 
             Intent intent;
-            String testName = tests.get(indexTest);
-            if (testName.equals("Stripping voltammetry")) {
+            if (indexTest == 6) {
                 intent = new Intent(TabTestsFragment.this.getActivity(), GraphActivity.class);
+                intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_STRIPPING);
             }
             else {
                 intent = new Intent(TabTestsFragment.this.getActivity(), ParamsActivity.class);
+                if (BluetoothController.isBluetoothRun) {
+                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_BLUETOOTH);
+                }
+                else {
+                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
+                }
             }
-            intent.putExtra(GraphActivity.EXTRA_TEST, testName);
-            intent.putExtra(GraphActivity.EXTRA_INDEX, indexTest);
+            intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
+            intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexTest);
             startActivity(intent);
         }
     };
@@ -82,13 +89,17 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         @Override
         public void onClick(View view){
             CurrentTest.results.clear();
-
-            Intent intent;
             String testName = tests.get(indexTest);
-            intent = new Intent(TabTestsFragment.this.getActivity(), GraphActivity.class);
-            intent.putExtra(GraphActivity.EXTRA_TEST, testName);
-            intent.putExtra(GraphActivity.EXTRA_INDEX, indexTest);
-            intent.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "test");
+
+            Intent intent = new Intent(TabTestsFragment.this.getActivity(), GraphActivity.class);
+            if (indexTest == 6) {
+                intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_STRIPPING);
+            }
+            else {
+                intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
+            }
+            intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
+            intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexTest);
             startActivity(intent);
         }
     };

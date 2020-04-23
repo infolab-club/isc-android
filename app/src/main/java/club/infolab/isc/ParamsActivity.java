@@ -36,8 +36,8 @@ public class ParamsActivity extends AppCompatActivity
 
         TextView testNameView = findViewById(R.id.name_test_params);
         final Intent intent = getIntent();
-        final String testName = intent.getStringExtra(GraphActivity.EXTRA_TEST);
-        final int testIndex = intent.getIntExtra(GraphActivity.EXTRA_INDEX, 0);
+        final String testName = intent.getStringExtra(GraphActivity.EXTRA_TEST_NAME);
+        final int testIndex = intent.getIntExtra(GraphActivity.EXTRA_TEST_INDEX, 0);
         testNameView.setText(testName);
 
         Button startChartBtn = findViewById(R.id.toChart_btn);
@@ -45,14 +45,18 @@ public class ParamsActivity extends AppCompatActivity
             @Override
             public void onClick(View v){
                 CurrentTest.results.clear();
+
+                Intent intent = new Intent(ParamsActivity.this, GraphActivity.class);
                 if (BluetoothController.isBluetoothRun) {
                     bluetoothController.sendData(testName);
+                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_BLUETOOTH);
                 }
-                Intent graph_intent = new Intent(ParamsActivity.this, GraphActivity.class);
-                graph_intent.putExtra(GraphActivity.EXTRA_TEST, testName);
-                graph_intent.putExtra(GraphActivity.EXTRA_INDEX, testIndex);
-                graph_intent.putExtra(GraphActivity.EXTRA_STATUS_GRAPH, "test");
-                startActivity(graph_intent);
+                else {
+                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
+                }
+                intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
+                intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, testIndex);
+                startActivity(intent);
                 finish();
             }
         });
@@ -100,7 +104,7 @@ public class ParamsActivity extends AppCompatActivity
     }
 
     @Override
-    public void getInputData(String data) {
+    public void onGetBluetoothData(String data) {
 
     }
 }

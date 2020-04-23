@@ -15,4 +15,13 @@
     <string name="history_instruct_black">• Select a test from the list\n• Click the View button</string>
     <string name="header_test_select">Test selection</string>
     <string name="header_test_history">Test history</string>
+
+    <string name="chartAxisTime">Time, sec</string>
+    <string name="chartAxisPotential">Potential, V</string>
+    <string name="chartAxisCurrent">Current, uA</string>
+    
+    <string name="strippingCleaning">Cleaning</string>
+    <string name="strippingDeposition">Deposition</string>
+    <string name="strippingXAxis">E, V</string>
+    <string name="strippingYAxis">I, uA</string>
 </resources>

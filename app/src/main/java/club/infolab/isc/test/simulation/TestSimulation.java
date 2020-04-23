@@ -36,7 +36,7 @@ public class TestSimulation {
 
     private Runnable timeUpdaterRunnable = new Runnable() {
         public void run() {
-            callback.getTestData(testSimulationResult.get(indexCurrentTest));
+            callback.onGetSimulationData(testSimulationResult.get(indexCurrentTest));
             if (indexCurrentTest < testSimulationResult.size() - 1) {
                 indexCurrentTest++;
                 handler.postDelayed(this, PERIOD);

@@ -55,7 +55,7 @@ public class BluetoothController implements BluetoothSocketCallback {
                 String tempMsg = new String(readBuffer, 0, msg.arg1);
                 Log.d("DATA", tempMsg);
                 if (isTestRun) {
-                    callback.getInputData(tempMsg);
+                    callback.onGetBluetoothData(tempMsg);
                 }
             }
             return true;
