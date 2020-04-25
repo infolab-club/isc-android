@@ -7,6 +7,8 @@
     <color name="dark_blue">#3F51B5</color>
     <color name="blue">#1E6AFF</color>
     <color name="dark_ocean">#000033</color>
+    <color name="pressed_blue_btn">#0042C3</color>
+    <color name="pressed_white_btn">#E9F1FF</color>
     <color name="background_white">#FAFAFA</color>
     <color name="itemBluetooth">#FDFAFF</color>
     <color name="textHeader">#343C6A</color>

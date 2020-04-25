@@ -57,6 +57,8 @@ public class BluetoothActivity extends AppCompatActivity
 
         buttonConnect = findViewById(R.id.buttonConnect);
         buttonConnect.setOnClickListener(onClickConnect);
+        buttonConnect.setClickable(false);
+        buttonConnect.setAlpha(0.5f);
         buttonSkip = findViewById(R.id.buttonSkip);
         buttonSkip.setOnClickListener(onClickSkip);
 
@@ -103,6 +105,8 @@ public class BluetoothActivity extends AppCompatActivity
     @Override
     public void onDeviceClick(int position) {
         indexBluetoothDevice = position;
+        buttonConnect.setClickable(true);
+        buttonConnect.setAlpha(1f);
     }
 
     private void runBluetoothTest() {

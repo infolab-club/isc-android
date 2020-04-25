@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/history_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -51,7 +52,7 @@
         android:id="@+id/view_btn"
         android:layout_width="128dp"
         android:layout_height="36dp"
-        android:background="@drawable/style_button_blue"
+        android:background="@drawable/btn_blue_pressed_dark_blue"
         android:paddingRight="2dp"
         android:paddingBottom="2dp"
         android:text="@string/view_btn"

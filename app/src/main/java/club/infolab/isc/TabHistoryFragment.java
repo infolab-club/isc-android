@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,14 +24,16 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     private DBRecords db;
     private View rootView;
     private int indexHistory = -1;
+    private Button viewBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_history, container, false);
+
         db = new DBRecords(getContext());
         recyclerView = rootView.findViewById(R.id.tab_history_list);
-        Button viewBtn = rootView.findViewById(R.id.view_btn);
+        viewBtn = rootView.findViewById(R.id.view_btn);
         viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +46,8 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
                 }
             }
         });
+        viewBtn.setClickable(false);
+        viewBtn.setAlpha(0.5f);
         return rootView;
     }
 
@@ -74,6 +79,8 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     @Override
     public void onHistoryClick(int position) {
         indexHistory = (int) db.getCountRows() - position;
+        viewBtn.setClickable(true);
+        viewBtn.setAlpha(1f);
 //        View view = recyclerView.getChildAt(position);
 //        TextView textTestName = view.findViewById(R.id.textHistoryTestName);
 //        textTestName.setText(db.select(position).getName());

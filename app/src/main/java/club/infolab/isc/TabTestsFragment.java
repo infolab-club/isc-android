@@ -36,9 +36,13 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
 
         buttonSetParams = view.findViewById(R.id.set_params_btn);
         buttonSetParams.setOnClickListener(onClickSetParams);
+        buttonSetParams.setClickable(false);
+        buttonSetParams.setAlpha(0.5f);
 
         buttonDemo = view.findViewById(R.id.start_demo_btn);
         buttonDemo.setOnClickListener(onClickStartDemo);
+        buttonDemo.setClickable(false);
+        buttonDemo.setAlpha(0.5f);
 
         return view;
     }
@@ -56,6 +60,10 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
     @Override
     public void onTestClick(int position) {
         indexTest = position;
+        buttonSetParams.setClickable(true);
+        buttonSetParams.setAlpha(1f);
+        buttonDemo.setClickable(true);
+        buttonDemo.setAlpha(1f);
     }
 
     private View.OnClickListener onClickSetParams = new View.OnClickListener() {
