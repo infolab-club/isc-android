@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -7,38 +8,38 @@
     android:paddingTop="16dp"
     android:paddingBottom="19dp">
 
-    <TextView
-        android:id="@+id/history_test_name_item"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="32dp"
-        android:text="Test's Name"
-        android:textAppearance="@style/textItem" />
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp">
 
-    <TextView
-        android:id="@+id/date_of_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="History test date"
-        android:layout_marginLeft="8dp"
-        android:textSize="12sp" />
+        <TextView
+            android:id="@+id/history_test_name_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Test's Name"
+            android:textAppearance="@style/textItem" />
 
-    <TextView
+        <TextView
+            android:id="@+id/date_of_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:text="History test date"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <ImageView
         android:id="@+id/is_loaded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="Local"
-        android:visibility="gone"
-        android:textSize="4sp" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="wrap_content"

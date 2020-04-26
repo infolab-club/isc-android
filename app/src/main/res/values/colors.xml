@@ -22,4 +22,5 @@
     <color name="tabUnselected">#96A9C8</color>
     <color name="checkOut">#CDDEFF</color>
     <color name="checkOn">#1E6AFF</color>
+    <color name="toast">#6791E4</color>
 </resources>

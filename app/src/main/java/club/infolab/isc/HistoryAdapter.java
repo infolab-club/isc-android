@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,12 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
         History history = histories.get(position);
         holder.nameView.setText(history.getName());
         holder.dateView.setText(history.getDate());
-        holder.isLoadedView.setText(history.getIsLoaded());
+        int isLoaded = history.getIsLoaded();
+        holder.isLoadedView.setImageResource(R.drawable.icon_local);
+        if (isLoaded == 1){
+            holder.isLoadedView.setImageResource(R.drawable.icon_loaded);
+        }
+
         if (selectedPosition == position) {
             holder.checkItem.setBackground(context.getResources()
                     .getDrawable(R.drawable.style_check_on));
@@ -54,7 +60,8 @@ class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        final TextView nameView, dateView, isLoadedView;
+        final TextView nameView, dateView;
+        final ImageView isLoadedView;
         View checkItem;
         public ViewHolder(@NonNull View view, final OnHistoryListener onHistoryListener) {
             super(view);

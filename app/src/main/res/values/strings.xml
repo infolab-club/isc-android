@@ -17,6 +17,8 @@
     <string name="header_test_select">Test selection</string>
     <string name="header_test_history">Test history</string>
 
+    <string name="success_toast">Success!</string>
+
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>
     <string name="chartAxisCurrent">Current, uA</string>

@@ -4,9 +4,9 @@ class History {
 
     private String name;
     private String date;
-    private String isLoaded;
+    private int isLoaded;
 
-    public History(String name, String date, String isLoaded){
+    public History(String name, String date, int isLoaded){
         this.name = name;
         this.date = date;
         this.isLoaded = isLoaded;
@@ -28,11 +28,11 @@ class History {
         this.date = date;
     }
 
-    public String getIsLoaded() {
+    public int getIsLoaded() {
         return isLoaded;
     }
 
-    public void setIsLoaded(String isLoaded) {
+    public void setIsLoaded(int isLoaded) {
         this.isLoaded = isLoaded;
     }
 }
