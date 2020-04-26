@@ -43,6 +43,18 @@ public class CurrentTest {
         return current;
     }
 
+    public static String convertJsonToString(String json) {
+            ArrayList<MomentTest> test = convertJsonToTests(json);
+            StringBuilder results = new StringBuilder(test.get(0).getTime() + ", "
+                    + test.get(0).getVoltage() + ", " + test.get(0).getAmperage());
+
+            for (int i = 1; test.size() > i; i++){
+                results.append("\n").append(test.get(i).getTime()).append(", ").append(test.get(i)
+                        .getVoltage()).append(", ").append(test.get(i).getAmperage());
+        }
+        return results.toString();
+    }
+
     public static ArrayList<MomentTest> getTestsFromFiles(Context context, int fileNumber) {
         ArrayList<MomentTest> simulation = new ArrayList<>();
         String currentFile;

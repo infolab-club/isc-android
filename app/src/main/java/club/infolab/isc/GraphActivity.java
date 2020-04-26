@@ -420,7 +420,7 @@ public class GraphActivity extends AppCompatActivity
         }
 
         public void onTick(long millisUntilFinished) {
-            textTimeStripping.setText(String.valueOf(millisUntilFinished / 1000));
+            textTimeStripping.setText(String.valueOf(millisUntilFinished / 1000 + 1));
         }
     }
 }
