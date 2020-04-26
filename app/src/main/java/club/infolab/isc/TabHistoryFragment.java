@@ -15,14 +15,19 @@ import java.util.ArrayList;
 
 import club.infolab.isc.database.DBRecords;
 import club.infolab.isc.database.Record;
+import club.infolab.isc.retrofit.RetrofitCallback;
+import club.infolab.isc.retrofit.RetrofitController;
+import club.infolab.isc.test.CurrentTest;
 
-public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHistoryListener {
+public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHistoryListener, RetrofitCallback {
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
     private ArrayList<History> histories = new ArrayList<>();
     private DBRecords db;
     private View rootView;
     private int indexHistory = -1;
+    private Button buttonUpload;
+    private Button viewBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +35,8 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
         rootView = inflater.inflate(R.layout.fragment_history, container, false);
         db = new DBRecords(getContext());
         recyclerView = rootView.findViewById(R.id.tab_history_list);
-        Button viewBtn = rootView.findViewById(R.id.view_btn);
+
+        viewBtn = rootView.findViewById(R.id.view_btn);
         viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +59,8 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     }
 
     private void initializeFragment() {
+        buttonUpload = rootView.findViewById(R.id.buttonUpload);
+        buttonUpload.setOnClickListener(onClickUpload);
         setHistoryData();
         historyAdapter = new HistoryAdapter(getActivity(), histories, this);
         recyclerView.setAdapter(historyAdapter);
@@ -74,12 +82,33 @@ public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHis
     @Override
     public void onHistoryClick(int position) {
         indexHistory = (int) db.getCountRows() - position;
-//        View view = recyclerView.getChildAt(position);
-//        TextView textTestName = view.findViewById(R.id.textHistoryTestName);
-//        textTestName.setText(db.select(position).getName());
-//        Intent i = new Intent(getContext(), GraphActivity.class);
-//        i.putExtra(GraphActivity.EXTRA_TEST, db.select(position).getName());
-//        i.putExtra(GraphActivity.EXTRA_INDEX, 0);
-//        startActivity(i);
+    }
+
+    private View.OnClickListener onClickUpload = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (indexHistory > -1) {
+                int isUpload = db.select(indexHistory).getIsLoaded();
+                if (isUpload == 0) {
+                    String type = db.select(indexHistory).getName();
+                    String date = db.select(indexHistory).getDate();
+                    String json = db.select(indexHistory).getJson();
+                    String results = CurrentTest.convertJsonToString(json);
+
+                    RetrofitController retrofitController =
+                            new RetrofitController(TabHistoryFragment.this);
+                    retrofitController.addTest(type, date, results, indexHistory);
+                }
+            }
+        }
+    };
+
+    @Override
+    public void onSuccess(int index) {
+        String type = db.select(index).getName();
+        String date = db.select(index).getDate();
+        String json = db.select(index).getJson();
+        Record record = new Record(index, type, date, 1, json);
+        db.update(record);
     }
 }
