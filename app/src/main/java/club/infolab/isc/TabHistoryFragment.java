@@ -20,7 +20,8 @@ import club.infolab.isc.retrofit.RetrofitController;
 import club.infolab.isc.test.CurrentTest;
 import es.dmoral.toasty.Toasty;
 
-public class TabHistoryFragment extends Fragment implements HistoryAdapter.OnHistoryListener, RetrofitCallback {
+public class TabHistoryFragment extends Fragment
+        implements HistoryAdapter.OnHistoryListener, RetrofitCallback {
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
     private ArrayList<History> histories = new ArrayList<>();

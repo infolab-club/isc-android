@@ -17,6 +17,11 @@
     <string name="header_test_select">Test selection</string>
     <string name="header_test_history">Test history</string>
 
+    <string-array name="languages">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+
     <string name="success_toast">Success!</string>
 
     <string name="chartAxisTime">Time, sec</string>
@@ -27,4 +32,7 @@
     <string name="strippingDeposition">Deposition</string>
     <string name="strippingXAxis">E, V</string>
     <string name="strippingYAxis">I, uA</string>
+    <string name="tab_tests">Tests</string>
+    <string name="tab_history">History</string>
+    <string name="tab_settings">Settings</string>
 </resources>

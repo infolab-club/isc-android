@@ -2,10 +2,16 @@ package club.infolab.isc;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -15,17 +21,26 @@ import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 public class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 1500;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
+//    private String language;
+//    private SharedPreferences.Editor editor;
+//    public static final String APP_PREFERENCES_LANGUAGE = "ru";
+//    public SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+//        settings = getSharedPreferences(APP_PREFERENCES_LANGUAGE, Context.MODE_PRIVATE);
+//        language = settings.getString(APP_PREFERENCES_LANGUAGE, "ru");
+//        setLocale(language);
 
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
@@ -85,4 +100,13 @@ public class LoadingActivity extends AppCompatActivity {
                 return;
         }
     }
+
+//    public void setLocale(String language) {
+//        Locale myLocale = new Locale(language);
+//        Resources resources = getResources();
+//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+//        Configuration configuration = resources.getConfiguration();
+//        configuration.locale = myLocale;
+//        resources.updateConfiguration(configuration, displayMetrics);
+//    }
 }

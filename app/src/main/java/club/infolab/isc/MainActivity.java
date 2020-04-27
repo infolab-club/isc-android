@@ -1,11 +1,9 @@
 package club.infolab.isc;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -20,16 +18,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
 
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TabTestsFragment(), " Tests ");
-        adapter.addFragment(new TabHistoryFragment(), "History");
+        adapter.addFragment(new TabTestsFragment(), " " + getString(R.string.tab_tests) + " ");
+        adapter.addFragment(new TabHistoryFragment(), getString(R.string.tab_history));
+//        adapter.addFragment(new TabSettingsFragment(), getString(R.string.tab_settings));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        DBRecords db = new DBRecords(this);
     }
 }
