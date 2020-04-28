@@ -73,24 +73,25 @@
 
     <Button
         android:id="@+id/buttonConnect"
-        android:layout_width="128dp"
+        android:layout_width="150dp"
         android:layout_height="36dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_blue_pressed_dark_blue"
         android:alpha=".8"
+        android:background="@drawable/btn_blue_pressed_dark_blue"
         android:paddingRight="2dp"
         android:paddingBottom="2dp"
         android:text="@string/connect_btn"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonSkip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth" />
 
     <Button
         android:id="@+id/buttonSkip"
-        android:layout_width="128dp"
+        android:layout_width="150dp"
         android:layout_height="36dp"
         android:background="@drawable/btn_white_pressed_grey"
         android:paddingRight="2dp"
