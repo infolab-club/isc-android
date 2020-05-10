@@ -6,12 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface Api {
-    @POST("add_test")
+    @POST("tests/add")
     Call<Object> addTest(@Body RequestBody test);
 
-    @GET("get_tests")
-    Call<Object> getTests();
-
-    @GET("delete_tests/all")
-    Call<Object> deleteTests();
 }
