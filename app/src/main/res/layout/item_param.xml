@@ -5,8 +5,8 @@
     android:background="@drawable/style_item_list"
     android:paddingLeft="32dp"
     android:paddingRight="32dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="16dp">
+    android:paddingTop="@dimen/itemPaddingTop"
+    android:paddingBottom="@dimen/itemPaddingBottom">
 
     <TextView
         android:id="@+id/param_name_item"

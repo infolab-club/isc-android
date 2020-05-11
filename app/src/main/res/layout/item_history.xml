@@ -5,8 +5,8 @@
     android:orientation="horizontal"
     android:layout_marginBottom="10dp"
     android:background="@drawable/style_item_list"
-    android:paddingTop="16dp"
-    android:paddingBottom="19dp">
+    android:paddingTop="@dimen/itemPaddingTop"
+    android:paddingBottom="@dimen/itemPaddingBottom">
 
     <LinearLayout
         android:id="@+id/container"
@@ -31,7 +31,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:text="History test date"
-            android:textSize="15sp" />
+            android:textSize="@dimen/textItemDate"/>
     </LinearLayout>
 
 
@@ -46,11 +46,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginRight="32dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_gravity="center">
         <View
             android:id="@+id/checkItemHistory"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/itemCyclicSize"
+            android:layout_height="@dimen/itemCyclicSize"
             android:layout_gravity="right"
             android:background="@drawable/style_check_off" />
     </LinearLayout>

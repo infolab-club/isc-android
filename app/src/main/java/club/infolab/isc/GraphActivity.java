@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -32,6 +31,7 @@ import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.MomentTest;
 import club.infolab.isc.test.simulation.TestSimulation;
 import club.infolab.isc.test.simulation.TestSimulationCallback;
+import es.dmoral.toasty.Toasty;
 
 public class GraphActivity extends AppCompatActivity
         implements TestSimulationCallback, BluetoothCallback {
@@ -67,6 +67,8 @@ public class GraphActivity extends AppCompatActivity
     private StrippingTimer strippingTimer;
     public static int strippingIndex = 5;
 
+    private boolean isClickedSave;
+
     private RadioGroup switcherAxises;
     private Button buttonSave;
     private TextView textTestName;
@@ -79,6 +81,10 @@ public class GraphActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+
+        View decorView = getWindow().getDecorView();
+        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(ui);
 
         initializeActivity();
         startSimulation();
@@ -159,19 +165,26 @@ public class GraphActivity extends AppCompatActivity
     private View.OnClickListener onClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (testType) {
-                case (TEST_TYPE_BLUETOOTH):
-                    BluetoothController.isTestRun = false;
-                    break;
-                case (TEST_TYPE_SIMULATION):
-                case (TEST_TYPE_STRIPPING):
-                    testSimulation.stopSimulation();
-                    break;
+            if (!isClickedSave) {
+                switch (testType) {
+                    case (TEST_TYPE_BLUETOOTH):
+                        BluetoothController.isTestRun = false;
+                        break;
+                    case (TEST_TYPE_SIMULATION):
+                    case (TEST_TYPE_STRIPPING):
+                        testSimulation.stopSimulation();
+                        break;
+                }
+                Date date = Calendar.getInstance().getTime();
+                String json = CurrentTest.convertTestsToJson(CurrentTest.results);
+                DBRecords dataBase = new DBRecords(GraphActivity.this);
+                dataBase.insert(testName, date.toString(), 0, json);
+                isClickedSave = true;
+                buttonSave.setAlpha(0.8f);
+                Toasty.custom(GraphActivity.this, R.string.success_toast,
+                        null, R.color.toast, Toasty.LENGTH_SHORT,
+                        false, true).show();
             }
-            Date date = Calendar.getInstance().getTime();
-            String json = CurrentTest.convertTestsToJson(CurrentTest.results);
-            DBRecords dataBase = new DBRecords(GraphActivity.this);
-            dataBase.insert(testName, date.toString(), 0, json);
         }
     };
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textHeader">12sp</dimen>
+    <dimen name="textItem">10sp</dimen>
+    <dimen name="textItemDate">8sp</dimen>
+    <dimen name="textInstruction">8sp</dimen>
+    <dimen name="textButton">10sp</dimen>
+    <dimen name="buttonWidth">100dp</dimen>
+    <dimen name="buttonHeight">24dp</dimen>
+    <dimen name="itemCyclicSize">14dp</dimen>
+    <dimen name="itemPaddingTop">8dp</dimen>
+    <dimen name="itemPaddingBottom">9dp</dimen>
+</resources>

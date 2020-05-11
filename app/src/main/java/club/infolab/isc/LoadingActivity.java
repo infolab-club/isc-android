@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,11 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+
+        View decorView = getWindow().getDecorView();
+        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(ui);
+
 //        settings = getSharedPreferences(APP_PREFERENCES_LANGUAGE, Context.MODE_PRIVATE);
 //        language = settings.getString(APP_PREFERENCES_LANGUAGE, "ru");
 //        setLocale(language);

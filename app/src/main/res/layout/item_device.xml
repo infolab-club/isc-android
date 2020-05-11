@@ -5,8 +5,8 @@
     android:orientation="horizontal"
     android:background="@drawable/style_item_list"
     android:paddingLeft="32dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="19dp"
+    android:paddingTop="@dimen/itemPaddingTop"
+    android:paddingBottom="@dimen/itemPaddingBottom"
     android:layout_marginBottom="10dp">
 
     <TextView
@@ -26,8 +26,8 @@
         android:layout_weight="1">
         <View
             android:id="@+id/checkItemDevice"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/itemCyclicSize"
+            android:layout_height="@dimen/itemCyclicSize"
             android:layout_gravity="right"
             android:background="@drawable/style_check_off" />
     </LinearLayout>

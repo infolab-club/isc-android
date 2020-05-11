@@ -31,6 +31,7 @@ public class TabHistoryFragment extends Fragment
     private Button buttonUpload;
     private Button viewBtn;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class TabHistoryFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+
         initializeFragment();
     }
 

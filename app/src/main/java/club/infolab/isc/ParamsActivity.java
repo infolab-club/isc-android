@@ -30,6 +30,10 @@ public class ParamsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
 
+        View decorView = getWindow().getDecorView();
+        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(ui);
+
         if (BluetoothController.isBluetoothRun) {
             bluetoothController = new BluetoothController(this);
         }
@@ -65,7 +69,7 @@ public class ParamsActivity extends AppCompatActivity
         LayoutInflater ltInflater = getLayoutInflater();
         for (final ParamTest param : thisParams) {
 
-            View view = ltInflater.inflate(R.layout.param_item, null, false);
+            View view = ltInflater.inflate(R.layout.item_param, null, false);
 
             TextView paramName = view.findViewById(R.id.param_name_item);
             paramName.setText(param.getName());

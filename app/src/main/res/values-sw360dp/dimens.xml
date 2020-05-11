@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textHeader">24sp</dimen>
+    <dimen name="textItem">20sp</dimen>
+    <dimen name="textItemDate">15sp</dimen>
+    <dimen name="textInstruction">15sp</dimen>
+    <dimen name="textButton">18sp</dimen>
+    <dimen name="buttonWidth">150dp</dimen>
+    <dimen name="buttonHeight">36dp</dimen>
+    <dimen name="itemCyclicSize">28dp</dimen>
+    <dimen name="itemPaddingTop">18dp</dimen>
+    <dimen name="itemPaddingBottom">19dp</dimen>
+</resources>

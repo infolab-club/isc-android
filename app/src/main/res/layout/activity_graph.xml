@@ -102,15 +102,8 @@
 
     <Button
         android:id="@+id/buttonSave"
-        android:layout_width="128dp"
-        android:layout_height="36dp"
-        android:background="@drawable/btn_blue_pressed_dark_blue"
-        android:paddingRight="2dp"
-        android:paddingBottom="2dp"
+        style="@style/buttonBlue"
         android:text="@string/button_save"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"

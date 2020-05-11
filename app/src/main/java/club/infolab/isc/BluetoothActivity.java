@@ -43,6 +43,10 @@ public class BluetoothActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
+        View decorView = getWindow().getDecorView();
+        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(ui);
+
         initializeActivity();
         searchPairedDevices();
     }

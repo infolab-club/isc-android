@@ -50,15 +50,8 @@
 
     <Button
         android:id="@+id/view_btn"
-        android:layout_width="128dp"
-        android:layout_height="36dp"
-        android:background="@drawable/btn_blue_pressed_dark_blue"
-        android:paddingRight="2dp"
-        android:paddingBottom="2dp"
+        style="@style/buttonBlue"
         android:text="@string/view_btn"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -67,16 +60,9 @@
 
     <Button
         android:id="@+id/buttonUpload"
-        android:layout_width="128dp"
-        android:layout_height="36dp"
+        style="@style/buttonBlue"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_blue_pressed_dark_blue"
-        android:paddingRight="2dp"
-        android:paddingBottom="2dp"
         android:text="@string/buttonUpload"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/view_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />

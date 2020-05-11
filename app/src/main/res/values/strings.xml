@@ -6,7 +6,7 @@
     <string name="start_demo_btn">Start the demo</string>
     <string name="view_btn">View</string>
     <string name="connect_btn">Connect</string>
-    <string name="skip_btn">Skip</string>
+    <string name="skip_btn">Demo</string>
     <string name="buttonUpload">Upload</string>
     <string name="header">Connection to the station</string>
     <string name="connect_instruct_black">• Select a device from the list\n• Click the connect button</string>
@@ -22,7 +22,7 @@
         <item>Russian</item>
     </string-array>
 
-    <string name="success_toast">Success!</string>
+    <string name="success_toast">Success</string>
 
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>

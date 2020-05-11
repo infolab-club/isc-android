@@ -6,7 +6,7 @@
     <string name="start_demo_btn">Демонстрация</string>
     <string name="view_btn">Просмотр</string>
     <string name="connect_btn">Подключиться</string>
-    <string name="skip_btn">Пропустить</string>
+    <string name="skip_btn">Демонстрация</string>
     <string name="buttonUpload">Загрузить</string>
     <string name="header">Подключение к станции</string>
     <string name="connect_instruct_black">• Выберите устройство из списка\n• Нажмите кнопку подключения</string>
@@ -22,7 +22,7 @@
         <item>Русский</item>
     </string-array>
 
-    <string name="success_toast">Успех!</string>
+    <string name="success_toast">Успех</string>
 
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>
