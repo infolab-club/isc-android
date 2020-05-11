@@ -89,6 +89,7 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
             intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
             intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexTest);
             startActivity(intent);
+            getActivity().overridePendingTransition(0,0);
         }
     };
 
@@ -109,6 +110,7 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
             intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
             intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexTest);
             startActivity(intent);
+            getActivity().overridePendingTransition(0,0);
         }
     };
 }

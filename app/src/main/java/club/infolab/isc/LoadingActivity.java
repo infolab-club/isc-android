@@ -40,10 +40,6 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        View decorView = getWindow().getDecorView();
-        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(ui);
-
 //        settings = getSharedPreferences(APP_PREFERENCES_LANGUAGE, Context.MODE_PRIVATE);
 //        language = settings.getString(APP_PREFERENCES_LANGUAGE, "ru");
 //        setLocale(language);
@@ -83,6 +79,7 @@ public class LoadingActivity extends AppCompatActivity {
             Intent intent = new Intent(LoadingActivity.this, BluetoothActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            overridePendingTransition(0,0);
         }
     }
 

@@ -23,6 +23,7 @@
     </string-array>
 
     <string name="success_toast">Success</string>
+    <string name="exit_toast">Press once again to exit</string>
 
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>

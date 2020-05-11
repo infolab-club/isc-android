@@ -30,10 +30,6 @@ public class ParamsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
 
-        View decorView = getWindow().getDecorView();
-        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(ui);
-
         if (BluetoothController.isBluetoothRun) {
             bluetoothController = new BluetoothController(this);
         }
@@ -61,6 +57,7 @@ public class ParamsActivity extends AppCompatActivity
                 intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
                 intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, testIndex);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
             }
         });
@@ -109,6 +106,11 @@ public class ParamsActivity extends AppCompatActivity
 
     @Override
     public void onGetBluetoothData(String data) {
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,0);
     }
 }

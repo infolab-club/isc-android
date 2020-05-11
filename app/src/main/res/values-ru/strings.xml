@@ -23,6 +23,8 @@
     </string-array>
 
     <string name="success_toast">Успех</string>
+    <string name="exit_toast">Нажмите ещё раз чтобы выйти</string>
+
 
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>

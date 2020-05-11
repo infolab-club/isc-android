@@ -82,10 +82,6 @@ public class GraphActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        View decorView = getWindow().getDecorView();
-        int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(ui);
-
         initializeActivity();
         startSimulation();
     }
@@ -436,4 +432,11 @@ public class GraphActivity extends AppCompatActivity
             textTimeStripping.setText(String.valueOf(millisUntilFinished / 1000 + 1));
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,0);
+    }
+
 }

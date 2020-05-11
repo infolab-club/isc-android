@@ -63,6 +63,7 @@ public class TabHistoryFragment extends Fragment
                     i.putExtra(GraphActivity.EXTRA_TEST_NAME, db.select(indexHistory).getName());
                     i.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_HISTORY);
                     startActivity(i);
+                    getActivity().overridePendingTransition(0,0);
                 }
             }
         });
