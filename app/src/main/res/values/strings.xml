@@ -16,11 +16,11 @@
     <string name="history_instruct_black">• Select a test from the list\n• Click the View button</string>
     <string name="header_test_select">Test selection</string>
     <string name="header_test_history">Test history</string>
+    <string name="header_test_settings">App settings</string>
+    <string name="language_english">English</string>
+    <string name="language_russian">Russian</string>
+    <string name="app_language">Language</string>
 
-    <string-array name="languages">
-        <item>English</item>
-        <item>Russian</item>
-    </string-array>
 
     <string name="success_toast">Success</string>
     <string name="exit_toast">Press once again to exit</string>

@@ -1,35 +1,43 @@
 package club.infolab.isc;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import club.infolab.isc.database.DBRecords;
 import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
-    private TabAdapter adapter;
-    private TabLayout tabLayout;
+    private long pressedSpeed;
+    private Fragment history;
+    private Fragment tests;
+    private Fragment settings;
     private ViewPager viewPager;
-
-    private static long pressedSpeed;
+    private  TabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeActivity();
+    }
 
+    private void initializeActivity() {
         viewPager = findViewById(R.id.viewPager);
-        tabLayout = findViewById(R.id.tabLayout);
-
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        viewPager.setOffscreenPageLimit(2);
+        history = new TabHistoryFragment();
+        settings = new TabSettingsFragment();
+        tests = new TabTestsFragment();
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TabTestsFragment(), " " + getString(R.string.tab_tests) + " ");
-        adapter.addFragment(new TabHistoryFragment(), getString(R.string.tab_history));
-//        adapter.addFragment(new TabSettingsFragment(), getString(R.string.tab_settings));
+        adapter.addFragment(tests, " " + getString(R.string.tab_tests) + " ");
+        adapter.addFragment(history, getString(R.string.tab_history));
+        adapter.addFragment(settings, getString(R.string.tab_settings));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -37,12 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (pressedSpeed + 200 > System.currentTimeMillis())
+        if (pressedSpeed + 200 > System.currentTimeMillis()) {
             super.onBackPressed();
-        else
-            Toasty.custom(this, R.string.exit_toast,
-                    null, R.color.toast, Toasty.LENGTH_SHORT,
-                    false, true).show();
+        }
+        else {
+            Toasty.custom(this, R.string.exit_toast, null,
+                    R.color.toast, Toasty.LENGTH_SHORT, false, true).show();
+        }
         pressedSpeed = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initializeActivity();
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.setCurrentItem(2);
+
     }
 }

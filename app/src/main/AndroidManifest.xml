@@ -34,6 +34,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape"
+            android:configChanges="locale"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ParamsActivity"

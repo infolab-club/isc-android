@@ -1,18 +1,14 @@
 package club.infolab.isc;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -24,26 +20,35 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-public class LoadingActivity extends AppCompatActivity {
+public  class LoadingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 1500;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
-//    private String language;
-//    private SharedPreferences.Editor editor;
-//    public static final String APP_PREFERENCES_LANGUAGE = "ru";
-//    public SharedPreferences settings;
+    private AppLocale appLocale;
+    private static SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
+    public static final String APP_PREFERENCES_LANGUAGE = "appLanguage";
+    public static final String APP_PREFERENCES = "mySettings";
 
+    private String language;
+
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-
-//        settings = getSharedPreferences(APP_PREFERENCES_LANGUAGE, Context.MODE_PRIVATE);
-//        language = settings.getString(APP_PREFERENCES_LANGUAGE, "ru");
-//        setLocale(language);
-
+         appLocale = new AppLocale(this);
+        sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        if (sharedPreferences.contains(APP_PREFERENCES_LANGUAGE)) {
+            language = sharedPreferences.getString(APP_PREFERENCES_LANGUAGE, "en");
+        }
+        else {
+            language = Locale.getDefault().getLanguage();
+        }
+        setLanguage();
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
         checkPermission();
@@ -94,22 +99,20 @@ public class LoadingActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    checkPermission();
-                }
-                return;
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                checkPermission();
+            }
         }
     }
 
-//    public void setLocale(String language) {
-//        Locale myLocale = new Locale(language);
-//        Resources resources = getResources();
-//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-//        Configuration configuration = resources.getConfiguration();
-//        configuration.locale = myLocale;
-//        resources.updateConfiguration(configuration, displayMetrics);
-//    }
+    private void setLanguage() {
+        appLocale.changeAppLocale(language);
+    }
+
+    public static void saveConfiguration(String currentLanguage) {
+        editor.putString(APP_PREFERENCES_LANGUAGE, currentLanguage);
+        editor.apply();
+    }
 }

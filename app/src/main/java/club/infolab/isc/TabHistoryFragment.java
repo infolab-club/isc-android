@@ -36,19 +36,23 @@ public class TabHistoryFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_history, container, false);
-        db = new DBRecords(getContext());
-        recyclerView = rootView.findViewById(R.id.tab_history_list);
         return rootView;
     }
 
     @Override
     public void onResume() {
-        super.onResume();
-
         initializeFragment();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        clear();
+        super.onPause();
     }
 
     private void initializeFragment() {
+        recyclerView = rootView.findViewById(R.id.tab_history_list);
         buttonUpload = rootView.findViewById(R.id.buttonUpload);
         buttonUpload.setOnClickListener(onClickUpload);
         buttonUpload.setClickable(false);
@@ -57,24 +61,33 @@ public class TabHistoryFragment extends Fragment
         viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (indexHistory > -1){
+                if (indexHistory > -1) {
                     Intent i = new Intent(getContext(), GraphActivity.class);
                     i.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexHistory);
                     i.putExtra(GraphActivity.EXTRA_TEST_NAME, db.select(indexHistory).getName());
                     i.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_HISTORY);
                     startActivity(i);
-                    getActivity().overridePendingTransition(0,0);
+                    getActivity().overridePendingTransition(0, 0);
                 }
             }
         });
         viewBtn.setClickable(false);
         viewBtn.setAlpha(.5f);
+        db = new DBRecords(getContext());
         setHistoryData();
         historyAdapter = new HistoryAdapter(getActivity(), histories, this);
         recyclerView.setAdapter(historyAdapter);
     }
 
-    public void setHistoryData() {
+    private void clear() {
+        int size = histories.size();
+        histories.clear();
+        if (historyAdapter != null) {
+            historyAdapter.notifyItemRangeRemoved(0, size);
+        }
+    }
+
+    private void setHistoryData() {
         histories.clear();
         for (long i = db.getCountRows(); i >= 1; i--) {
             Record r = db.select(i);
