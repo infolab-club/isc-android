@@ -20,7 +20,7 @@
     <string name="language_english">Английский</string>
     <string name="language_russian">Русский</string>
     <string name="app_language">Язык</string>
-
+    <string name="choose_language">Выберите язык</string>
 
     <string name="success_toast">Успех</string>
     <string name="exit_toast">Нажмите ещё раз чтобы выйти</string>

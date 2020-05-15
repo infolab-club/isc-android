@@ -20,6 +20,7 @@
     <string name="language_english">English</string>
     <string name="language_russian">Russian</string>
     <string name="app_language">Language</string>
+    <string name="choose_language">Choose language</string>
 
 
     <string name="success_toast">Success</string>

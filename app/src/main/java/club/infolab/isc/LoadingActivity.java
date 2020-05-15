@@ -1,58 +1,45 @@
 package club.infolab.isc;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Locale;
-
 public  class LoadingActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE_PERMISSION = 0 ;
     private static int SPLASH_TIME_OUT = 1500;
     private static final int REQUEST_ENABLE_BLUETOOTH = 0;
     private boolean wasLogoShow;
     private boolean wasBluetoothEnable;
-    private AppLocale appLocale;
-    private static SharedPreferences sharedPreferences;
-    private static SharedPreferences.Editor editor;
-    public static final String APP_PREFERENCES_LANGUAGE = "appLanguage";
-    public static final String APP_PREFERENCES = "mySettings";
-
-    private String language;
+    private  AppLocale appLocale;
+    static SharedPreferences sharedPreferences;
+    static SharedPreferences.Editor editor;
+    static final String APP_PREFERENCES_LANGUAGE = "appLanguage";
+    static final String APP_PREFERENCES = "mySettings";
+    static final String APP_PREFERENCES_START = "firstRun";
 
     @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-         appLocale = new AppLocale(this);
+        appLocale = new AppLocale(this);
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        if (sharedPreferences.contains(APP_PREFERENCES_LANGUAGE)) {
-            language = sharedPreferences.getString(APP_PREFERENCES_LANGUAGE, "en");
-        }
-        else {
-            language = Locale.getDefault().getLanguage();
-        }
-        setLanguage();
         ImageView imageView = findViewById(R.id.loading_logo);
         Picasso.get().load(R.drawable.isc_logo).into(imageView);
-        checkPermission();
-        checkBluetoothEnable();
+        isFirstStart();
+
     }
 
     private void checkBluetoothEnable() {
@@ -79,6 +66,7 @@ public  class LoadingActivity extends AppCompatActivity {
         checkBluetoothEnable();
     }
 
+
     private void startMainActivity() {
         if (wasLogoShow && wasBluetoothEnable) {
             Intent intent = new Intent(LoadingActivity.this, BluetoothActivity.class);
@@ -88,31 +76,29 @@ public  class LoadingActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPermission() {
-        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_CODE_PERMISSION);
+    private void isFirstStart() {
+        if (sharedPreferences.getBoolean(APP_PREFERENCES_START, true)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.choose_language)
+                    .setPositiveButton(R.string.language_russian, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            appLocale.changeAppLocale("ru");
+                            checkBluetoothEnable();
+                        }
+                    })
+                    .setNegativeButton(R.string.language_english, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            appLocale.changeAppLocale("en");
+                            checkBluetoothEnable();
+                        }
+                    }).setCancelable(false)
+                    .show();
+            sharedPreferences.edit().putBoolean(APP_PREFERENCES_START, false).apply();
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            } else {
-                checkPermission();
-            }
+        else if (!sharedPreferences.getBoolean(APP_PREFERENCES_START, false)) {
+            appLocale.checkLanguage();
+            checkBluetoothEnable();
         }
-    }
-
-    private void setLanguage() {
-        appLocale.changeAppLocale(language);
-    }
-
-    public static void saveConfiguration(String currentLanguage) {
-        editor.putString(APP_PREFERENCES_LANGUAGE, currentLanguage);
-        editor.apply();
     }
 }

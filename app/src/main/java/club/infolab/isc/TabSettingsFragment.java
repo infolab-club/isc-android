@@ -2,6 +2,7 @@ package club.infolab.isc;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import static club.infolab.isc.AppLocale.getCurrentLanguage;
 import static club.infolab.isc.R.color.white;
 
 public class TabSettingsFragment extends Fragment {
@@ -22,18 +24,19 @@ public class TabSettingsFragment extends Fragment {
         return rootView;
     }
     private void initializeFragment(){
+        Log.d("TAG", getCurrentLanguage());
         Button buttonRu = rootView.findViewById(R.id.buttonRu);
         Button buttonEn = rootView.findViewById(R.id.buttonEn);
-        if (AppLocale.getCurrentLanguage().equals("ru")) {
+        buttonEn.setOnClickListener(onButtonEnClick);
+        buttonRu.setOnClickListener(onButtonRuClick);
+        if (getCurrentLanguage().equals("ru")) {
             buttonRu.setBackground(getResources().getDrawable(R.drawable.style_button_blue));
             buttonRu.setTextColor(getResources().getColor(white));
         }
-        if (AppLocale.getCurrentLanguage().equals("en")) {
+        if (getCurrentLanguage().equals("en")) {
             buttonEn.setBackground(getResources().getDrawable(R.drawable.style_button_blue));
             buttonEn.setTextColor(getResources().getColor(white));
         }
-        buttonEn.setOnClickListener(onButtonEnClick);
-        buttonRu.setOnClickListener(onButtonRuClick);
     }
 
     private View.OnClickListener onButtonRuClick = new View.OnClickListener() {
