@@ -45,7 +45,6 @@ public class GraphActivity extends AppCompatActivity
     private String testName;
     private int testIndex;
 
-//    private LineChart chart;
     private GraphView graphView;
     private int currentAxes = 0;
 
@@ -75,9 +74,6 @@ public class GraphActivity extends AppCompatActivity
     private TextView textTestName;
     private TextView textStatusStripping;
     private TextView textTimeStripping;
-//    private TextView textAxisX;
-//    private TextView textAxisY;
-
     private GraphData graphData;
 
     private GraphData graphTP;
@@ -135,13 +131,10 @@ public class GraphActivity extends AppCompatActivity
 
     private void initializeViews() {
         textTestName = findViewById(R.id.name_test);
-//        textAxisX = findViewById(R.id.XAxisText);
-//        textAxisY = findViewById(R.id.YAxisText);
         switcherAxises = findViewById(R.id.radio_group);
         buttonSave = findViewById(R.id.buttonSave);
         textStatusStripping = findViewById(R.id.textStatusStripping);
         textTimeStripping = findViewById(R.id.textTimeStripping);
-//        chart = findViewById(R.id.chart);
         graphView = findViewById(R.id.graph_view);
     }
 
@@ -209,8 +202,6 @@ public class GraphActivity extends AppCompatActivity
     };
 
     private void startSimulation() {
-//        entriesTimePotential.add(new ArrayList<Entry>());
-//        entriesTimeCurrent.add(new ArrayList<Entry>());
         switch (testType) {
             case TEST_TYPE_BLUETOOTH:
                 BluetoothController bluetoothController = new BluetoothController(this);
@@ -274,48 +265,6 @@ public class GraphActivity extends AppCompatActivity
         graphTP.addData(testData.getTime(), testData.getVoltage());
         graphTC.addData(testData.getTime(), testData.getAmperage());
         graphPC.addData(testData.getVoltage(), testData.getAmperage());
-//        Entry entryTimePotential = new Entry(testData.getTime(), testData.getVoltage());
-//        entriesTimePotential.get(0).add(entryTimePotential);
-//
-//        Entry entryTimeCurrent = new Entry(testData.getTime(), testData.getAmperage());
-//        entriesTimeCurrent.get(0).add(entryTimeCurrent);
-//
-//        Entry entryPotentialCurrent = new Entry(testData.getVoltage(), testData.getAmperage());
-//        int lastResultsIndex = CurrentTest.results.size() - 1;
-//        if (lastResultsIndex == -1) {
-//            entriesPotentialCurrent.add(new ArrayList<Entry>());
-//            entriesPotentialCurrent.get(0).add(entryPotentialCurrent);
-//        }
-//        else {
-//            MomentTest lastData = CurrentTest.results.get(lastResultsIndex);
-//            int lastEntriesIndex = entriesPotentialCurrent.size() - 1;
-//            if (testData.getVoltage() > lastData.getVoltage()) {
-//                if (rightPotentialCurrent) {
-//                    entriesPotentialCurrent.get(lastEntriesIndex).add(entryPotentialCurrent);
-//                }
-//                else {
-//                    entriesPotentialCurrent.add(new ArrayList<Entry>());
-//                    entriesPotentialCurrent.get(lastEntriesIndex + 1).add(entryPotentialCurrent);
-//                    rightPotentialCurrent = true;
-//                }
-//            }
-//            else {
-//                if (!rightPotentialCurrent) {
-//                    entriesPotentialCurrent.get(lastEntriesIndex).add(0, entryPotentialCurrent);
-//                }
-//                else {
-//                    if (entriesPotentialCurrent.get(0).size() == 1) {
-//                        entriesPotentialCurrent.get(lastEntriesIndex).add(0, entryPotentialCurrent);
-//                    }
-//                    else {
-//                        entriesPotentialCurrent.add(new ArrayList<Entry>());
-//                        entriesPotentialCurrent.get(lastEntriesIndex + 1).add(entryPotentialCurrent);
-//                    }
-//                    rightPotentialCurrent = false;
-//                }
-//            }
-//        }
-//
         CurrentTest.results.add(testData);
     }
 
@@ -326,35 +275,6 @@ public class GraphActivity extends AppCompatActivity
         drawChart();
     }
 
-//    private void customizeChart() {
-//        if (testType != TEST_TYPE_STRIPPING) {
-//            chart.getLegend().setEnabled(false);
-//        }
-//        chart.getDescription().setEnabled(false);
-//
-//        XAxis xAxis = chart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//
-//        YAxis yAxis = chart.getAxisRight();
-//
-//        LimitLine limitX = new LimitLine(0f);
-//        limitX.setLineColor(Color.BLACK);
-//        limitX.setLineWidth(1f);
-//        limitX.setTextSize(12f);
-//        limitX.setTextColor(Color.BLACK);
-//
-//        LimitLine limitY = new LimitLine(0f);
-//        limitY.setLineColor(Color.BLACK);
-//        limitY.setLineWidth(1f);
-//        limitY.setTextSize(12f);
-//        limitY.setTextColor(Color.BLACK);
-//
-//        xAxis.addLimitLine(limitX);
-//        yAxis.addLimitLine(limitY);
-//
-//        setLabelAxises();
-//    }
-
     private void customizeGraphView() {
         if (testType != TEST_TYPE_STRIPPING) {
             graphView.setLegendEnable(false);
@@ -363,52 +283,21 @@ public class GraphActivity extends AppCompatActivity
         setLabelAxises();
     }
 
-//    private void drawChart() {
-//        LineData lineData = new LineData();
-//
-//        if (testType != TEST_TYPE_STRIPPING) {
-//            int color = Color.rgb(61, 165, 244);
-//            for (List<Entry> e: entriesCurrent) {
-//                LineDataSet dataSet = getStyleDataSet(e, "", color);
-//                lineData.addDataSet(dataSet);
-//            }
-//        }
-//        else {
-//            int color1 = Color.rgb(61, 165, 244);
-//            LineDataSet dataSet1 = getStyleDataSet(eStripping1, "Test №1", color1);
-//            lineData.addDataSet(dataSet1);
-//
-//            if (strippingIndex == 7) {
-//                int color2 = Color.rgb(61, 244, 165);
-//                LineDataSet dataSet2 = getStyleDataSet(eStripping2, "Test №2", color2);
-//                lineData.addDataSet(dataSet2);
-//            }
-//        }
-//
-//        chart.setData(lineData);
-//        chart.invalidate();
-//    }
-
     private void drawChart() {
         if (testType != TEST_TYPE_STRIPPING) {
         }
         else {
             int color1 = Color.rgb(61, 165, 244);
             GraphData graphData1 = getGraphData(eStripping1, color1, "Test №1");
-            //graphView.addGraphData(graphData1);
-
             if (strippingIndex == 7) {
                 int color2 = Color.rgb(61, 244, 165);
                 GraphData graphData2 = getGraphData(eStripping1, color2, "Test №2");
-                //graphView.addGraphData(graphData2);
             }
         }
-        Log.d("GRAPH", "draw graph");
         graphView.drawGraph();
     }
 
     private void setLabelAxises() {
-
         String labelXAxis = "";
         String labelYAxis = "";
 
@@ -420,19 +309,16 @@ public class GraphActivity extends AppCompatActivity
         else {
             switch (currentAxes) {
                 case 0:
-//                    graphData = new GraphData(entriesTP, color, " ");
                     graphData = graphTP;
                     labelXAxis = getString(R.string.chartAxisTime);
                     labelYAxis = getString(R.string.chartAxisPotential);
                     break;
                 case 1:
-//                    graphData = new GraphData(entriesTC, color, " ");
                     graphData = graphTC;
                     labelXAxis = getString(R.string.chartAxisTime);
                     labelYAxis = getString(R.string.chartAxisCurrent);
                     break;
                 case 2:
-//                    graphData = new GraphData(entriesPC, color, " ");
                     graphData = graphPC;
                     labelXAxis = getString(R.string.chartAxisPotential);
                     labelYAxis = getString(R.string.chartAxisCurrent);
@@ -443,17 +329,6 @@ public class GraphActivity extends AppCompatActivity
         graphView.addGraphData(graphData);
         graphView.setAxisName(labelXAxis, labelYAxis);
     }
-
-//    private LineDataSet getStyleDataSet(List<Entry> entries, String label, int color) {
-//        LineDataSet dataSet = new LineDataSet(entries, label);
-//        dataSet.setCircleColor(color);
-//        dataSet.setCircleHoleColor(color);
-//        dataSet.setCircleRadius(2f);
-//        dataSet.setDrawValues(false);
-//        dataSet.setLineWidth(4f);
-//        dataSet.setColor(color);
-//        return dataSet;
-//    }
 
     private GraphData getGraphData(List<Entry> entries, int color, String label) {
         ArrayList<Moment> moments = new ArrayList<>();
