@@ -152,8 +152,7 @@ public class GraphActivity extends AppCompatActivity
                 break;
             case (TEST_TYPE_STRIPPING):
                 switcherAxises.setVisibility(View.GONE);
-                buttonSave.setVisibility(View.VISIBLE);
-                buttonSave.setText(getResources().getString(R.string.button_stop_stripping));
+                buttonSave.setVisibility(View.GONE);
                 textStatusStripping.setVisibility(View.VISIBLE);
                 textTimeStripping.setVisibility(View.VISIBLE);
                 break;
