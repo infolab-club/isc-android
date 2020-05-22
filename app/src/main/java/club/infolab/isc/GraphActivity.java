@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -16,7 +15,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.vk59.graphviewlibrary.GraphData;
 import com.vk59.graphviewlibrary.GraphView;
 import com.vk59.graphviewlibrary.Moment;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,20 +46,11 @@ public class GraphActivity extends AppCompatActivity
     private GraphView graphView;
     private int currentAxes = 0;
 
-    private List<List<Entry>> entriesTimePotential = new ArrayList<>();
-    private List<List<Entry>> entriesTimeCurrent = new ArrayList<>();
-    private List<List<Entry>> entriesPotentialCurrent = new ArrayList<>();
     private boolean rightPotentialCurrent = true;
     private List<List<Entry>> entriesCurrent;
 
-    private ArrayList<Moment> entriesTP = new ArrayList<>();
-    private ArrayList<Moment> entriesTC = new ArrayList<>();
-    private ArrayList<Moment> entriesPC = new ArrayList<>();
-
     private TestSimulation testSimulation;
 
-    private static List<Entry> eStripping1 = new ArrayList<>();
-    private static List<Entry> eStripping2 = new ArrayList<>();
     public static final int STRIPPING_STAGE_CLEANING = 0;
     public static final int STRIPPING_STAGE_DEPOSITION = 1;
     public static final int STRIPPING_STAGE_RUNNING = 2;
@@ -80,15 +69,13 @@ public class GraphActivity extends AppCompatActivity
     private GraphData graphTC;
     private GraphData graphPC;
 
+    private static GraphData graphStripping1;
+    private static GraphData graphStripping2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        int color = Color.rgb(61, 165, 244);
-        graphPC = new GraphData(new ArrayList<Moment>(), color, " ");
-        graphTC = new GraphData(new ArrayList<Moment>(), color, " ");
-        graphTP = new GraphData(new ArrayList<Moment>(), color, " ");
-        graphData = graphTP;
         initializeActivity();
         startSimulation();
     }
@@ -106,8 +93,7 @@ public class GraphActivity extends AppCompatActivity
                 testSimulation.stopSimulation();
                 if (strippingIndex == 7) {
                     strippingIndex = 5;
-                    eStripping1.clear();
-                    eStripping2.clear();
+                    graphView.clear();
                 }
                 break;
         }
@@ -118,8 +104,25 @@ public class GraphActivity extends AppCompatActivity
     private void initializeActivity() {
         getInfoTest();
         initializeViews();
+        initializeGraphData();
         customizeActivity();
         customizeGraphView();
+    }
+
+    private void initializeGraphData() {
+        graphView = findViewById(R.id.graph_view);
+        int color = Color.rgb(61, 165, 244);
+        if (testType == TEST_TYPE_STRIPPING && strippingIndex == 5) {
+            int color1 = Color.rgb(61, 165, 244);
+            graphStripping1 = new GraphData(new ArrayList<Moment>(), color1, "Test №1");
+            int color2 = Color.rgb(61, 244, 165);
+            graphStripping2 = new GraphData(new ArrayList<Moment>(), color2, "Test №2");
+        } else {
+            graphPC = new GraphData(new ArrayList<Moment>(), color, " ");
+            graphTC = new GraphData(new ArrayList<Moment>(), color, " ");
+            graphTP = new GraphData(new ArrayList<Moment>(), color, " ");
+            graphData = graphTP;
+        }
     }
 
     private void getInfoTest() {
@@ -135,7 +138,6 @@ public class GraphActivity extends AppCompatActivity
         buttonSave = findViewById(R.id.buttonSave);
         textStatusStripping = findViewById(R.id.textStatusStripping);
         textTimeStripping = findViewById(R.id.textTimeStripping);
-        graphView = findViewById(R.id.graph_view);
     }
 
     private void customizeActivity() {
@@ -150,7 +152,8 @@ public class GraphActivity extends AppCompatActivity
                 break;
             case (TEST_TYPE_STRIPPING):
                 switcherAxises.setVisibility(View.GONE);
-                buttonSave.setVisibility(View.GONE);
+                buttonSave.setVisibility(View.VISIBLE);
+                buttonSave.setText(getResources().getString(R.string.button_stop_stripping));
                 textStatusStripping.setVisibility(View.VISIBLE);
                 textTimeStripping.setVisibility(View.VISIBLE);
                 break;
@@ -251,17 +254,16 @@ public class GraphActivity extends AppCompatActivity
         }
         else {
             if (strippingIndex == 6) {
-                eStripping1.add(new Entry(testData.getTime(), testData.getVoltage()));
+                graphStripping1.addData(testData.getTime(), testData.getVoltage());
             }
             else {
-                eStripping2.add(new Entry(testData.getTime(), testData.getVoltage()));
+                graphStripping2.addData(testData.getTime(), testData.getVoltage());
             }
         }
         drawChart();
     }
 
     private void prepareNewData(MomentTest testData) {
-        Log.d("PREPARING", "added" + testData.getTime() + " " +  testData.getVoltage());
         graphTP.addData(testData.getTime(), testData.getVoltage());
         graphTC.addData(testData.getTime(), testData.getAmperage());
         graphPC.addData(testData.getVoltage(), testData.getAmperage());
@@ -278,20 +280,17 @@ public class GraphActivity extends AppCompatActivity
     private void customizeGraphView() {
         if (testType != TEST_TYPE_STRIPPING) {
             graphView.setLegendEnable(false);
+            graphView.addGraphData(graphData);
         }
-        graphView.addGraphData(graphData);
         setLabelAxises();
     }
 
     private void drawChart() {
-        if (testType != TEST_TYPE_STRIPPING) {
-        }
-        else {
-            int color1 = Color.rgb(61, 165, 244);
-            GraphData graphData1 = getGraphData(eStripping1, color1, "Test №1");
+        if (testType == TEST_TYPE_STRIPPING) {
+            graphView.clear();
+            graphView.addGraphData(graphStripping1);
             if (strippingIndex == 7) {
-                int color2 = Color.rgb(61, 244, 165);
-                GraphData graphData2 = getGraphData(eStripping1, color2, "Test №2");
+                graphView.addGraphData(graphStripping2);
             }
         }
         graphView.drawGraph();
@@ -302,7 +301,6 @@ public class GraphActivity extends AppCompatActivity
         String labelYAxis = "";
 
         if (testType == TEST_TYPE_STRIPPING) {
-            entriesCurrent = entriesTimePotential;
             labelXAxis = getString(R.string.strippingXAxis);
             labelYAxis = getString(R.string.strippingYAxis);
         }
@@ -324,18 +322,10 @@ public class GraphActivity extends AppCompatActivity
                     labelYAxis = getString(R.string.chartAxisCurrent);
                     break;
             }
+            graphView.clear();
+            graphView.addGraphData(graphData);
         }
-        graphView.clear();
-        graphView.addGraphData(graphData);
         graphView.setAxisName(labelXAxis, labelYAxis);
-    }
-
-    private GraphData getGraphData(List<Entry> entries, int color, String label) {
-        ArrayList<Moment> moments = new ArrayList<>();
-        for(Entry entry : entries) {
-            moments.add(new Moment(entry.getX(), entry.getY()));
-        }
-        return new GraphData(moments, color, label);
     }
 
     public class StrippingTimer extends CountDownTimer {
