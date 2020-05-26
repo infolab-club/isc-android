@@ -7,18 +7,4 @@
             <solid android:color="@color/fillTab" />
         </shape>
     </item>
-
-    <item>
-        <rotate
-            android:fromDegrees="90"
-            android:toDegrees="90">
-            <shape
-                android:shape="line">
-                <stroke
-                    android:width="2dp"
-                    android:color="@color/strokeTab"
-                    />
-            </shape>
-        </rotate>
-    </item>
 </layer-list>

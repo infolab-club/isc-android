@@ -17,6 +17,7 @@
     <color name="textInstructionsGrey">#96A9C8</color>
     <color name="checkInner">#FFFFFF</color>
     <color name="strokeTab">#CDDEFF</color>
+    <color name="separatorTab">#CDDEFF</color>
     <color name="fillTab">#FFFFFF</color>
     <color name="tabSelected">#1E6AFF</color>
     <color name="tabUnselected">#96A9C8</color>
