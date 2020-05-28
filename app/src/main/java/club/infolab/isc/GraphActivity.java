@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.data.Entry;
 import com.vk59.graphviewlibrary.GraphData;
 import com.vk59.graphviewlibrary.GraphView;
 import com.vk59.graphviewlibrary.Moment;
@@ -19,7 +18,6 @@ import com.vk59.graphviewlibrary.Moment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import club.infolab.isc.bluetooth.BluetoothCallback;
 import club.infolab.isc.bluetooth.BluetoothController;
@@ -185,7 +183,7 @@ public class GraphActivity extends AppCompatActivity
                 isClickedSave = true;
                 buttonSave.setAlpha(0.8f);
                 buttonSave.setClickable(false);
-                Toasty.custom(GraphActivity.this, R.string.success_toast,
+                Toasty.custom(GraphActivity.this, R.string.toast_saved,
                         null, R.color.toast, Toasty.LENGTH_SHORT,
                         false, true).show();
             }

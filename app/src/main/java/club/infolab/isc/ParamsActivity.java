@@ -69,7 +69,7 @@ public class ParamsActivity extends AppCompatActivity
             View view = ltInflater.inflate(R.layout.item_param, null, false);
 
             TextView paramName = view.findViewById(R.id.param_name_item);
-            paramName.setText(param.getName());
+            paramName.setText(param.getName().substring(0, 1).toUpperCase() + param.getName().substring(1));
 
             final EditText editParam = view.findViewById(R.id.edit_values);
 //            editParam.setMaxvalue(param.getMaxValue());

@@ -8,12 +8,12 @@
     <string name="connect_btn">Connect</string>
     <string name="skip_btn">Demo</string>
     <string name="buttonUpload">Upload</string>
-    <string name="header">Connection to the station</string>
-    <string name="connect_instruct_black">• Select a device from the list\n• Click the connect button</string>
-    <string name="connect_instruct_grey">If you want to work in the demonstration mode, click the skip button</string>
-    <string name="test_instruct_black">• Select a test from the list\n• Click the Set parameters button</string>
-    <string name="test_instruct_grey">If you don\'t want to set parameters, click Start Demo button</string>
-    <string name="history_instruct_black">• Select a test from the list\n• Click the View button</string>
+    <string name="header">Connection to the potentiostat</string>
+    <string name="connect_instruct_black">• Select a «Potentiostat» from the list\n• Click the «Connect» button</string>
+    <string name="connect_instruct_grey">If you want to work in demo mode, select «Virtual potentiostat».</string>
+    <string name="test_instruct_black">• Select a test from the list\n• Click the «Set parameters» button</string>
+    <string name="test_instruct_grey">If you don\'t want to set parameters, click the «Start the demo» button.</string>
+    <string name="history_instruct_black">• Select a test from the list\n• To view the test, click the «View» button\n• To upload the test to the cloud, click the «Upload» button.</string>
     <string name="header_test_select">Test selection</string>
     <string name="header_test_history">Test history</string>
     <string name="header_test_settings">App settings</string>
@@ -22,8 +22,7 @@
     <string name="app_language">Language</string>
     <string name="choose_language">Choose language</string>
 
-
-    <string name="success_toast">Success</string>
+    <string name="toast_uploaded">Uploaded to the cloud</string>
     <string name="exit_toast">Press once again to exit</string>
 
     <string name="chartAxisTime">Time, sec</string>
@@ -37,4 +36,9 @@
     <string name="tab_tests">Tests</string>
     <string name="tab_history">History</string>
     <string name="tab_settings">Settings</string>
+    <string name="toast_saved">Saved</string>
+    <string name="switch_potential_time">Potential vs Time</string>
+    <string name="switch_current_time">Current vs Time</string>
+    <string name="switch_current_potential">Current vs Potential</string>
+    <string name="scene_parameters_hint_black">• Set parameters for the test\n• Click the «Run test» button</string>
 </resources>

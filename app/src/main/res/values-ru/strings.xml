@@ -8,12 +8,12 @@
     <string name="connect_btn">Подключиться</string>
     <string name="skip_btn">Демонстрация</string>
     <string name="buttonUpload">Загрузить</string>
-    <string name="header">Подключение к станции</string>
-    <string name="connect_instruct_black">• Выберите устройство из списка\n• Нажмите кнопку подключения</string>
-    <string name="connect_instruct_grey">Если вы хотите работать в демонстрационном режиме, нажмите кнопку пропуска</string>
-    <string name="test_instruct_black">• Выберите тест из списка\n• Нажмите кнопку Установить параметры</string>
-    <string name="test_instruct_grey">Если вы не хотите устанавливать параметры, нажмите кнопку «Запустить демонстрацию»</string>
-    <string name="history_instruct_black">• Выберите тест из списка\n• Нажмите кнопку «Просмотр»</string>
+    <string name="header">Подключение к потенциостату</string>
+    <string name="connect_instruct_black">• Выберите потенциостат из списка\n• Нажмите кнопку подключения</string>
+    <string name="connect_instruct_grey">Если вы хотите работать в демонстрационном режиме, выберите Virtual potentiostat.</string>
+    <string name="test_instruct_black">• Выберите тест из списка\n• Нажмите кнопку «Запустить»</string>
+    <string name="test_instruct_grey">Если вы не хотите устанавливать параметры, нажмите кнопку «Демонстрация».</string>
+    <string name="history_instruct_black">• Выберите тест из списка\n• Для просмотра проведённого теста, нажмите кнопку «Просмотр»\n• Для загрузки теста в облако, нажмите кнопку «Загрузить»</string>
     <string name="header_test_select">Выбор теста</string>
     <string name="header_test_history">История тестов</string>
     <string name="header_test_settings">Настройки приложения</string>
@@ -22,13 +22,12 @@
     <string name="app_language">Язык</string>
     <string name="choose_language">Выберите язык</string>
 
-    <string name="success_toast">Успех</string>
+    <string name="toast_uploaded">Загружено в облако</string>
     <string name="exit_toast">Нажмите ещё раз чтобы выйти</string>
 
-
-    <string name="chartAxisTime">Time, sec</string>
-    <string name="chartAxisPotential">Potential, V</string>
-    <string name="chartAxisCurrent">Current, uA</string>
+    <string name="chartAxisTime">Время, с</string>
+    <string name="chartAxisPotential">Напряжение, V</string>
+    <string name="chartAxisCurrent">Сила тока, мкA</string>
     
     <string name="strippingCleaning">Очистка</string>
     <string name="strippingDeposition">Deposition</string>
@@ -37,4 +36,9 @@
     <string name="tab_tests">Тесты</string>
     <string name="tab_history">История</string>
     <string name="tab_settings">Настройки</string>
+    <string name="toast_saved">Сохранено</string>
+    <string name="switch_potential_time">Напряжение и время</string>
+    <string name="switch_current_time">Сила тока и время</string>
+    <string name="switch_current_potential">Сила тока и напряжение</string>
+    <string name="scene_parameters_hint_black">• Установите желаемые параметры для теста\n• Нажмите кнопку «Запустить»</string>
 </resources>

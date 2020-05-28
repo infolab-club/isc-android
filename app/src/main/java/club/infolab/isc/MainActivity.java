@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         settings = new TabSettingsFragment();
         tests = new TabTestsFragment();
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(tests, " " + getString(R.string.tab_tests) + " ");
+        adapter.addFragment(tests, getString(R.string.tab_tests));
         adapter.addFragment(history, getString(R.string.tab_history));
         adapter.addFragment(settings, getString(R.string.tab_settings));
 

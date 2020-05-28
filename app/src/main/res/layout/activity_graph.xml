@@ -49,7 +49,7 @@
             android:layout_weight="1"
             android:checked="true"
             android:padding="5dp"
-            android:text="potential vs time" />
+            android:text="@string/switch_potential_time" />
 
         <RadioButton
             android:id="@+id/current_time_rd_btn"
@@ -59,7 +59,7 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="current vs time" />
+            android:text="@string/switch_current_time" />
 
         <RadioButton
             android:id="@+id/current_potential_rd_btn"
@@ -68,7 +68,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="current vs potential" />
+            android:text="@string/switch_current_potential" />
     </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline

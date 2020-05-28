@@ -139,7 +139,7 @@ public class TabHistoryFragment extends Fragment
         String json = db.select(index).getJson();
         Record record = new Record(index, type, date, 1, json);
         db.update(record);
-        Toasty.custom(getContext(), R.string.success_toast,
+        Toasty.custom(getContext(), R.string.toast_uploaded,
                 null, R.color.toast, Toasty.LENGTH_SHORT,
                 false, true).show();
         setHistoryData();
