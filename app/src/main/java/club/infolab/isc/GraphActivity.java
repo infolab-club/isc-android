@@ -28,6 +28,7 @@ import club.infolab.isc.test.CurrentTest;
 import club.infolab.isc.test.MomentTest;
 import club.infolab.isc.test.simulation.TestSimulation;
 import club.infolab.isc.test.simulation.TestSimulationCallback;
+import es.dmoral.toasty.Toasty;
 
 public class GraphActivity extends AppCompatActivity
         implements TestSimulationCallback, BluetoothCallback {
@@ -46,8 +47,7 @@ public class GraphActivity extends AppCompatActivity
     private GraphView graphView;
     private int currentAxes = 0;
 
-    private boolean rightPotentialCurrent = true;
-    private List<List<Entry>> entriesCurrent;
+    private boolean isClickedSave;
 
     private TestSimulation testSimulation;
 
@@ -168,19 +168,27 @@ public class GraphActivity extends AppCompatActivity
     private View.OnClickListener onClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (testType) {
-                case (TEST_TYPE_BLUETOOTH):
-                    BluetoothController.isTestRun = false;
-                    break;
-                case (TEST_TYPE_SIMULATION):
-                case (TEST_TYPE_STRIPPING):
-                    testSimulation.stopSimulation();
-                    break;
+            if (!isClickedSave) {
+                switch (testType) {
+                    case (TEST_TYPE_BLUETOOTH):
+                        BluetoothController.isTestRun = false;
+                        break;
+                    case (TEST_TYPE_SIMULATION):
+                    case (TEST_TYPE_STRIPPING):
+                        testSimulation.stopSimulation();
+                        break;
+                }
+                Date date = Calendar.getInstance().getTime();
+                String json = CurrentTest.convertTestsToJson(CurrentTest.results);
+                DBRecords dataBase = new DBRecords(GraphActivity.this);
+                dataBase.insert(testName, date.toString(), 0, json);
+                isClickedSave = true;
+                buttonSave.setAlpha(0.8f);
+                buttonSave.setClickable(false);
+                Toasty.custom(GraphActivity.this, R.string.success_toast,
+                        null, R.color.toast, Toasty.LENGTH_SHORT,
+                        false, true).show();
             }
-            Date date = Calendar.getInstance().getTime();
-            String json = CurrentTest.convertTestsToJson(CurrentTest.results);
-            DBRecords dataBase = new DBRecords(GraphActivity.this);
-            dataBase.insert(testName, date.toString(), 0, json);
         }
     };
 
