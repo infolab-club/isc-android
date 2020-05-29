@@ -23,6 +23,7 @@
     <string name="choose_language">Choose language</string>
 
     <string name="toast_uploaded">Uploaded to the cloud</string>
+    <string name="toast_failed">Error uploading to the cloud</string>
     <string name="exit_toast">Press once again to exit</string>
 
     <string name="chartAxisTime">Time, sec</string>

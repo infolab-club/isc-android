@@ -133,20 +133,26 @@ public class TabHistoryFragment extends Fragment
     };
 
     @Override
-    public void onSuccess(int index) {
-        String type = db.select(index).getName();
-        String date = db.select(index).getDate();
-        String json = db.select(index).getJson();
-        Record record = new Record(index, type, date, 1, json);
-        db.update(record);
-        Toasty.custom(getContext(), R.string.toast_uploaded,
-                null, R.color.toast, Toasty.LENGTH_SHORT,
-                false, true).show();
-        setHistoryData();
-        historyAdapter.notifyDataSetChanged();
-        if (index == indexHistory) {
-            buttonUpload.setClickable(false);
-            buttonUpload.setAlpha(.5f);
+    public void onResult(int index, boolean isSuccess) {
+        if (isSuccess) {
+            String type = db.select(index).getName();
+            String date = db.select(index).getDate();
+            String json = db.select(index).getJson();
+            Record record = new Record(index, type, date, 1, json);
+            db.update(record);
+            Toasty.custom(getContext(), R.string.toast_uploaded,
+                    null, R.color.toast, Toasty.LENGTH_SHORT,
+                    false, true).show();
+            setHistoryData();
+            historyAdapter.notifyDataSetChanged();
+            if (index == indexHistory) {
+                buttonUpload.setClickable(false);
+                buttonUpload.setAlpha(.5f);
+            }
+        } else {
+            Toasty.custom(getContext(), R.string.toast_failed,
+                    null, R.color.toast, Toasty.LENGTH_SHORT,
+                    false, true).show();
         }
     }
 }

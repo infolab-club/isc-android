@@ -23,6 +23,7 @@
     <string name="choose_language">Выберите язык</string>
 
     <string name="toast_uploaded">Загружено в облако</string>
+    <string name="toast_failed">Ошибка загрузки в облако</string>
     <string name="exit_toast">Нажмите ещё раз чтобы выйти</string>
 
     <string name="chartAxisTime">Время, с</string>

@@ -24,11 +24,12 @@ public class RetrofitController {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                    callback.onSuccess(index);
+                callback.onResult(index, true);
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
+                callback.onResult(index, false);
             }
         });
     }
