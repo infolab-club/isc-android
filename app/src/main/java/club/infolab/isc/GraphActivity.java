@@ -15,6 +15,7 @@ import com.vk59.graphviewlibrary.GraphData;
 import com.vk59.graphviewlibrary.GraphView;
 import com.vk59.graphviewlibrary.Moment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -177,9 +178,11 @@ public class GraphActivity extends AppCompatActivity
                         break;
                 }
                 Date date = Calendar.getInstance().getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                String dateString = dateFormat.format(date);
                 String json = CurrentTest.convertTestsToJson(CurrentTest.results);
                 DBRecords dataBase = new DBRecords(GraphActivity.this);
-                dataBase.insert(testName, date.toString(), 0, json);
+                dataBase.insert(testName, dateString, 0, json);
                 isClickedSave = true;
                 buttonSave.setAlpha(0.8f);
                 buttonSave.setClickable(false);

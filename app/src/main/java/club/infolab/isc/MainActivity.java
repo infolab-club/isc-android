@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
             ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
             GradientDrawable drawable = new GradientDrawable();
             drawable.setColor(getResources().getColor(R.color.separatorTab));
-            drawable.setSize(2, 1);
+
+            final float scale = getResources().getDisplayMetrics().density;
+            drawable.setSize((int) (2 * scale), (int) (1 * scale));
+
             ((LinearLayout) root).setDividerPadding(10);
             ((LinearLayout) root).setDividerDrawable(drawable);
         }
