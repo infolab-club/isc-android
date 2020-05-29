@@ -56,6 +56,7 @@ public class GraphActivity extends AppCompatActivity
     private int strippingStage = 0;
     private StrippingTimer strippingTimer;
     public static int strippingIndex = 5;
+    private BluetoothController bluetoothController;
 
     private RadioGroup switcherAxises;
     private Button buttonSave;
@@ -171,6 +172,7 @@ public class GraphActivity extends AppCompatActivity
                 switch (testType) {
                     case (TEST_TYPE_BLUETOOTH):
                         BluetoothController.isTestRun = false;
+                        bluetoothController.sendData("stop");
                         break;
                     case (TEST_TYPE_SIMULATION):
                     case (TEST_TYPE_STRIPPING):
@@ -215,7 +217,7 @@ public class GraphActivity extends AppCompatActivity
     private void startSimulation() {
         switch (testType) {
             case TEST_TYPE_BLUETOOTH:
-                BluetoothController bluetoothController = new BluetoothController(this);
+                bluetoothController = new BluetoothController(this);
                 BluetoothController.isTestRun = true;
                 break;
             case TEST_TYPE_SIMULATION:

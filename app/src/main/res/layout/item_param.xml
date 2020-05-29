@@ -19,7 +19,7 @@
         android:layout_weight="1" />
 
     <EditText
-        android:id="@+id/edit_values"
+        android:id="@+id/editValues"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="Value"

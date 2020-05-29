@@ -24,45 +24,44 @@ import club.infolab.isc.test.params.ParamTest;
 public class ParamsActivity extends AppCompatActivity
     implements BluetoothCallback {
     private BluetoothController bluetoothController;
+    private StringBuilder testParams;
+    private String testName;
+    private int testIndex;
+
+    private LinearLayout paramLines;
+    private TextView testNameView;
+    private ArrayList<ParamTest> thisParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
 
+        initializeActivity();
+    }
+
+    private void initializeActivity() {
         if (BluetoothController.isBluetoothRun) {
             bluetoothController = new BluetoothController(this);
         }
+        initializeViews();
+        fillWithParameters();
+    }
 
-        TextView testNameView = findViewById(R.id.name_test_params);
-        final Intent intent = getIntent();
-        final String testName = intent.getStringExtra(GraphActivity.EXTRA_TEST_NAME);
-        final int testIndex = intent.getIntExtra(GraphActivity.EXTRA_TEST_INDEX, 0);
+    private void initializeViews() {
+        testNameView = findViewById(R.id.name_test_params);
+        Intent intent = getIntent();
+        testName = intent.getStringExtra(GraphActivity.EXTRA_TEST_NAME);
+        testIndex = intent.getIntExtra(GraphActivity.EXTRA_TEST_INDEX, 0);
         testNameView.setText(testName);
+        Button startGraphButton = findViewById(R.id.startGraphButton);
+        startGraphButton.setOnClickListener(onStartGraphListener);
+        thisParams = ParamManager.getParamsOfTest(testName);
+        paramLines = findViewById(R.id.params_lines);
+        testParams = new StringBuilder();
+    }
 
-        Button startChartBtn = findViewById(R.id.toChart_btn);
-        startChartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                CurrentTest.results.clear();
-
-                Intent intent = new Intent(ParamsActivity.this, GraphActivity.class);
-                if (BluetoothController.isBluetoothRun) {
-                    bluetoothController.sendData(testName);
-                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_BLUETOOTH);
-                }
-                else {
-                    intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
-                }
-                intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
-                intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, testIndex);
-                startActivity(intent);
-                overridePendingTransition(0,0);
-                finish();
-            }
-        });
-
-        ArrayList<ParamTest> thisParams = ParamManager.getParamsOfTest(testName);
+    private void fillWithParameters() {
         LayoutInflater ltInflater = getLayoutInflater();
         for (final ParamTest param : thisParams) {
 
@@ -70,11 +69,8 @@ public class ParamsActivity extends AppCompatActivity
 
             TextView paramName = view.findViewById(R.id.param_name_item);
             paramName.setText(param.getName().substring(0, 1).toUpperCase() + param.getName().substring(1));
-
-            final EditText editParam = view.findViewById(R.id.edit_values);
-//            editParam.setMaxvalue(param.getMaxValue());
-//            editParam.setMinvalue(param.getMinValue());
-//            editParam.setDefaultvalue(Float.toString(param.getDefaultValue()));
+            final EditText editParam;
+            editParam = view.findViewById(R.id.editValues);
             editParam.setText(Float.toString(param.getDefaultValue()));
             editParam.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -84,7 +80,7 @@ public class ParamsActivity extends AppCompatActivity
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     if (!charSequence.toString().equals("") && !charSequence.toString().equals(".")
-                    && !charSequence.toString().equals("-")) {
+                            && !charSequence.toString().equals("-")) {
                         if (Float.parseFloat(charSequence.toString()) < param.getMinValue()) {
                             editParam.setText(Float.toString(param.getMinValue()));
                         } else if (Float.parseFloat(charSequence.toString()) > param.getMaxValue()) {
@@ -98,10 +94,42 @@ public class ParamsActivity extends AppCompatActivity
 
                 }
             });
-
-            LinearLayout paramLines = findViewById(R.id.params_lines);
             paramLines.addView(view);
         }
+    }
+
+    private View.OnClickListener onStartGraphListener = new View.OnClickListener () {
+        @Override
+        public void onClick(View v) {
+            CurrentTest.results.clear();
+            collectParams();
+            startGraphActivity();
+            overridePendingTransition(0, 0);
+            finish();
+        }
+    };
+
+    private void collectParams() {
+        for (int i = 0; i < thisParams.size(); i++) {
+            View view = paramLines.getChildAt(i);
+            EditText editText = view.findViewById(R.id.editValues);
+            String param = editText.getText().toString();
+            testParams.append(param).append(" ");
+        }
+        testParams.deleteCharAt(testParams.length() - 1);
+    }
+
+    private void startGraphActivity() {
+        Intent intent = new Intent(ParamsActivity.this, GraphActivity.class);
+        if (BluetoothController.isBluetoothRun) {
+            bluetoothController.sendData(testName + " \n" + testParams);
+            intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_BLUETOOTH);
+        } else {
+            intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
+        }
+        intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
+        intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, testIndex);
+        startActivity(intent);
     }
 
     @Override
