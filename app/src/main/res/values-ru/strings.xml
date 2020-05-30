@@ -21,6 +21,7 @@
     <string name="language_russian">Русский</string>
     <string name="app_language">Язык</string>
     <string name="choose_language">Выберите язык</string>
+    <string name="non_bonded_error">Устройство не сопряжено</string>
 
     <string name="toast_uploaded">Загружено в облако</string>
     <string name="toast_failed">Ошибка загрузки в облако</string>

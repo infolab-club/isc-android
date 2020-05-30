@@ -11,8 +11,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -20,6 +22,7 @@ import java.util.Set;
 import club.infolab.isc.bluetooth.AdapterDev;
 import club.infolab.isc.bluetooth.BluetoothCallback;
 import club.infolab.isc.bluetooth.BluetoothController;
+import es.dmoral.toasty.Toasty;
 
 public class BluetoothActivity extends AppCompatActivity
         implements AdapterDev.onDeviceListener, BluetoothCallback {
@@ -28,8 +31,11 @@ public class BluetoothActivity extends AppCompatActivity
     private Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
     private ArrayList<String> devicesName = new ArrayList<>();
+    private ArrayList<String> devicesStatus = new ArrayList<>();
     private ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
     private int indexBluetoothDevice = -1;
+    private boolean isDeviceBounded;
+    private String currentStatus;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -42,7 +48,6 @@ public class BluetoothActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
-
         initializeActivity();
         searchPairedDevices();
     }
@@ -52,53 +57,38 @@ public class BluetoothActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AdapterDev(this, devicesName, this);
+        adapter = new AdapterDev(this, devicesName, devicesStatus, this);
         recyclerView.setAdapter(adapter);
-
         buttonConnect = findViewById(R.id.buttonConnect);
         buttonConnect.setOnClickListener(onClickConnect);
         buttonConnect.setClickable(false);
         buttonConnect.setAlpha(0.5f);
         buttonSkip = findViewById(R.id.buttonSkip);
         buttonSkip.setOnClickListener(onClickSkip);
-
-        // buttonSearch = findViewById(R.id.scanBut);
-        // buttonSearch.setOnClickListener(onClickSearch);
     }
 
-    final BroadcastReceiver myReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            BluetoothDevice device;
 
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device.getName() == null) {
-                    setData(device.getAddress());
-                }
-                else {
-                    setData(device.getName());
-                }
-                bluetoothDevices.add(device);
-            }
-        }
-    };
 
     private void searchPairedDevices() {
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
-                setData(device.getName());
-                bluetoothDevices.add(device);
+                if (device.getName().equals("Potentiostat") || device.getName().equals("Test station")) {
+                     currentStatus = "Bonded";
+                    setData(device.getName(), currentStatus);
+                    bluetoothDevices.add(device);
+                    isDeviceBounded = true;
+                }
+            }
+            if (!isDeviceBounded) {
+                currentStatus = "Non bonded";
+                setData("Potentiostat", currentStatus);
             }
         }
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(myReceiver, intentFilter);
     }
 
-    public void setData(String deviceName) {
+    public void setData(String deviceName, String status) {
         devicesName.add(deviceName);
+        devicesStatus.add(status);
         adapter.notifyDataSetChanged();
     }
 
@@ -127,10 +117,15 @@ public class BluetoothActivity extends AppCompatActivity
     private View.OnClickListener onClickConnect = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (indexBluetoothDevice != -1) {
+            if (indexBluetoothDevice != -1 && devicesStatus.get(indexBluetoothDevice)
+                    .equals("Bonded")) {
                 runBluetoothTest();
                 goToMainActivity();
             }
+            else {
+                Toasty.custom(getApplicationContext(), R.string.non_bonded_error,
+                        null, R.color.toast, Toasty.LENGTH_SHORT,
+                        false, true).show();            }
         }
     };
 
@@ -141,21 +136,9 @@ public class BluetoothActivity extends AppCompatActivity
         }
     };
 
-    private View.OnClickListener onClickSearch = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            devicesName.clear();
-            searchPairedDevices();
-            if (bluetoothAdapter.isDiscovering())
-                bluetoothAdapter.cancelDiscovery();
-            bluetoothAdapter.startDiscovery();
-        }
-    };
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myReceiver);
     }
 
     @Override

@@ -21,6 +21,7 @@
     <string name="language_russian">Russian</string>
     <string name="app_language">Language</string>
     <string name="choose_language">Choose language</string>
+    <string name="non_bonded_error">Device is non bonded</string>
 
     <string name="toast_uploaded">Uploaded to the cloud</string>
     <string name="toast_failed">Error uploading to the cloud</string>

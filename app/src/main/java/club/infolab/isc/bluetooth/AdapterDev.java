@@ -19,12 +19,14 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
     private onDeviceListener onDeviceListener;
     private LayoutInflater inflater;
     private ArrayList<String> dataBase;
+    private ArrayList<String> status;
     private int selectedPosition = -1;
 
-    public AdapterDev(Context context, ArrayList data, onDeviceListener onDeviceListener){
+    public AdapterDev(Context context, ArrayList data, ArrayList status, onDeviceListener onDeviceListener){
         this.context = context;
         this.onDeviceListener = onDeviceListener;
         this.dataBase = data;
+        this.status = status;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -38,6 +40,7 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textDeviceName.setText(dataBase.get(position));
+        holder.textDeviceStatus.setText(status.get(position));
         if (selectedPosition == position) {
             holder.checkItem.setBackground(context.getResources()
                     .getDrawable(R.drawable.style_check_on));
@@ -55,12 +58,14 @@ public class AdapterDev extends RecyclerView.Adapter<AdapterDev.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textDeviceName;
+        final TextView textDeviceStatus;
         onDeviceListener onDeviceListener;
         View checkItem;
 
         ViewHolder(View view, final onDeviceListener onDeviceListener){
             super(view);
             textDeviceName = view.findViewById(R.id.textDeviceName);
+            textDeviceStatus = view.findViewById(R.id.textDeviceStatus);
             this.onDeviceListener = onDeviceListener;
             checkItem = view.findViewById(R.id.checkItemDevice);
             itemView.setOnClickListener(new View.OnClickListener() {
