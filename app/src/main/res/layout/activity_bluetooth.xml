@@ -12,10 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConnect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
-        app:layout_constraintTop_toBottomOf="@+id/textHeaderBluetooth">
+        app:layout_constraintTop_toBottomOf="@+id/textHeaderBluetooth"
+        app:layout_constraintVertical_bias="0.23000002">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,17 +28,17 @@
                 android:id="@+id/connect_instructs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/connect_instruct_black"
                 android:layout_marginBottom="15dp"
+                android:text="@string/connect_instruct_black"
                 android:textAppearance="@style/textInstructionBlack" />
 
             <TextView
                 android:id="@+id/connect_instructs2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:text="@string/connect_instruct_grey"
-                android:textAppearance="@style/textInstructionGrey"
-                android:layout_marginBottom="15dp"/>
+                android:textAppearance="@style/textInstructionGrey" />
         </LinearLayout>
     </ScrollView>
 
@@ -74,22 +76,14 @@
     <Button
         android:id="@+id/buttonConnect"
         style="@style/buttonBlue"
-        android:layout_marginBottom="16dp"
         android:alpha=".8"
         android:text="@string/connect_btn"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSkip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth" />
-
-    <Button
-        android:id="@+id/buttonSkip"
-        style="@style/buttonWhite"
-        android:text="@string/skip_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightBluetooth"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeftBluetooth"

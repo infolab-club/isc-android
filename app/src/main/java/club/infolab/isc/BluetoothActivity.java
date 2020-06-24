@@ -41,7 +41,6 @@ public class BluetoothActivity extends AppCompatActivity
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Button buttonConnect;
-    private Button buttonSkip;
     // private Button buttonSearch;
 
     @Override
@@ -63,8 +62,6 @@ public class BluetoothActivity extends AppCompatActivity
         buttonConnect.setOnClickListener(onClickConnect);
         buttonConnect.setClickable(false);
         buttonConnect.setAlpha(0.5f);
-        buttonSkip = findViewById(R.id.buttonSkip);
-        buttonSkip.setOnClickListener(onClickSkip);
     }
 
 
@@ -72,7 +69,7 @@ public class BluetoothActivity extends AppCompatActivity
     private void searchPairedDevices() {
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
-                if (device.getName().equals("Potentiostat") || device.getName().equals("Test station")) {
+                if (device.getName().equals("Potentiostat")) {
                      currentStatus = "Bonded";
                     setData(device.getName(), currentStatus);
                     bluetoothDevices.add(device);
@@ -84,6 +81,7 @@ public class BluetoothActivity extends AppCompatActivity
                 setData("Potentiostat", currentStatus);
             }
         }
+        setData("Test station", "Bonded");
     }
 
     public void setData(String deviceName, String status) {
@@ -100,11 +98,16 @@ public class BluetoothActivity extends AppCompatActivity
     }
 
     private void runBluetoothTest() {
-        bluetoothController = new BluetoothController(this);
-        BluetoothDevice device = bluetoothDevices.get(indexBluetoothDevice);
-        device.createBond();
-        bluetoothController.connectToDevice(device);
-        BluetoothController.isBluetoothRun = true;
+        if (devicesName.get(indexBluetoothDevice).equals("Test station") ) {
+            goToMainActivity();
+        }
+        else {
+            bluetoothController = new BluetoothController(this);
+            BluetoothDevice device = bluetoothDevices.get(indexBluetoothDevice);
+            device.createBond();
+            bluetoothController.connectToDevice(device);
+            BluetoothController.isBluetoothRun = true;
+        }
     }
 
     private void goToMainActivity() {
@@ -118,7 +121,7 @@ public class BluetoothActivity extends AppCompatActivity
         @Override
         public void onClick(View v) {
             if (indexBluetoothDevice != -1 && devicesStatus.get(indexBluetoothDevice)
-                    .equals("Bonded")) {
+                    .equals("Bonded") || devicesName.get(indexBluetoothDevice).equals("Test station")) {
                 runBluetoothTest();
                 goToMainActivity();
             }
@@ -126,13 +129,6 @@ public class BluetoothActivity extends AppCompatActivity
                 Toasty.custom(getApplicationContext(), R.string.non_bonded_error,
                         null, R.color.toast, Toasty.LENGTH_SHORT,
                         false, true).show();            }
-        }
-    };
-
-    private View.OnClickListener onClickSkip = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            goToMainActivity();
         }
     };
 

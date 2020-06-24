@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment tests;
     private Fragment settings;
     private ViewPager viewPager;
-    private  TabAdapter adapter;
+    private TabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
