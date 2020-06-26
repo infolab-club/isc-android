@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public  class ConnectThread extends Thread {
     /** MY_UUID это UUID, который используется и в сервере. */
-    private final UUID MY_UUID = UUID.fromString("9f2c4ce3-0801-42d1-ba41-1a6bfe1ccb70");
+    private final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothSocketCallback socketCallback;
     private BluetoothSocket localSocket;
     private BluetoothAdapter bluetoothAdapter;
