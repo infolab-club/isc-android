@@ -7,6 +7,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,6 +32,19 @@ public class CurrentTest {
         float vol = Float.parseFloat(data[1]);
         float amp = Float.parseFloat(data[2]);
         return new MomentTest(time, vol, amp);
+    }
+
+    public static MomentTest getMomentFromJson(String moment) {
+        try {
+            JSONObject json = new JSONObject(moment);
+            float time = (float) (json.getDouble("t") / 1000);
+            float vol = (float) json.getDouble("v");
+            float amp = (float) json.getDouble("i");
+            return new MomentTest(time, vol, amp);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new MomentTest(0, 0, 0);
+        }
     }
 
     public static String convertTestsToJson(ArrayList current) {

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import static club.infolab.isc.LoadingActivity.APP_PREFERENCES_LANGUAGE;
+import static club.infolab.isc.UsbActivity.APP_PREFERENCES_LANGUAGE;
 
 class AppLocale {
     private Resources resources;
@@ -21,8 +21,8 @@ class AppLocale {
     }
 
     void checkLanguage() {
-        if (LoadingActivity.sharedPreferences.contains(APP_PREFERENCES_LANGUAGE)) {
-            changeAppLocale(LoadingActivity.sharedPreferences
+        if (UsbActivity.sharedPreferences.contains(APP_PREFERENCES_LANGUAGE)) {
+            changeAppLocale(UsbActivity.sharedPreferences
                     .getString(APP_PREFERENCES_LANGUAGE, "ru"));
         }
     }
@@ -33,6 +33,9 @@ class AppLocale {
     }
 
     static String getCurrentLanguage() {
+        if (currentLanguage == null) {
+            currentLanguage = "ru";
+        }
         return currentLanguage;
     }
 
@@ -51,8 +54,8 @@ class AppLocale {
     }
 
     private void saveConfiguration(String currentLanguage) {
-        LoadingActivity.editor.putString(APP_PREFERENCES_LANGUAGE, currentLanguage);
-        LoadingActivity.editor.apply();
+        UsbActivity.editor.putString(APP_PREFERENCES_LANGUAGE, currentLanguage);
+        UsbActivity.editor.apply();
     }
 
 }

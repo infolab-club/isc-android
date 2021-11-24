@@ -43,4 +43,5 @@
     <string name="switch_current_time">Сила тока и время</string>
     <string name="switch_current_potential">Сила тока и напряжение</string>
     <string name="scene_parameters_hint_black">• Установите желаемые параметры для теста\n• Нажмите кнопку «Запустить»</string>
+    <string name="text_connect_usb">Подключите потенциостат по USB</string>
 </resources>

@@ -75,9 +75,9 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
         tests.add("Linear sweep");
         tests.add("Sinusoid");
         tests.add("Constant voltage");
-        tests.add("Chronoamperometry");
-        tests.add("Square wave");
-        tests.add("Stripping voltammetry");
+        // tests.add("Chronoamperometry");
+        // tests.add("Square wave");
+        // tests.add("Stripping voltammetry");
     }
 
     @Override
@@ -124,7 +124,7 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
             if (indexTest == 6) {
                 intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_STRIPPING);
             } else {
-                intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);
+                intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_USB);
             }
             intent.putExtra(GraphActivity.EXTRA_TEST_NAME, testName);
             intent.putExtra(GraphActivity.EXTRA_TEST_INDEX, indexTest);

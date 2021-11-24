@@ -6,6 +6,7 @@ public class ParamTest {
     private float defaultValue;
     private float minValue;
     private float maxValue;
+    private float currentValue;
 
     ParamTest(String name, String unit, float defaultValue, float minValue, float maxValue){
         this.name = name;
@@ -53,5 +54,13 @@ public class ParamTest {
 
     public void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public float getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(float currentValue) {
+        this.currentValue = currentValue;
     }
 }

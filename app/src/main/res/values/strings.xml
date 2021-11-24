@@ -30,7 +30,7 @@
     <string name="chartAxisTime">Time, sec</string>
     <string name="chartAxisPotential">Potential, V</string>
     <string name="chartAxisCurrent">Current, uA</string>
-    
+
     <string name="strippingCleaning">Cleaning</string>
     <string name="strippingDeposition">Deposition</string>
     <string name="strippingXAxis">E, V</string>
@@ -43,4 +43,5 @@
     <string name="switch_current_time">Current vs Time</string>
     <string name="switch_current_potential">Current vs Potential</string>
     <string name="scene_parameters_hint_black">• Set parameters for the test\n• Click the «Run test» button</string>
+    <string name="text_connect_usb">Connect the potentiostat via USB</string>
 </resources>
