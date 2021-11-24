@@ -3,12 +3,12 @@ package club.infolab.isc.test.params;
 import java.util.ArrayList;
 
 public class ParamManager {
-    public static final String NAME_CYCLIC = "cyclic";
-    public static final String NAME_LINEAR_SWEEP = "linear sweep";
-    public static final String NAME_SINUSOID = "sinusoid";
-    public static final String NAME_CONSTANT_VOLTAGE = "constant voltage";
-    public static final String NAME_CHRONOAMPEROMETRY = "chronoamperometry";
-    public static final String NAME_SQUARE_WAVE = "square wave";
+    public static final String NAME_CYCLIC = "Cyclic";
+    public static final String NAME_LINEAR_SWEEP = "Linear sweep";
+    public static final String NAME_SINUSOID = "Sinusoid";
+    public static final String NAME_CONSTANT_VOLTAGE = "Constant voltage";
+    public static final String NAME_CHRONOAMPEROMETRY = "Chronoamperometry";
+    public static final String NAME_SQUARE_WAVE = "Square wave";
 
     private static ParamTest[] paramsStandard = {
             new ParamTest("current range", "uA", 100, 1, 1000),
