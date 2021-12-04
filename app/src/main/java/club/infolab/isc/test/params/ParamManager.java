@@ -12,7 +12,7 @@ public class ParamManager {
 
     private static ParamTest[] paramsStandard = {
             new ParamTest("current range", "uA", 100, 1, 1000),
-            new ParamTest("sample range", "Hz", 100, 0.1f, 200),
+            new ParamTest("sample rate", "Hz", 100, 0.1f, 200),
             new ParamTest("quiet time", "s", 0, 0, 3600),
             new ParamTest("quiet value", "V", 0, -10, 10)
     };
