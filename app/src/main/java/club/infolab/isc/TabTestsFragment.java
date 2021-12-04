@@ -72,12 +72,12 @@ public class TabTestsFragment extends Fragment implements TestAdapter.OnTestList
 
     private void setInitialData() {
         tests.add("Cyclic");
-        tests.add("Linear sweep");
-        tests.add("Sinusoid");
+        // tests.add("Linear sweep");
+        // tests.add("Sinusoid");
         tests.add("Constant voltage");
-        tests.add("Chronoamperometry");
-        tests.add("Square wave");
-        tests.add("Stripping voltammetry");
+        // tests.add("Chronoamperometry");
+        // tests.add("Square wave");
+        // tests.add("Stripping voltammetry");
     }
 
     @Override
