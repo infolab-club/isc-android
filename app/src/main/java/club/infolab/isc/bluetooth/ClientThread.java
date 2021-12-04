@@ -1,16 +1,14 @@
 package club.infolab.isc.bluetooth;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class ClientThread extends Thread {
     private BluetoothSocket globalSocket;
@@ -28,13 +26,13 @@ public class ClientThread extends Thread {
             tmpIn = globalSocket.getInputStream();
         }
         catch (IOException e) {
-            Log.e("TAG", "Error occurred when creating input stream", e);
+            Log.d("BLUETOOTH_DATA", "Error occurred when creating input stream", e);
         }
         try {
             tmpOut = globalSocket.getOutputStream();
         }
         catch (IOException e) {
-            Log.e("TAG", "Error occurred when creating output stream", e);
+            Log.d("BLUETOOTH_DATA", "Error occurred when creating output stream", e);
         }
         inputStream = tmpIn;
         outputStream = tmpOut;
@@ -49,9 +47,10 @@ public class ClientThread extends Thread {
                 numBytes = inputStream.read(buffer);
                 handler.obtainMessage(BluetoothController.STATE_MESSAGE_RECEIVED, numBytes,
                         -1, buffer).sendToTarget();
+                Log.d("BLUETOOTH_DATA", "read: " + Arrays.toString(buffer));
             }
             catch (IOException e) {
-                Log.d("TAG", "Input stream was disconnected", e);
+                Log.d("BLUETOOTH_DATA", "Input stream was disconnected", e);
                 break;
             }
         }
@@ -60,9 +59,10 @@ public class ClientThread extends Thread {
     public void write(byte[] bytes) {
         try {
             outputStream.write(bytes);
+            Log.d("BLUETOOTH_DATA", new String(bytes, StandardCharsets.UTF_8));
         }
         catch (IOException e) {
-            Log.e("TAG", "Error occurred when sending data", e);
+            Log.d("BLUETOOTH_DATA", "Error occurred when sending data", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class ClientThread extends Thread {
             globalSocket.close();
         }
         catch (IOException e) {
-            Log.e("TAG", "Could not close the connect socket", e);
+            Log.d("BLUETOOTH_DATA", "Could not close the connect socket", e);
         }
     }
 }

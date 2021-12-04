@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -122,7 +123,14 @@ public class ParamsActivity extends AppCompatActivity
     private void startGraphActivity() {
         Intent intent = new Intent(ParamsActivity.this, GraphActivity.class);
         if (BluetoothController.isBluetoothRun) {
-            bluetoothController.sendData(testName + " \n" + testParams);
+//            bluetoothController.sendData(testName + " \n" + testParams);
+            bluetoothController.sendData(testName + "\n");
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            bluetoothController.sendData(testParams.toString());
             intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_BLUETOOTH);
         } else {
             intent.putExtra(GraphActivity.EXTRA_TEST_TYPE, GraphActivity.TEST_TYPE_SIMULATION);

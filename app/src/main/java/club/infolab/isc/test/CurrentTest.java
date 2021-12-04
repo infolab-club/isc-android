@@ -1,6 +1,7 @@
 package club.infolab.isc.test;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,12 +24,17 @@ public class CurrentTest {
     }
 
     public static MomentTest getMomentFromString(String moment) {
+        Log.d("BLUETOOTH_DATA_A", moment);
         String[] megaString = moment.split("\n");
-        String[] data = megaString[0].split(",");
-        float time = Float.parseFloat(data[0]);
-        float vol = Float.parseFloat(data[1]);
-        float amp = Float.parseFloat(data[2]);
-        return new MomentTest(time, vol, amp);
+        String[] data = megaString.length > 0 ? megaString[0].split(",") : null;
+        if (data != null && data.length >= 3) {
+            float time = Float.parseFloat(data[0]);
+            float vol = Float.parseFloat(data[1]);
+            float amp = Float.parseFloat(data[2]);
+            return new MomentTest(time, vol, amp);
+        } else {
+            return null;
+        }
     }
 
     public static String convertTestsToJson(ArrayList current) {

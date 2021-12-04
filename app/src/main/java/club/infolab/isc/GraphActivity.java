@@ -283,8 +283,10 @@ public class GraphActivity extends AppCompatActivity
     @Override
     public void onGetBluetoothData(String data) {
         MomentTest testData = CurrentTest.getMomentFromString(data);
-        prepareNewData(testData);
-        drawChart();
+        if (testData != null) {
+            prepareNewData(testData);
+            drawChart();
+        }
     }
 
     private void customizeGraphView() {

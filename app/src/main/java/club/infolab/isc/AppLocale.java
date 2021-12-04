@@ -24,6 +24,8 @@ class AppLocale {
         if (LoadingActivity.sharedPreferences.contains(APP_PREFERENCES_LANGUAGE)) {
             changeAppLocale(LoadingActivity.sharedPreferences
                     .getString(APP_PREFERENCES_LANGUAGE, "ru"));
+        } else {
+            changeAppLocale("en");
         }
     }
 
