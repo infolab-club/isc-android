@@ -33,7 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_instruct_grey"
-                android:textAppearance="@style/textInstructionGrey" />
+                android:textAppearance="@style/textInstructionGrey"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
@@ -60,16 +61,18 @@
     <Button
         android:id="@+id/set_params_btn"
         style="@style/buttonBlue"
-        android:layout_marginBottom="16dp"
         android:text="@string/set_params_btn"
-        app:layout_constraintBottom_toTopOf="@+id/start_demo_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3" />
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Button
         android:id="@+id/start_demo_btn"
         style="@style/buttonWhite"
         android:text="@string/start_demo_btn"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"

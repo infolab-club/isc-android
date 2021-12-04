@@ -81,7 +81,7 @@ public class BluetoothActivity extends AppCompatActivity
                 setData("Potentiostat", currentStatus);
             }
         }
-        setData("Test station", "Bonded");
+        // setData("Test station", "Bonded");
     }
 
     public void setData(String deviceName, String status) {

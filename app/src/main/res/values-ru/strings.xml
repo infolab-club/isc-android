@@ -9,7 +9,7 @@
     <string name="skip_btn">Демонстрация</string>
     <string name="buttonUpload">Загрузить</string>
     <string name="header">Подключение к потенциостату</string>
-    <string name="connect_instruct_black">• Выберите потенциостат из списка\n• Нажмите кнопку подключения</string>
+    <string name="connect_instruct_black">• Установите сопряжение с потенциостатом в настройках\n• Выберите потенциостат из списка\n• Нажмите кнопку подключения</string>
     <string name="connect_instruct_grey">Если вы хотите работать в демонстрационном режиме, выберите Virtual potentiostat.</string>
     <string name="test_instruct_black">• Выберите тест из списка\n• Нажмите кнопку «Запустить»</string>
     <string name="test_instruct_grey">Если вы не хотите устанавливать параметры, нажмите кнопку «Демонстрация».</string>
